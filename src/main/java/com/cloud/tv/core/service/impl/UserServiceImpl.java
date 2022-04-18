@@ -1,8 +1,8 @@
 package com.cloud.tv.core.service.impl;
 
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
-import com.cloud.tv.core.mapper.UserMapper;
 import com.cloud.tv.core.mapper.LiveRoomMapper;
+import com.cloud.tv.core.mapper.UserMapper;
 import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.CommUtils;
 import com.cloud.tv.core.utils.FileUtil;
@@ -65,6 +65,36 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public Page<UserVo> getObjsByLevel(UserDto dto) {
+        if(dto.getGroupLevel() == null || dto.getGroupLevel().equals("")){
+            User currentUser = ShiroUserHolder.currentUser();
+            User user = this.findByUserName(currentUser.getUsername());
+            dto.setGroupLevel(user.getGroupLevel());
+        }
+        Page<UserVo> page = PageHelper.startPage(dto.getCurrentPage(), dto.getPageSize());
+        this.userMapper.getObjsByLevel(dto.getGroupLevel());
+        return page;
+    }
+
+    @Override
+    public List<String> getObjByLevel(String level) {
+        Group group = this.groupService.getObjByLevel(level);
+        if(group == null){
+            User currentUser = ShiroUserHolder.currentUser();
+            User user = this.findByUserName(currentUser.getUsername());
+            group = this.groupService.getObjByLevel(user.getGroupLevel());
+        }
+        if(group != null) {
+            List<Group> groups = this.groupService.queryChild(group.getId());
+            groups.add(group);
+            List<String> users = this.userMapper.getObjByLevel(groups);
+            return users;
+        }
+
+        return null;
+    }
+
+    @Override
     public Page<UserVo> query(UserDto dto) {
         Page<UserVo> page = PageHelper.startPage(dto.getCurrentPage(), dto.getPageSize());
         this.userMapper.query(dto);
@@ -83,11 +113,17 @@ public class UserServiceImpl implements IUserService {
         }
         BeanUtils.copyProperties(dto, user);
         // 查询组信息
-        if(dto.getGroupId() != null){
-            Group group = this.groupService.queryObjById(dto.getGroupId());
-            if(group != null){
-                user.setGroupName(group.getBranchName());
-            }
+        Group group = this.groupService.queryObjById(dto.getGroupId());
+        if(group != null){
+            user.setGroupName(group.getBranchName());
+            user.setGroupLevel(group.getLevel());
+        }else{// 未设置组时，默认为所属组与当前用户相同
+            User currentUser = ShiroUserHolder.currentUser();
+            currentUser = this.userMapper.findByUserName(currentUser.getUsername());
+            System.out.println(currentUser.getGroupLevel());
+            user.setGroupLevel(currentUser.getGroupLevel());
+            user.setGroupName(currentUser.getGroupName());
+            user.setGroupId(currentUser.getGroupId());
         }
         if(dto.getId() == null){
             try {

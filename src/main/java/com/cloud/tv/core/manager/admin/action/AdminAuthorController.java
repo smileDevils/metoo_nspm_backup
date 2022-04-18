@@ -28,7 +28,7 @@ public class AdminAuthorController {
 
     @RequestMapping("imgUpload")
     public static boolean imageUpload(HttpServletRequest request, MultipartFile multipartFile, String path) throws FileNotFoundException {
-       // String path = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "static" + File.separator +"upload" + File.separator + "manager" ;
+       // String path = SystemTest.getProperty("user.dir") + File.separator + "resources" + File.separator + "static" + File.separator +"upload" + File.separator + "manager" ;
        /* String path = request.getSession()
                 .getServletContext()
                 .getRealPath("/");*/

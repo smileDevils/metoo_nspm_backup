@@ -9,11 +9,16 @@ public class ShiroUserHolder {
 
 
     public static User currentUser(){
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        if(user != null){
-            return user;
+        if(SecurityUtils.getSubject() != null){
+            if(SecurityUtils.getSubject().getPrincipal() != null){
+                User user = (User) SecurityUtils.getSubject().getPrincipal();
+                if(user != null){
+                    return user;
+                }
+                return null;
+            }
         }
-       return null;
+        return null;
     }
 
 }

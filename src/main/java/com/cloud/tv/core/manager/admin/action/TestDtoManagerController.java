@@ -1,9 +1,9 @@
 package com.cloud.tv.core.manager.admin.action;
 
-import com.cloud.tv.entity.Grade;
 import com.cloud.tv.dto.GradeDto;
 import com.cloud.tv.dto.UserDto;
 import com.cloud.tv.entity.Accessory;
+import com.cloud.tv.entity.Grade;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +39,11 @@ public class TestDtoManagerController {
 
         BeanUtils.copyProperties(userDto,target);
 
-        System.out.println(target.getUsername() == userDto.getUsername());
+        SystemTest.out.println(target.getUsername() == userDto.getUsername());
 
 
-        System.out.println(user.toString());
-        System.out.println(target.toString());*/
+        SystemTest.out.println(user.toString());
+        SystemTest.out.println(target.toString());*/
 
         GradeDto gradeDto = new GradeDto();
         gradeDto.setName("grade_name");

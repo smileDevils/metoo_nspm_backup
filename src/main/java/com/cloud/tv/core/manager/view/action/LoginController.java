@@ -1,10 +1,9 @@
 package com.cloud.tv.core.manager.view.action;
 
 import com.cloud.tv.core.jwt.util.JwtUtil;
-import com.cloud.tv.entity.User;
-import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.CaptchaUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
+import com.cloud.tv.entity.User;
 import com.cloud.tv.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,8 +14,10 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.StringUtils;
@@ -34,6 +35,8 @@ import java.util.TimerTask;
 @RequestMapping(value = "/buyer")
 public class LoginController{
 
+    Logger log = LoggerFactory.getLogger(LoginController.class);
+
     @ApiOperation("登录方法")
     @RequestMapping("/login")
     public Object login(HttpServletRequest request, HttpServletResponse response,
@@ -47,11 +50,13 @@ public class LoginController{
         session.getStartTimestamp();
         if(captcha != null && !StringUtils.isEmpty(captcha) && !StringUtils.isEmpty(sessionCaptcha)){
             if(sessionCaptcha.toUpperCase().equals(captcha.toUpperCase())){
-                User user = (User) SecurityUtils.getSubject().getPrincipal();
                 boolean flag = true;// 当前用户是否已登录
-                if(user != null && !user.getUsername().equals("")){
-                    if(user.getUsername().equals(username)){
-                        flag = false;
+                if(subject.getPrincipal() != null) {
+                    User user = (User) SecurityUtils.getSubject().getPrincipal();
+                    if (user != null && !user.getUsername().equals("")) {
+                        if (user.getUsername().equals(username)) {
+                            flag = false;
+                        }
                     }
                 }
                 if(flag){
@@ -60,6 +65,8 @@ public class LoginController{
                         if(isRememberMe != null && isRememberMe.equals("1")){
                             token.setRememberMe(true);
                             // 或 UsernamePasswordToken token = new UsernamePasswordToken(username,password,true);
+                        }else{
+                            token.setRememberMe(false);
                         }
                         subject.login(token);// 进入ShiroRealm查询数据库获取用户信息
                         session.removeAttribute("captcha");
@@ -129,7 +136,7 @@ public class LoginController{
     原文链接：https://blog.csdn.net/qq_40858048/article/details/81075805
 */
     @RequestMapping("/logout")
-    public Object logout(){
+    public Object logout(HttpServletRequest request){
         Subject subject = SecurityUtils.getSubject();
         User obj = (User) subject.getPrincipal();
         if(obj != null){

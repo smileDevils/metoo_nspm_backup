@@ -1,8 +1,8 @@
 package com.cloud.tv.core.manager.view.action;
 
-        import com.cloud.tv.core.video.ChangeVideo;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RestController;
+import com.cloud.tv.core.video.ChangeVideo;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("convert/")

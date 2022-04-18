@@ -16,7 +16,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 
 @SpringBootApplication // 申明让spring boot自动给程序进行必要的配置 == @Configuration ，@EnableAutoConfiguration 和 @ComponentScan
-@ServletComponentScan(basePackages ={ "com.hkk.cloud.tv.filter"})//只用注解配置时，需要扫描包
+@ServletComponentScan(basePackages ={ "com.cloud.tv.core.*"})//只用注解配置时，需要扫描包
+
 // @ComponentScan("")// 等价：<context:component-scan base-package="com.metoo" /> 组件扫描
 // @EnableAspectJAutoProxy(proxyTargetClass = true)
 //@EnableTransactionManagement// 事务

@@ -15,7 +15,7 @@ import java.util.Map;
 @Api("系统配置")
 @RestController
 @RequestMapping("/web/config")
-public class SysConfigVierController {
+public class SysConfigViewController {
 
     @Autowired
     private ISysConfigService configService;

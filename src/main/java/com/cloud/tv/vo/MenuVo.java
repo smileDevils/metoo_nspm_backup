@@ -1,8 +1,5 @@
 package com.cloud.tv.vo;
 
-import com.cloud.tv.dto.ResDto;
-import com.cloud.tv.entity.Res;
-import com.cloud.tv.req.RoleReq;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

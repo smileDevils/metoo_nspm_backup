@@ -6,7 +6,10 @@ import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +70,7 @@ public class FileManagerController {
 
             ResponseEntity<byte[]> resEntity = restTemplate.exchange(url.toString(), HttpMethod.GET, httpEntity, byte[].class);
             return resEntity;
-//            System.out.println(resEntity.getBody());
+//            SystemTest.out.println(resEntity.getBody());
 //            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("test.conf","UTF-8"));
 //            response.getOutputStream().write(resEntity.getBody());
         }

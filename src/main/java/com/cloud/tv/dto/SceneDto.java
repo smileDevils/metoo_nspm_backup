@@ -19,4 +19,6 @@ public class SceneDto<T> {
     private String name;
     private String remarks;
     private String uuid;
+    private String ids;
+    private String branchLevel;
 }

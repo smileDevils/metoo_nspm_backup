@@ -1,4 +1,4 @@
-<%@ page import="java.util.*" contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <!--添加命名空间-->

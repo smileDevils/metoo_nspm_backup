@@ -1,11 +1,13 @@
 package com.cloud.tv.core.manager.admin.action;
 
 import com.cloud.tv.core.manager.admin.tools.GroupTools;
+import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.IGroupService;
-import com.cloud.tv.core.utils.NodeUtil;
+import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.GroupDto;
 import com.cloud.tv.entity.Group;
+import com.cloud.tv.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,19 +22,40 @@ public class GroupManagerController {
     private IGroupService groupService;
     @Autowired
     private GroupTools groupTools;
+    @Autowired
+    private IUserService userService;
+
+//    @RequestMapping("/list")
+//    @ResponseBody
+//    public Object list(@RequestBody(required = false) GroupDto dto){
+//        List<Group> parent = this.groupService.queryChild(null);
+//        if(parent.size() > 0){
+//            List<Group> branchList = new ArrayList<Group>();
+//            for(Group obj : parent){
+//                if(this.groupTools.genericGroup(obj).size() > 0){
+//                    this.groupTools.genericGroup(obj);
+//                }
+//                branchList.add(obj);
+//            }
+//            return ResponseUtil.ok(branchList);
+//        }
+//        return ResponseUtil.ok();
+//    }
+
+
 
     @RequestMapping("/list")
     @ResponseBody
     public Object list(@RequestBody(required = false) GroupDto dto){
-        List<Group> parent = this.groupService.queryChild(null);
-        if(parent.size() > 0){
+        User currentUser = ShiroUserHolder.currentUser();
+        User user = this.userService.findByUserName(currentUser.getUsername());
+        Group parent = this.groupService.queryObjById(user.getGroupId());
+        if(parent != null){
             List<Group> branchList = new ArrayList<Group>();
-            for(Group obj : parent){
-                if(this.groupTools.genericGroup(obj).size() > 0){
-                    this.groupTools.genericGroup(obj);
-                }
-                branchList.add(obj);
+            if(this.groupTools.genericGroup(parent).size() > 0){
+                this.groupTools.genericGroup(parent);
             }
+            branchList.add(parent);
             return ResponseUtil.ok(branchList);
         }
         return ResponseUtil.ok();

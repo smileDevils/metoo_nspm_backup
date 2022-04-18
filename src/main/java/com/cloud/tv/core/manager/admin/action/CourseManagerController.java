@@ -1,5 +1,6 @@
 package com.cloud.tv.core.manager.admin.action;
 
+import com.cloud.tv.core.service.ICourseService;
 import com.cloud.tv.core.service.IRoomProgramService;
 import com.cloud.tv.core.service.IVideoService;
 import com.cloud.tv.core.utils.ResponseUtil;
@@ -10,7 +11,6 @@ import com.cloud.tv.entity.Video;
 import com.cloud.tv.req.CourseReq;
 import com.cloud.tv.vo.Result;
 import com.github.pagehelper.Page;
-import com.cloud.tv.core.service.ICourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

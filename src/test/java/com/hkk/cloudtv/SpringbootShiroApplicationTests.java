@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import java.util.Collection;
-
 
 @SpringBootTest
 class SpringbootShiroApplicationTests {
@@ -19,6 +17,10 @@ class SpringbootShiroApplicationTests {
     private IUserService userService;
     @Autowired
     private IResService resService;
+
+    public static void main(String[] args) {
+
+    }
 
     @Test
     void contextLoads() {
@@ -56,7 +58,7 @@ class SpringbootShiroApplicationTests {
 //                // 1. 查询缓存
 //                User user = (User) redisTemplate.opsForValue().get("user");
 //                if (user == null) {
-//                    System.out.println("查询数据库");
+//                    SystemTest.out.println("查询数据库");
 //                  //synchronized (this){
 //                      // 2. 缓存为空查询数据库
 //                      user = userService.findObjById(Long.parseLong("12"));
@@ -85,7 +87,7 @@ class SpringbootShiroApplicationTests {
 //                // 1. 查询缓存
 //                User user = (User) redisTemplate.opsForValue().get("user");
 //                if (user == null) {
-//                    System.out.println("查询数据库");
+//                    SystemTest.out.println("查询数据库");
 //                    synchronized (this){
 //                        user = (User) redisTemplate.opsForValue().get("user");
 //                        if(user == null){

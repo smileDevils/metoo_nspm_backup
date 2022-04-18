@@ -2,13 +2,13 @@ package com.cloud.tv.core.manager.admin.action;
 
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.*;
+import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.core.utils.query.PageInfo;
 import com.cloud.tv.dto.VideoDto;
 import com.cloud.tv.entity.*;
 import com.cloud.tv.req.VideoReq;
 import com.cloud.tv.vo.Result;
 import com.github.pagehelper.Page;
-import com.cloud.tv.core.utils.ResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
@@ -19,7 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Api("视频管理控制器")
 @RestController

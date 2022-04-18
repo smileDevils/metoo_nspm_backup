@@ -1,19 +1,16 @@
 package com.cloud.tv.core.service.impl;
 
 import com.cloud.tv.core.mapper.RoleMapper;
+import com.cloud.tv.core.service.IResService;
 import com.cloud.tv.core.service.IRoleGroupService;
 import com.cloud.tv.core.service.IRoleResService;
+import com.cloud.tv.core.service.IRoleService;
+import com.cloud.tv.dto.RoleDto;
 import com.cloud.tv.entity.Res;
 import com.cloud.tv.entity.Role;
-import com.cloud.tv.entity.RoleGroup;
 import com.cloud.tv.entity.RoleRes;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.cloud.tv.core.service.IResService;
-import com.cloud.tv.core.service.IRoleService;
-import com.cloud.tv.dto.RoleDto;
-import com.cloud.tv.entity.*;
-import com.cloud.tv.vo.RoleVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

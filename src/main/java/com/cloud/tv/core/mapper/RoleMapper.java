@@ -2,7 +2,6 @@ package com.cloud.tv.core.mapper;
 
 import com.cloud.tv.dto.RoleDto;
 import com.cloud.tv.entity.Role;
-import com.cloud.tv.vo.RoleVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

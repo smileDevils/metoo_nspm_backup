@@ -69,5 +69,6 @@ public class SysConfig extends IdEntity {
     private String nspmUrl;
     @ApiModelProperty("策略可视化平台Token")
     private String nspmToken;
+    private String testToken;
 
 }

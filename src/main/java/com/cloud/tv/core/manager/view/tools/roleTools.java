@@ -1,7 +1,7 @@
 package com.cloud.tv.core.manager.view.tools;
 
-import com.cloud.tv.entity.Role;
 import com.cloud.tv.core.service.IRoleService;
+import com.cloud.tv.entity.Role;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

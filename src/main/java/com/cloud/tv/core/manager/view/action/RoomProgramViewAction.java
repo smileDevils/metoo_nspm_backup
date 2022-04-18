@@ -1,11 +1,11 @@
 package com.cloud.tv.core.manager.view.action;
 
+import com.cloud.tv.core.service.ILiveRoomService;
 import com.cloud.tv.core.service.IRoomProgramService;
+import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.entity.LiveRoom;
 import com.cloud.tv.entity.RoomProgram;
 import com.cloud.tv.entity.SysConfig;
-import com.cloud.tv.core.service.ILiveRoomService;
-import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

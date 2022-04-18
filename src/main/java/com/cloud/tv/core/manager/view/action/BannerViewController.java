@@ -4,7 +4,6 @@ import com.cloud.tv.core.service.IBannerService;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.entity.Banner;
-import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

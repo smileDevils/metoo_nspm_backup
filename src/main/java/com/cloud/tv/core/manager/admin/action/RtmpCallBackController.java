@@ -1,8 +1,7 @@
 package com.cloud.tv.core.manager.admin.action;
 
-import com.cloud.tv.core.service.IRoomProgramService;
-import com.cloud.tv.entity.LiveRoom;
 import com.cloud.tv.core.service.ILiveRoomService;
+import com.cloud.tv.entity.LiveRoom;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>

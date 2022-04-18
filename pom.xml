@@ -2,18 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.hkk.shiro</groupId>
-    <artifactId>springboot_shiro</artifactId>
+
+    <groupId>com.cloud.tv</groupId>
+    <artifactId>metoo_nspm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>springboot_shiro</name>
+    <name>metoo_nspm</name>
+
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
@@ -150,19 +153,14 @@
             <version>1.3.2</version>
         </dependency>
 
-        <!--Redies 整合 SpringBoot-->
+        <!-- Begin Redies 整合 SpringBoot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        
+        <!--End-->
 
-
-  <!--      <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>-->
         <!--SpringBoot 热部署-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -331,6 +329,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
     </dependencies>
     <!--Profile 多环境开发-->
     <build>
@@ -362,7 +366,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <warName>springboot_shiro</warName>
+                    <warName>metoo_nspm</warName>
                 </configuration>
             </plugin>
 

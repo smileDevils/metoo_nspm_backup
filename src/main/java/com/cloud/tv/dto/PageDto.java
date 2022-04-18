@@ -1,6 +1,5 @@
 package com.cloud.tv.dto;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageDto<T> {
+
 
     private Integer currentPage = 1;// 当前页数
 

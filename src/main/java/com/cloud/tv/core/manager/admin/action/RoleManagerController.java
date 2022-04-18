@@ -1,15 +1,12 @@
 package com.cloud.tv.core.manager.admin.action;
 
 import com.cloud.tv.core.service.IResService;
-import com.cloud.tv.core.service.IRoleGroupService;
 import com.cloud.tv.core.service.IRoleService;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.core.utils.query.PageInfo;
 import com.cloud.tv.dto.RoleDto;
-import com.cloud.tv.entity.LiveRoom;
 import com.cloud.tv.entity.Res;
 import com.cloud.tv.entity.Role;
-import com.cloud.tv.entity.RoleGroup;
 import com.github.pagehelper.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

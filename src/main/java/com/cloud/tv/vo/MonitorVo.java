@@ -1,8 +1,6 @@
 package com.cloud.tv.vo;
 
 import com.cloud.tv.core.domain.IdEntity;
-import com.cloud.tv.entity.LiveRoom;
-import com.cloud.tv.entity.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

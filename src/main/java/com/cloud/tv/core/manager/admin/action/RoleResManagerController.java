@@ -1,9 +1,8 @@
 package com.cloud.tv.core.manager.admin.action;
 
-import com.cloud.tv.entity.RoleRes;
 import com.cloud.tv.core.service.IRoleResService;
+import com.cloud.tv.entity.RoleRes;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

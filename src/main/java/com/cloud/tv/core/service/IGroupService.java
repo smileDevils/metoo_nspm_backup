@@ -14,6 +14,8 @@ public interface IGroupService {
 
     Group queryObjById(Long id);
 
+    Group getObjByLevel(String level);
+
     // 获取子集
     List<Group> queryChild(Long id);
 

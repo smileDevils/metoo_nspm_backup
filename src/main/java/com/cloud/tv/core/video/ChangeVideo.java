@@ -153,7 +153,7 @@ public class ChangeVideo {
             test.append(commend.get(i) + " ");
         }
 
-        System.out.println(test);
+        SystemTest.out.println(test);
 
         try {
 

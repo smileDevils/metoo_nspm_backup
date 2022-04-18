@@ -177,11 +177,11 @@ public class JwtUtil {
         /*JWTVerifier jwtVerifier =  JWT.require(Algorithm.HMAC256(SING)).build().verify(token);*/
 
         /*DecodedJWT DeCodeJWT = jwtVerifier.verify("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6IkhrayIsImV4cCI6MTYxNzk0NjQxMCwidXNlcklkIjoxMH0.0Dnk4oeHbDHiGbaXMALrfBOMDG7-7JoWK5uic8_2bTU");
-        System.out.println("head: " + DeCodeJWT.getHeader());
-        System.out.println("userId: " + DeCodeJWT.getClaim("userId").asInt());
-        System.out.println("userName: " + DeCodeJWT.getClaim("userName").asString());
-        System.out.println("Signature: " + DeCodeJWT.getSignature());
-        System.out.println("ExpiresAt: " + DeCodeJWT.getExpiresAt());*/
+        SystemTest.out.println("head: " + DeCodeJWT.getHeader());
+        SystemTest.out.println("userId: " + DeCodeJWT.getClaim("userId").asInt());
+        SystemTest.out.println("userName: " + DeCodeJWT.getClaim("userName").asString());
+        SystemTest.out.println("Signature: " + DeCodeJWT.getSignature());
+        SystemTest.out.println("ExpiresAt: " + DeCodeJWT.getExpiresAt());*/
     }
 
     /**

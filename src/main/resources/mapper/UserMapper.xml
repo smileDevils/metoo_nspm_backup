@@ -37,7 +37,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, addTime, deleteStatus, username, password, sex, age, userRole, email, mobile, note, groupId, groupName
+        id, addTime, deleteStatus, username, password, sex,
+        age, userRole, email, mobile, note, groupId, groupName, groupLevel
     </sql>
 
     <insert id="insert" parameterType="com.cloud.tv.entity.User" keyProperty="id" useGeneratedKeys="true">
@@ -82,6 +83,9 @@
             <if test="groupName != null">
                 groupName,
             </if>
+            <if test="groupLevel != null">
+                groupLevel,
+            </if>
         </trim>
         <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -123,6 +127,9 @@
             <if test="groupName != null">
                 #{groupName},
             </if>
+            <if test="groupLevel != null">
+                #{groupLevel},
+            </if>
         </trim>
     </insert>
 
@@ -134,7 +141,10 @@
             salt,
             userRole,
             sex,
-            age
+            age,
+            groupLevel,
+            groupName,
+            groupId
         FROM
             metoo_user
         WHERE
@@ -220,6 +230,9 @@
             <if test="groupName != null">
                 groupName = #{groupName},
             </if>
+            <if test="groupLevel != null">
+                groupLevel = #{groupLevel},
+            </if>
         </set>
         <where>
             <if test = "id != null">
@@ -240,6 +253,9 @@
               <if test = "item.groupId != null">
                   groupId = #{item.groupId},
               </if>
+              <if test = "item.groupLevel != null">
+                  groupLevel = #{item.groupLevel},
+              </if>
           </set>
           where id = #{item.id, jdbcType=BIGINT}
       </foreach>
@@ -250,6 +266,25 @@
         <foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
+    </select>
+
+    <!--根据 Level查询用户-->
+    <select id="getObjByLevel" parameterType="java.util.List" resultType="String">
+        SELECT userName
+        FROM metoo_user
+        where groupLevel in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item.level}
+        </foreach>
+    </select>
+
+    <!--根据 Level查询用户-->
+    <select id="getObjsByLevel" parameterType="String" resultType="com.cloud.tv.entity.User">
+        SELECT *
+        FROM metoo_user
+        where groupLevel = #{level} or groupLevel in (
+          SELECT level FROM metoo_group WHERE parentLevel = #{level}
+        )
     </select>
 
 </mapper>

@@ -4,11 +4,13 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.BranchDto;
-import com.cloud.tv.dto.NodeDto;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/nspm/branch")
 @RestController

@@ -4,19 +4,12 @@ import com.cloud.tv.core.jwt.util.JwtToken;
 import com.cloud.tv.core.service.IRegisterService;
 import com.cloud.tv.core.service.IRoleService;
 import com.cloud.tv.core.shiro.tools.ApplicationContextUtils;
-import com.cloud.tv.entity.Res;
-import com.cloud.tv.entity.Role;
 import com.cloud.tv.entity.User;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * JwtRealm 只负责校验 JwtToken

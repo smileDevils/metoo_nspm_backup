@@ -1,13 +1,13 @@
 package com.cloud.tv.config.shiro;
 
+import com.cloud.tv.core.service.IRegisterService;
+import com.cloud.tv.core.service.IResService;
+import com.cloud.tv.core.service.IRoleService;
 import com.cloud.tv.core.shiro.salt.MyByteSource;
 import com.cloud.tv.core.shiro.tools.ApplicationContextUtils;
 import com.cloud.tv.entity.Res;
 import com.cloud.tv.entity.Role;
 import com.cloud.tv.entity.User;
-import com.cloud.tv.core.service.IRegisterService;
-import com.cloud.tv.core.service.IResService;
-import com.cloud.tv.core.service.IRoleService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -30,7 +30,7 @@ import java.util.List;
  * </p>
  *
  *         for(Role role : roles){
- *                     System.out.println("角色：" + role.getType());
+ *                     SystemTest.out.println("角色：" + role.getType());
  *                     simpleAuthorizationInfo.addRole(role.getType());
  *                     simpleAuthorizationInfo.addStringPermission("BUYER:*:*");
  *                 }
@@ -57,6 +57,7 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
+        String password = new String((char[]) authenticationToken.getCredentials());
         IRegisterService registerService = (IRegisterService) ApplicationContextUtils.getBean("registerService");
 
         User user = registerService.findByUsername(username);
@@ -72,7 +73,7 @@ public class MyRealm extends AuthorizingRealm {
                 }*/
                 /**
                  * 将获取到的用户信息封装成AuthticationInfo对象返回，此处封装成SimpleAuthticationInfo对象
-                 * 参数一：认证的实体信息，可以时从数据库中查询得到的实体类或用户名
+                 * 参数一：认证的实体信息，可以是从数据库中查询得到的实体类或用户名
                  * 参数二：查询获得的登陆密码
                  * 参数三：盐值
                  * 参数四：当前Realm对象的名称，直接调用父类的getName()方法即可
@@ -100,7 +101,7 @@ public class MyRealm extends AuthorizingRealm {
                /* roles.forEach(role->{
                      simpleAuthorizationInfo.addRole(role.getRoleCode());
                    // simpleAuthorizationInfo.addRole(role.getType());
-                    //System.out.println(role.getName());
+                    //SystemTest.out.println(role.getName());
                     //simpleAuthorizationInfo.addStringPermission("BUYER:*:*");
                    // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*:*");
                    // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*");
@@ -115,7 +116,7 @@ public class MyRealm extends AuthorizingRealm {
                 for(Role role : roles){
                     simpleAuthorizationInfo.addRole(role.getRoleCode());
                     // simpleAuthorizationInfo.addRole(role.getType());
-                    //System.out.println(role.getName());
+                    //SystemTest.out.println(role.getName());
                     //simpleAuthorizationInfo.addStringPermission("BUYER:*:*");
                     // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*:*");
                     // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*");

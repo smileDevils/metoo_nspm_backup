@@ -3,7 +3,9 @@ package com.cloud.tv.entity;
 import com.cloud.tv.core.domain.IdEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
@@ -84,6 +86,8 @@ public class User extends IdEntity {
 
     @ApiModelProperty("组ID")
     private Long groupId;
+    @ApiModelProperty("组等级")
+    private String groupLevel;
 
     @ApiModelProperty("版本号：乐观锁")
     private Integer version;

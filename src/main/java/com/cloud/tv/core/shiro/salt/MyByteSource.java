@@ -5,7 +5,6 @@ import org.apache.shiro.codec.CodecSupport;
 import org.apache.shiro.codec.Hex;
 import org.apache.shiro.util.ByteSource;
 
-
 import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;

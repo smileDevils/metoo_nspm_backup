@@ -30,6 +30,11 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
+    public Group getObjByLevel(String level) {
+        return this.groupMapper.getObjByLevel(level);
+    }
+
+    @Override
     public List<Group> queryChild(Long id) {
         return this.groupMapper.queryChild(id);
     }

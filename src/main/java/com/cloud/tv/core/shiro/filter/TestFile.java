@@ -1,7 +1,6 @@
 package com.cloud.tv.core.shiro.filter;
 
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -17,7 +16,7 @@ public class TestFile implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("testFilter doFilter");
+
         filterChain.doFilter(servletRequest, servletResponse);
 
     }

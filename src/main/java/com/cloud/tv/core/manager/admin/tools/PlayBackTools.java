@@ -1,12 +1,8 @@
 package com.cloud.tv.core.manager.admin.tools;
 
 import com.cloud.tv.core.service.*;
-import com.cloud.tv.core.video.VideoUtil;
-import com.cloud.tv.entity.*;
-import com.cloud.tv.core.service.*;
-import com.cloud.tv.entity.*;
-import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.CommUtils;
+import com.cloud.tv.core.video.VideoUtil;
 import com.cloud.tv.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

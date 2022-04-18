@@ -1,16 +1,17 @@
 package com.cloud.tv.core.manager.admin.action;
 
+import com.cloud.tv.core.service.IResService;
+import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.ResDto;
 import com.cloud.tv.entity.Res;
-import com.cloud.tv.entity.Role;
-import com.cloud.tv.core.service.IResService;
-import com.cloud.tv.core.service.IRoleService;
-import com.cloud.tv.core.utils.ResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;

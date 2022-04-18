@@ -11,8 +11,9 @@ import java.util.List;
 @Accessors
 @AllArgsConstructor
 @NoArgsConstructor
-public class OperationDto {
+public class OperationDto<T> {
 
+    private Integer limit;
     private Integer page;
     private Integer psize;
     private String userName;
@@ -26,7 +27,7 @@ public class OperationDto {
     private String dstIp;
     private String dstIpSystem;
     private String dstZone;
-    private Integer inDevIf;
+    private String inDevIf;
     private String inDevItfAlias;
     private String ipType;
     private String mergeCheck;
@@ -43,4 +44,20 @@ public class OperationDto {
     private Integer type;
     private String isTrusted;
     private String isReload;
+    private String status;
+    private String protocol;
+    private T disposalScenes;
+    private String dstItf;
+    private String inDevIfAlias;
+    private String postIpAddress;
+    private String postSrcIpSystem;
+    private String srcItf;
+    private String postPort;
+    private String preIpAddress;
+    private String prePort;
+    private String dynamic;
+    private String postDstIp;
+    private String data;
+    private String branchLevel;
 }
+

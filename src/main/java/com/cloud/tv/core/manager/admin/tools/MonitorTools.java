@@ -2,13 +2,12 @@ package com.cloud.tv.core.manager.admin.tools;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.dto.MonitorDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import javax.json.JsonObject;
 
 /**
  * 异步调用监控方法
@@ -48,7 +47,7 @@ public class MonitorTools {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             JSONObject json = client.postForEntity(url, postData.toJSON(dto), JSONObject.class).getBody();
-//            System.out.println(json.get("result"));
+//            SystemTest.out.println(json.get("result"));
             //User是提前创建好的实体类，将返回的json中的result数据转换为User格式
 //            Group group = json.getObject("result", User.class);
 

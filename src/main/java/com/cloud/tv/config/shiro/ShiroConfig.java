@@ -1,8 +1,8 @@
 package com.cloud.tv.config.shiro;
 
+import com.cloud.tv.core.config.LicenseFilter;
 import com.cloud.tv.core.jwt.util.JwtCredentialsMatcher;
 import com.cloud.tv.core.jwt.util.MultiRealmAuthenticator;
-import com.cloud.tv.core.shiro.filter.JwtFilter;
 import com.cloud.tv.core.shiro.filter.MyAccessControlFilter;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -23,7 +23,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 /**
@@ -59,6 +61,7 @@ public class ShiroConfig {
          */
         HashMap<String, Filter> myFilters = new HashMap<>(16);
         myFilters.put("rmb", new MyAccessControlFilter());
+        myFilters.put("licenseFilter", new LicenseFilter());
         shiroFilterFactoryBean.setFilters(myFilters);
 
         // 2,配置系统受限资源
@@ -78,12 +81,20 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/auth/403", "anon");
         filterChainDefinitionMap.put("/admin/auth/404", "anon");
         filterChainDefinitionMap.put("/rtmp/**", "anon");
+        filterChainDefinitionMap.put("/license/systemInfo", "anon");
+        filterChainDefinitionMap.put("/license/update", "anon");
 
         filterChainDefinitionMap.put("/**", "rmb");
 
         //filterChainDefinitionMap.put("/buyer/**", "authc");
+        filterChainDefinitionMap.put("/license/**", "authc");
+        filterChainDefinitionMap.put("/index/**", "authc");
+        filterChainDefinitionMap.put("/nspm/**", "authc");
         filterChainDefinitionMap.put("/admin/**", "authc");
+//        filterChainDefinitionMap.put("/admin/**", "licenseFilter");
+//        filterChainDefinitionMap.put("/nspm/**", "licenseFilter");
         filterChainDefinitionMap.put("/monitor/**", "authc");
+
 
         // 放行静态资源
         filterChainDefinitionMap.put("/static/**", "anon");
@@ -104,19 +115,6 @@ public class ShiroConfig {
 
         // 3，配置系统公共资源
         return shiroFilterFactoryBean;
-
-    }
-
-    /**
-     * 配置 ModularRealmAuthenticator
-     */
-    @Bean
-    public ModularRealmAuthenticator authenticator() {
-        ModularRealmAuthenticator authenticator = new MultiRealmAuthenticator();
-        // 设置多 Realm的认证策略，默认 AtLeastOneSuccessfulStrategy
-        AuthenticationStrategy strategy = new FirstSuccessfulStrategy();
-        authenticator.setAuthenticationStrategy(strategy);
-        return authenticator;
     }
 
     // 创建安全管理器 web环境中配置webSecurity
@@ -143,7 +141,45 @@ public class ShiroConfig {
         defaultWebSecurityManager.setSubjectDAO(subjectDAO);
 
         return defaultWebSecurityManager;
+    }
 
+    // 创建自定义realm
+    @Bean
+    public Realm getRealm() {
+        MyRealm myRealm = new MyRealm();
+        // 设置Realm使用hash凭证匹配器; 问：Realm 不设置hash凭证器会出现什么
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        // 设置加密算法 SHA-1、md5
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        // 设置加密次数
+        hashedCredentialsMatcher.setHashIterations(1024);
+        myRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+
+        // 开启缓存管理
+//        myRealm.setCacheManager(new EhCacheManager());// EhCache
+//        myRealm.setCacheManager(new RedisCacheManager());// RedisCacheManager
+        myRealm.setCachingEnabled(true);// 开启全局缓存
+
+        /* 允许认证缓存 */
+        myRealm.setAuthenticationCachingEnabled(false);
+        myRealm.setAuthenticationCacheName("authenticationCache");
+        /* 允许授权缓存 */
+        myRealm.setAuthorizationCachingEnabled(false);
+        myRealm.setAuthorizationCacheName("authorizationCache");
+
+        return myRealm;
+    }
+
+    /**
+     * 配置 ModularRealmAuthenticator
+     */
+    @Bean
+    public ModularRealmAuthenticator authenticator() {
+        ModularRealmAuthenticator authenticator = new MultiRealmAuthenticator();
+        // 设置多 Realm的认证策略，默认 AtLeastOneSuccessfulStrategy
+        AuthenticationStrategy strategy = new FirstSuccessfulStrategy();
+        authenticator.setAuthenticationStrategy(strategy);
+        return authenticator;
     }
 
     // 配置org.apache.shiro.web.session.mgt.DefaultWebSessionManager(shiro session的管理)
@@ -194,7 +230,7 @@ public class ShiroConfig {
         simpleCookie.setPath("/");
         //simpleCookie.setName("simpleCookie");
         //<!-- 记住我cookie生效时间30天 ,单位秒;如果设置为-1标识浏览器关闭就失效 -->
-        simpleCookie.setMaxAge(-1); // 5000   2678400
+        simpleCookie.setMaxAge(2678400); // 5000   2678400
         return simpleCookie;
     }
 
@@ -210,34 +246,6 @@ public class ShiroConfig {
         //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
         cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
         return cookieRememberMeManager;
-    }
-
-    // 创建自定义realm
-    @Bean
-    public Realm getRealm() {
-        MyRealm myRealm = new MyRealm();
-        // 设置Realm使用hash凭证匹配器; 问：Realm 不设置hash凭证器会出现什么
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        // 设置加密算法 SHA-1、md5
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        // 设置加密次数
-        hashedCredentialsMatcher.setHashIterations(1024);
-
-        myRealm.setCredentialsMatcher(hashedCredentialsMatcher);
-
-        // 开启缓存管理
-//        myRealm.setCacheManager(new EhCacheManager());// EhCache
-//        myRealm.setCacheManager(new RedisCacheManager());// RedisCacheManager
-        myRealm.setCachingEnabled(true);// 开启全局缓存
-
-        /* 允许认证缓存 */
-        myRealm.setAuthenticationCachingEnabled(false);
-        myRealm.setAuthenticationCacheName("authenticationCache");
-        /* 允许授权缓存 */
-        myRealm.setAuthorizationCachingEnabled(false);
-        myRealm.setAuthorizationCacheName("authorizationCache");
-
-        return myRealm;
     }
 
     /**

@@ -26,7 +26,7 @@ public class Monitor extends IdEntity {
     @ApiModelProperty("公钥")
     private String appKey;
 
-    @ApiModelProperty("密钥")
+    @ApiModelProperty("私钥")
     private String appSecret;
 
     @ApiModelProperty("数字签名、记录每次直播记录；直播间ID+直播ID+用户ID+学校number+startTime")

@@ -1,14 +1,13 @@
 package com.cloud.tv.core.service.impl;
 
 import com.cloud.tv.core.mapper.LiveRoomMapper;
+import com.cloud.tv.core.service.ILiveRoomService;
+import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.dto.LiveRoomDto;
 import com.cloud.tv.entity.LiveRoom;
-import com.cloud.tv.entity.Video;
 import com.cloud.tv.vo.WebLiveRoomVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.cloud.tv.core.service.ILiveRoomService;
-import com.cloud.tv.core.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -147,16 +146,16 @@ public class LiveRoomServiceImpl implements ILiveRoomService {
         //page.get(0);
 
         //测试PageInfo全部属性
-//        System.out.println(page.getPageNum());
-//        System.out.println(page.getPageSize());
-//        System.out.println(page.getStartRow());
-//        System.out.println(page.getEndRow());
-//        System.out.println(page.getTotal());
-//        System.out.println(page.getPages());
-//        System.out.println(page.getFirstPage());
-//        System.out.println(page.getLastPage());
-//        System.out.println(page.isHasPreviousPage());
-//        System.out.println(page.isHasNextPage());
+//        SystemTest.out.println(page.getPageNum());
+//        SystemTest.out.println(page.getPageSize());
+//        SystemTest.out.println(page.getStartRow());
+//        SystemTest.out.println(page.getEndRow());
+//        SystemTest.out.println(page.getTotal());
+//        SystemTest.out.println(page.getPages());
+//        SystemTest.out.println(page.getFirstPage());
+//        SystemTest.out.println(page.getLastPage());
+//        SystemTest.out.println(page.isHasPreviousPage());
+//        SystemTest.out.println(page.isHasNextPage());
 
         return page;
     }

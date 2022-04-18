@@ -16,18 +16,21 @@
     </sql>
 
     <select id="query" resultMap="Base_Result_Map">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT <include refid="Base_Column_List" />
         FROM metoo_group
     </select>
 
+    <select id="getObjByLevel" parameterType="String" resultMap="Base_Result_Map">
+        SELECT <include refid="Base_Column_List" />
+            FROM metoo_group
+        WHERE
+          level=#{level}
+    </select>
     <select id="queryObjById" parameterType="long" resultMap="Base_Result_Map">
         SELECT <include refid="Base_Column_List"/>
         FROM metoo_group obj
-        <where>
-            <if test="id != null">
-                id = #{id, jdbcType=BIGINT}
-            </if>
-        </where>
+        WHERE
+        id = #{id, jdbcType=BIGINT}
     </select>
 
     <select id="queryChild" parameterType="long" resultMap="Base_Result_Map">

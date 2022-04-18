@@ -3,8 +3,10 @@ package com.cloud.tv.core.manager.admin.action;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.IIndexService;
 import com.cloud.tv.core.service.ISysConfigService;
+import com.cloud.tv.core.service.IssuedService;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.entity.SysConfig;
+import com.cloud.tv.entity.Task;
 import com.cloud.tv.entity.User;
 import com.cloud.tv.vo.MenuVo;
 import io.swagger.annotations.Api;
@@ -18,14 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 @Api("系统首页")
+@RequestMapping("/index")
 @RestController
-@RequestMapping("/admin/index")
 public class IndexManageController {
 
     @Autowired
     private IIndexService indexService;
     @Autowired
     private ISysConfigService configService;
+    @Autowired
+    private IssuedService issuedService;
 
 //    @RequiresPerions("ADMIN:INDEX:MENU")
     @ApiOperation("系统菜单")
@@ -52,4 +56,15 @@ public class IndexManageController {
         map.put("domain", configs.getDomain());
         return ResponseUtil.ok(map);
     }
+
+    // 策略统计
+    // 对象统计
+    // 工单统计
+    // 网元统计
+    @RequestMapping("/task")
+    public Object task(){
+        List<Task> tasks = this.issuedService.query();
+        return ResponseUtil.ok(tasks);
+    }
+
 }

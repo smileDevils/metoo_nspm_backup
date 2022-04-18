@@ -2,7 +2,6 @@ package com.cloud.tv.core.service;
 
 import com.cloud.tv.dto.RoleDto;
 import com.cloud.tv.entity.Role;
-import com.cloud.tv.vo.RoleVo;
 import com.github.pagehelper.Page;
 
 import java.util.List;

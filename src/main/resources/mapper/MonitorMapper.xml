@@ -155,5 +155,11 @@
                 status = #{status},
             </if>
         </set>
+        <where>
+        <if test = "id != null">
+            id=#{id}
+        </if>
+    </where>
     </update>
+
 </mapper>

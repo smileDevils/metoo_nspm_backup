@@ -1,7 +1,7 @@
 package com.cloud.tv.manager.buyer.controller;
 
-import com.cloud.tv.entity.User;
 import com.cloud.tv.core.service.IRegisterService;
+import com.cloud.tv.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;

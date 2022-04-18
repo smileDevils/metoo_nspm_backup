@@ -1,6 +1,5 @@
 package com.cloud.tv.core.config;
 
-import com.cloud.tv.core.shiro.filter.TestFile;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,12 +37,17 @@ import org.springframework.context.annotation.Configuration;
 public class WebConfiguration {
 
     @Bean
+    public LicenseFilter licenseFilter(){
+        return new LicenseFilter();
+    };
+
+    @Bean
     public FilterRegistrationBean registerTestFilter(){
         FilterRegistrationBean  registration = new FilterRegistrationBean ();
-        registration.setFilter(new TestFile());
-        registration.addUrlPatterns("/buyer/*");// 过滤规则
+        registration.setFilter(licenseFilter());
+        registration.addUrlPatterns("/admin/*","/nspm/*");// 过滤规则
         registration.addInitParameter("paramName", "paramValue");
-        registration.setName("MyFilter");
+        registration.setName("License");
         registration.setOrder(1);
         return registration;
     }

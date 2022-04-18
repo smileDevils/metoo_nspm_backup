@@ -2,6 +2,7 @@ package com.cloud.tv.core.manager.admin.action;
 
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.*;
+import com.cloud.tv.core.shiro.tools.SaltUtils;
 import com.cloud.tv.core.utils.CommUtils;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.core.utils.query.PageInfo;
@@ -10,8 +11,6 @@ import com.cloud.tv.entity.*;
 import com.cloud.tv.vo.UserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.util.StringUtil;
-import com.cloud.tv.core.shiro.tools.SaltUtils;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -49,21 +48,37 @@ public class UserManagerController {
         log.info("====================test");
     }
 
-    //    @RequiresPermissions("ADMIN:USER:LIST")
-//    @RequiresPermissions("LK:USER")
+    @RequestMapping("test")
+    public Object getUser(){
+      return this.userService.getObjByLevel(null);
+    }
+
     @ApiOperation("用户列表")
-    @PostMapping("/list")
+    @RequestMapping("/list")
     public Object list(@RequestBody(required=false) UserDto dto){
         if(dto == null){
             dto = new UserDto();
         }
-        Page<UserVo> page = this.userService.query(dto);
-        int i = 0;
+        Page<UserVo> page = this.userService.getObjsByLevel(dto);
         if(page.getResult().size() > 0){
             return ResponseUtil.ok(new PageInfo<Role>(page));
         }
         return ResponseUtil.ok();
     }
+
+//    @ApiOperation("用户列表")
+//    @RequestMapping("/list")
+//    public Object list(@RequestBody(required=false) UserDto dto){
+//        if(dto == null){
+//            dto = new UserDto();
+//        }
+//        Page<UserVo> page = this.userService.query(dto);
+//        int i = 0;
+//        if(page.getResult().size() > 0){
+//            return ResponseUtil.ok(new PageInfo<Role>(page));
+//        }
+//        return ResponseUtil.ok();
+//    }
 
 //    @RequiresPermissions("ADMIN:USER:ADD")
 //    @RequiresPermissions("LK:USER:MANAGER")
@@ -298,9 +313,13 @@ public class UserManagerController {
                List<User> userList = this.userService.findObjByIds(dto.getUserIds());
                for(User user : userList){
                    user.setGroupId(group.getId());
+                   user.setGroupLevel(group.getLevel());
                }
-                 this.userService.allocation(userList);
-               return null;
+               boolean allocation = this.userService.allocation(userList);
+               if(allocation){
+                   return ResponseUtil.ok();
+               }
+                 return ResponseUtil.error();
             }
         }
         return null;

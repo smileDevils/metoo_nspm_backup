@@ -1,6 +1,5 @@
 package com.cloud.tv.core.mapper;
 
-import com.cloud.tv.dto.GroupDto;
 import com.cloud.tv.entity.Group;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,6 +11,8 @@ public interface GroupMapper {
     List<Group> query();
 
     Group queryObjById(Long id);
+
+    Group getObjByLevel(String level);
 
     List<Group> queryChild(Long id);
 

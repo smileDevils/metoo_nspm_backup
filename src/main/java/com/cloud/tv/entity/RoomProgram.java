@@ -1,7 +1,7 @@
 package com.cloud.tv.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.cloud.tv.core.domain.IdEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

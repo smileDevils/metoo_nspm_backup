@@ -1,16 +1,14 @@
 package com.cloud.tv.core.service.impl;
 
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
+import com.cloud.tv.core.mapper.VideoMapper;
 import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.FileUtil;
 import com.cloud.tv.dto.VideoDto;
 import com.cloud.tv.entity.*;
-import com.cloud.tv.req.VideoReq;
 import com.cloud.tv.vo.Result;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.cloud.tv.core.mapper.VideoMapper;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

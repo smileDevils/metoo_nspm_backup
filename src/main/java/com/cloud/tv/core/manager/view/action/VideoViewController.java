@@ -1,17 +1,13 @@
 package com.cloud.tv.core.manager.view.action;
 
-import com.cloud.tv.core.service.*;
-import com.cloud.tv.dto.VideoDto;
-import com.cloud.tv.entity.*;
-import com.cloud.tv.req.VideoReq;
-import com.github.pagehelper.Page;
-import com.cloud.tv.core.service.*;
-import com.cloud.tv.entity.*;
 import com.cloud.tv.core.manager.view.tools.WebLiveRoomTools;
 import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.CommUtils;
 import com.cloud.tv.core.utils.ResponseUtil;
+import com.cloud.tv.dto.VideoDto;
 import com.cloud.tv.entity.*;
+import com.cloud.tv.req.VideoReq;
+import com.github.pagehelper.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

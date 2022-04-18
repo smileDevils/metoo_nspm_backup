@@ -7,17 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Data
 @Accessors
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("节点配置")
-public class NodeDto {
+public class NodeDto<T> {
 
     @ApiModelProperty("页数")
     private Integer start;
     @ApiModelProperty("每页条数")
     private Integer limit;
+    private Integer size;
     @ApiModelProperty("0：防火墙 1：路由交换 2：负载均衡 3：模拟网关 4：网闸 5：终端检测响应")
     private String type;
     @ApiModelProperty("")
@@ -81,6 +84,8 @@ public class NodeDto {
     //保存
     @ApiModelProperty("设备名称")
     private String deviceName;
+    private String deviceIp;
+
     private String defaultRout;
 
     // 采集配置
@@ -94,6 +99,7 @@ public class NodeDto {
     private String nodeGroup;
     private String modelNumber;
     private String includeRouting;
+    private String version;
     private String version1;
     private String controllerId;
     private String portNumber;
@@ -118,6 +124,46 @@ public class NodeDto {
 
     private String cmbDeviceType;
     private String cmbDeviceVendor;
+
+    private Integer pageNum;
+    private String order;
+    private String sort;
+    private String layerName;
+
+    private String baseUrl;
+    private T content;
+    private String layerUuid;
+    private String name;
+    private String layerUuids;
+
+    private String subnetUuid;
+    private String opUuid;
+
+    private T routeStr;
+
+    private List interfaces;
+    private List beginFlow;
+
+    private String dstNodeId;
+    private String ipType;
+    private String isPathOnly;
+    private String requestType;
+    private String srcNodeId;
+    private String trustLevel;
+    private List uuidList;
+    private List tags;
+    private String tagsOp;
+    private List exclusives;
+    private String desc;
+    private String ids;
+    private String ip4BaseAddress;
+    private String ip4MaskLength;
+    private String ip4Address;
+    private String linkedDevice;
+    private String linkedDeviceName;
+    private String subnetType;
+    private String subnetId;
+    private Object val;
 
 
 }

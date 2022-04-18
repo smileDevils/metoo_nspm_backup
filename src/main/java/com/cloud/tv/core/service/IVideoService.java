@@ -2,7 +2,6 @@ package com.cloud.tv.core.service;
 
 import com.cloud.tv.dto.VideoDto;
 import com.cloud.tv.entity.Video;
-import com.cloud.tv.req.VideoReq;
 import com.github.pagehelper.Page;
 
 import java.io.Serializable;

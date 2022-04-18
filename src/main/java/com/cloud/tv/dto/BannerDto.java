@@ -1,7 +1,6 @@
 package com.cloud.tv.dto;
 
 import com.cloud.tv.entity.Banner;
-import com.github.pagehelper.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

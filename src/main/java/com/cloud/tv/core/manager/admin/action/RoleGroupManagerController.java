@@ -1,6 +1,5 @@
 package com.cloud.tv.core.manager.admin.action;
 
-import com.github.pagehelper.Page;
 import com.cloud.tv.core.service.IRoleGroupService;
 import com.cloud.tv.core.service.IRoleService;
 import com.cloud.tv.core.utils.ResponseUtil;
@@ -8,9 +7,9 @@ import com.cloud.tv.dto.RoleGroupDto;
 import com.cloud.tv.entity.Role;
 import com.cloud.tv.entity.RoleGroup;
 import com.cloud.tv.req.RoleGroupReq;
+import com.github.pagehelper.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

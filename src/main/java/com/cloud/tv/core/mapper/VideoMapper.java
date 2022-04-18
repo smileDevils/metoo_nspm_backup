@@ -2,7 +2,6 @@ package com.cloud.tv.core.mapper;
 
 import com.cloud.tv.dto.VideoDto;
 import com.cloud.tv.entity.Video;
-import com.cloud.tv.req.VideoReq;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

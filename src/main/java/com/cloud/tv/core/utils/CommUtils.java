@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
+import java.util.Random;
 
 @Component
 public class CommUtils {
@@ -29,20 +32,20 @@ public class CommUtils {
         number.add(7);
 
         Collections.sort(number);
-        System.out.println(number);
+        SystemTest.out.println(number);
         Collections.reverse(number);
-        System.out.println(number);*/
+        SystemTest.out.println(number);*/
 
 
    /*     File file1 = new File("C:\\Users\\46075\\Desktop\\20210323040120436\\20210406BuYD1A");
         if(!file1 .exists()) {
             file1.mkdirs();//创建目录
-            System.out.println("测试文件夹不存在");
+            SystemTest.out.println("测试文件夹不存在");
         }
 */
 
      /*   boolean flag = delFileTs("C:\\Users\\46075\\Desktop\\20210323040120436\\20210406BuYD1A");
-        System.out.println(flag);*/
+        SystemTest.out.println(flag);*/
         /**
          * new Comparator<String>(){
          *             public int compare(String o1,String o2){

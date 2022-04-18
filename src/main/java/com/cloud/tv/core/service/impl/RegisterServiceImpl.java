@@ -1,10 +1,10 @@
 package com.cloud.tv.core.service.impl;
 
-import com.cloud.tv.core.mapper.UserMapper;
 import com.cloud.tv.core.mapper.RegisterMapper;
-import com.cloud.tv.entity.User;
+import com.cloud.tv.core.mapper.UserMapper;
 import com.cloud.tv.core.service.IRegisterService;
 import com.cloud.tv.core.shiro.tools.SaltUtils;
+import com.cloud.tv.entity.User;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

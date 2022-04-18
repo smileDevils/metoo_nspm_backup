@@ -1,11 +1,11 @@
 package com.cloud.tv.core.manager.view.action;
 
-import com.cloud.tv.entity.Role;
-import com.cloud.tv.entity.User;
-import com.cloud.tv.entity.UserRole;
 import com.cloud.tv.core.service.IRegisterService;
 import com.cloud.tv.core.service.IRoleService;
 import com.cloud.tv.core.service.IUserRoleService;
+import com.cloud.tv.entity.Role;
+import com.cloud.tv.entity.User;
+import com.cloud.tv.entity.UserRole;
 import com.cloud.tv.vo.Result;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

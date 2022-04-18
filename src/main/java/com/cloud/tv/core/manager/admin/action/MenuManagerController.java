@@ -1,18 +1,17 @@
 package com.cloud.tv.core.manager.admin.action;
 
 import com.cloud.tv.core.service.IResService;
-import com.cloud.tv.entity.Res;
 import org.apache.http.HttpRequest;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class MenuManagerController {

@@ -66,4 +66,6 @@ public class UserDto extends PageDto<User> {
     private Long groupId;
 
     private Long[] userIds;
+
+    private String groupLevel;
 }

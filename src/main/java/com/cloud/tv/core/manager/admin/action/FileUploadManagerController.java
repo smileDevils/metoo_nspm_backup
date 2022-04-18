@@ -1,9 +1,9 @@
 package com.cloud.tv.core.manager.admin.action;
 
-import com.cloud.tv.entity.Accessory;
 import com.cloud.tv.core.service.IAccessoryService;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.ResponseUtil;
+import com.cloud.tv.entity.Accessory;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import sun.net.www.URLConnection;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.FileNameMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

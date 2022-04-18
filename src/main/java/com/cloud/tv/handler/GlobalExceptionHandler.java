@@ -1,8 +1,6 @@
 package com.cloud.tv.handler;
 
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.vo.Result;
-import org.apache.shiro.ShiroException;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpServerErrorException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 
 /**
@@ -103,6 +100,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = HttpServerErrorException.class)
     @ResponseBody
     public Object httpServletErrorException(HttpServerErrorException e){
+        System.out.println(e.getMessage());
         return ResponseUtil.badArgument("远程调用失败，检查参数是否正确");
     }
 

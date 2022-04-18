@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Access;
-
 @ApiModel("科目")
 @Data
 @Accessors(chain = true)
