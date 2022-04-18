@@ -164,6 +164,9 @@ public class NodeDto<T> {
     private String subnetType;
     private String subnetId;
     private Object val;
+    private Integer assertGroup;
+    private String ipAddress;
+
 
 
 }

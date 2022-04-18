@@ -135,5 +135,6 @@ public class PolicyDto implements Serializable {
     private String isQueryParams;
     private String ipTerms;
     private String state;
+    private Integer index;
 
 }

@@ -44,6 +44,8 @@ public class Policy extends IdEntity{
     private String description;
     private String parentId;
     private String parentName;
+    private String level;
+    private String parentLevel;
     @ApiModelProperty("优化类型 策略优化：RuleCheck_1 对象优化：RC_EMPTY_OBJECT")
     private String optimizeType;
     @ApiModelProperty("设备UUID")

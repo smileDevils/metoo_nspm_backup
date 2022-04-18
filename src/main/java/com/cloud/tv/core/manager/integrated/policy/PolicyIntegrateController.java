@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.*;
+import com.cloud.tv.core.utils.CommUtils;
 import com.cloud.tv.core.utils.ListSortUtil;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
@@ -1190,31 +1191,43 @@ public class PolicyIntegrateController {
                                 if (poliscyArrays.size() > 0) {
                                     for (Object array : poliscyArrays) {
                                         JSONObject data = JSONObject.parseObject(array.toString());
-                                        if (data.get("primaryPolicyName").toString().equals(dto.getName())) {
+                                        if(data.get("index").toString().equals(dto.getIndex().toString())){
                                             // 查询当前策略是否存在，不存在插入数据 存在 清空数据后插入
                                             Policy policy = new Policy();
 //                                            policy.setParentId(dto.getPolicyId());
-                                            policy.setParentName(dto.getName());
+//                                            policy.setLevel(CommUtils.randomString(6));
+                                            String random = CommUtils.randomString(6);
+                                            policy.setParentName(random);
                                             policy.setDeviceUuid(dto.getDeviceUuid());
-                                            List<Policy> policys = this.policyService.getObjByMap(policy);
-                                            if (policys.size() > 0) {
-                                                int i = this.policyService.delete(policy);
+//                                            List<Policy> policys = this.policyService.getObjByMap(policy);
+//                                            if (policys.size() > 0) {
+//                                                int i = this.policyService.delete(policy);
+//                                            }
+//                                            policys = this.policyService.getObjByMap(policy);
+//                                            if (policys.size() == 0) {                                            // 插入数据库
+//                                                JSONArray details = JSONArray.parseArray(data.get("detailList").toString());
+//                                                for (Object obj : details) {
+//                                                    Map map = JSON.parseObject(obj.toString(), Map.class);
+//                                                    map.put("parentId", dto.getPolicyId());
+//                                                    map.put("parentName", dto.getName());
+//                                                    map.put("policyType", "RuleCheck_1");
+//                                                    map.put("deviceUuid", data.get("deviceUuid"));
+//                                                    map.put("invisible", invisibleName);
+//                                                    this.policyService.save(map);
+//                                                }
+//
+//                                            }
+                                            JSONArray details = JSONArray.parseArray(data.get("detailList").toString());
+                                            for (Object obj : details) {
+                                                Map map = JSON.parseObject(obj.toString(), Map.class);
+//                                                map.put("parentId", dto.getPolicyId());
+                                                map.put("parentName", random);
+                                                map.put("policyType", "RuleCheck_1");
+                                                map.put("deviceUuid", data.get("deviceUuid"));
+                                                map.put("invisible", invisibleName);
+                                                this.policyService.save(map);
                                             }
-                                            policys = this.policyService.getObjByMap(policy);
-                                            if (policys.size() == 0) {                                            // 插入数据库
-                                                JSONArray details = JSONArray.parseArray(data.get("detailList").toString());
-                                                for (Object obj : details) {
-                                                    Map map = JSON.parseObject(obj.toString(), Map.class);
-                                                    map.put("parentId", dto.getPolicyId());
-                                                    map.put("parentName", dto.getName());
-                                                    map.put("policyType", "RuleCheck_1");
-                                                    map.put("deviceUuid", data.get("deviceUuid"));
-                                                    map.put("invisible", invisibleName);
-                                                    this.policyService.save(map);
-                                                }
-
-                                            }
-                                        // 更新策略信息，添加工单号
+                                            // 更新策略信息，添加工单号
                                             List<Policy> policysNew = this.policyService.getObjByMap(policy);
                                             System.out.println(StringEscapeUtils.unescapeJava(invisibleName));
                                             this.issuedService.queryTask(invisibleName, dto.getFrom(), policysNew);
@@ -1239,24 +1252,30 @@ public class PolicyIntegrateController {
                                 if(objectArray.size() > 0){
                                     for(Object array : objectArray){
                                         JSONObject data = JSONObject.parseObject(array.toString());
-                                        if(data.get("name").toString().equals(dto.getName())){
+                                        if(data.get("index").toString().equals(dto.getIndex().toString())){
                                             // 执行批量删除
+                                            String random = CommUtils.randomString(6);
                                             Policy policy = new Policy();
-                                            policy.setName(dto.getName());
+                                            policy.setParentName(random);
                                             policy.setDeviceUuid(dto.getDeviceUuid());
-                                            List<Policy> policys = this.policyService.getObjByMap(policy);
-                                            if(policys.size() > 0){
-                                                int i = this.policyService.delete(policy);
-                                            }
-                                            // 查询当前策略是否存在，不存在则更新
-                                            policys = this.policyService.getObjByMap(policy);
-                                            if(policys.size() == 0){
-                                                // 插入数据库
+//                                            List<Policy> policys = this.policyService.getObjByMap(policy);
+//                                            if(policys.size() > 0){
+//                                                int i = this.policyService.delete(policy);
+//                                            }
+//                                            // 查询当前策略是否存在，不存在则更新
+//                                            policys = this.policyService.getObjByMap(policy);
+//                                            if(policys.size() == 0){
+//                                                // 插入数据库
+//                                                Map map = JSON.parseObject(data.toString(), Map.class);
+//                                                map.put("policyType", "RC_EMPTY_OBJECT");
+//                                                map.put("invisible", invisibleName);
+//                                                this.policyService.save(map);
+//                                            }
+//                                             插入数据库
                                                 Map map = JSON.parseObject(data.toString(), Map.class);
                                                 map.put("policyType", "RC_EMPTY_OBJECT");
                                                 map.put("invisible", invisibleName);
                                                 this.policyService.save(map);
-                                            }
                                             // 更新策略信息，添加工单号
                                             List<Policy> policysNew = this.policyService.getObjByMap(policy);
                                             System.out.println(StringEscapeUtils.unescapeJava(invisibleName));

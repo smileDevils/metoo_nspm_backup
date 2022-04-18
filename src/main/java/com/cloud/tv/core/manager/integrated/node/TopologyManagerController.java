@@ -456,4 +456,32 @@ public class TopologyManagerController {
         }
         return ResponseUtil.error();
     }
+
+    @ApiOperation("关联子网")
+    @PostMapping("/risk/api/danger/assetHost/getSubnetByAssetGroup")
+    public Object getSubnetByAssetGroup(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/risk/api/danger/assetHost/getSubnetByAssetGroup";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("主机列表")
+    @PostMapping("/risk/api/danger/assetHost/pageList")
+    public Object pageList(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/risk/api/danger/assetHost/pageList";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
 }

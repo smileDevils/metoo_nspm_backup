@@ -224,6 +224,7 @@ public class IssuedManagerController {
 
 
 
+    @ApiOperation("策略信息")
     @RequestMapping("/getPolicy")
     public Object policys(@RequestBody Policy policy){
         List<Policy> policys = this.policyService.getObjOrderNo(policy.getOrderNo());
