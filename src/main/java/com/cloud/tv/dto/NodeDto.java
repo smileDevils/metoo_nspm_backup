@@ -166,7 +166,10 @@ public class NodeDto<T> {
     private Object val;
     private Integer assertGroup;
     private String ipAddress;
-
+    private String zoneUuid;
+    private String startTime;
+    private String endTime;
+    private String devId;
 
 
 }

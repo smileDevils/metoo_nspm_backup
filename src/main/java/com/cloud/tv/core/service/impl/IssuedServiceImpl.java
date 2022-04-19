@@ -8,6 +8,7 @@ import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.dto.PolicyDto;
 import com.cloud.tv.entity.*;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,7 +118,7 @@ public class IssuedServiceImpl implements IssuedService {
     }
 
     @Override
-    public String queryTask(String invisibleName, String type, List<Policy> policysNew) {
+    public String queryTask(String invisibleName, String type, List<Policy> policysNew, String command) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
@@ -136,15 +137,9 @@ public class IssuedServiceImpl implements IssuedService {
                 for(Object array : arrays){
                     JSONObject order = JSONObject.parseObject(array.toString());
                     String orderNo = order.get("orderNo").toString();
+                    String taskId = order.get("taskId").toString();
                     try {
                         String invisibleName1 = this.getInvisible(Integer.parseInt(order.get("taskId").toString()));
-//                        invisibleName = "\u0007";
-//                        System.out.println(invisibleName.equals(invisibleName1));
-//                        System.out.println(StringEscapeUtils.unescapeJava(invisibleName).equals(StringEscapeUtils.unescapeJava(invisibleName1)));
-//                        System.out.println(invisibleName == invisibleName1);
-//                        System.out.println(StringEscapeUtils.unescapeJava(invisibleName) == StringEscapeUtils.unescapeJava(invisibleName1));
-//                        System.out.println(invisibleName.equals(invisibleName));
-//                        System.out.println(invisibleName == invisibleName);
                         if(StringEscapeUtils.unescapeJava(invisibleName).equals(invisibleName1)){
                             // 更新字符信息
                             Invisible invisible = new Invisible();
@@ -161,13 +156,23 @@ public class IssuedServiceImpl implements IssuedService {
                             order1.setBranchName(user.getGroupName());
                             this.orderService.save(order1);
                             //更新策略
+                            String uuid = "";
                             if(policysNew.size() > 0){
                                 for(Policy policy : policysNew){
                                     policy.setOrderNo(orderNo);
                                     policy.setInvisible(null);
+                                    uuid = policy.getDeviceUuid();
                                 }
                                 this.policyService.update(policysNew);
                             }
+                            // 更新命令行
+                            PolicyDto policyDto = new PolicyDto();
+                            policyDto.setCommand(command);
+                            policyDto.setType("0");
+                            policyDto.setTaskId(Integer.parseInt(taskId));
+                            policyDto.setDeviceUuid(uuid);
+                            String commamdUrl = url + "/push/recommend/task/editcommand.action";
+                            this.nodeUtil.postBody(policyDto, commamdUrl, token);
                             break;
                         }
                     } catch (IOException e) {

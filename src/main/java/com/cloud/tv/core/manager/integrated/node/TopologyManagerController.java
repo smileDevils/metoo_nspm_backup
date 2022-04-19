@@ -38,7 +38,7 @@ public class TopologyManagerController {
 
     @ApiOperation("图层列表")
     @RequestMapping(value="/topology-layer/layerInfo/GET/listLayers")
-    public Object listLayers(@RequestBody(required = false) NodeDto dto){
+    public Object listLayers(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
@@ -63,7 +63,8 @@ public class TopologyManagerController {
                 results.put("rows", list);
                 return ResponseUtil.ok(results);
             }else{
-                url = url + "topology-layer/layerInfo/GET/listLayers";
+                url = url + "/topology-layer/layerInfo/GET/listLayers";
+
                 dto.setBranchLevel(user.getGroupLevel());
                 Object result = this.nodeUtil.getBody(dto, url, token);
                 JSONObject results = JSONObject.parseObject(result.toString());
@@ -98,7 +99,7 @@ public class TopologyManagerController {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
-            url = url + "topology-layer/layerInfo/GET/defaultLayer";
+            url = url + "/topology-layer/layerInfo/GET/defaultLayer";
             Object result = this.nodeUtil.getBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -484,4 +485,49 @@ public class TopologyManagerController {
         }
         return ResponseUtil.error();
     }
+
+    @ApiOperation("关联子网3")
+    @PostMapping("/risk/api/alarm/zone/listLogicZoneSubnetWithPage")
+    public Object listLogicZoneSubnetWithPage(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/risk/api/alarm/zone/listLogicZoneSubnetWithPage";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("主机列表")
+    @PostMapping("/risk/api/danger/businessZone/pageList")
+    public Object businessZone(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/risk/api/danger/businessZone/pageList";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("原始日志")
+    @PostMapping("/combing/api/hit/rawlog/findList")
+    public Object findList(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/combing/api/hit/rawlog/findList";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+
+
 }
