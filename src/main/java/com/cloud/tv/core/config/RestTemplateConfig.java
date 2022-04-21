@@ -17,7 +17,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 
 @Configuration
-public class RestConfig {
+public class RestTemplateConfig {
 
    @Bean
    public RestTemplate restTemplate()

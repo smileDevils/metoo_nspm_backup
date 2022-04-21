@@ -246,7 +246,6 @@ public class IssuedManagerController {
             List list = new ArrayList();
             for(Object array : arrays){
                 JSONObject obj = JSONObject.parseObject(array.toString());
-
                 String command = obj.get("command").toString();
                 int index = command.indexOf("\n");
                 String str = command.substring(0, index);
@@ -340,6 +339,7 @@ public class IssuedManagerController {
         if(url != null && token != null){
             url = url + "/push/task/startdevicepushtasks";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            // 工单统计
             this.issuedService.pushtaskstatuslist();
             return ResponseUtil.ok(result);
         }
@@ -356,15 +356,15 @@ public class IssuedManagerController {
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
             url = url + "/push/recommend/task/editcommand.action";
-//            User currentUser = ShiroUserHolder.currentUser();
-//            User user = this.userService.findByUserName(currentUser.getUsername());
-//            JSONObject dtoJson = (JSONObject) JSONObject.toJSON(dto);
-//            if(dtoJson != null){
-//                String command = dtoJson.get("command").toString();
-//                dto.setCommand( "##" + user.getUsername() + "`~\n" + command);
-//                Object result = this.nodeUtil.postBody(dto, url, token);
-//                return ResponseUtil.ok(result);
-//            }
+            User currentUser = ShiroUserHolder.currentUser();
+            User user = this.userService.findByUserName(currentUser.getUsername());
+            JSONObject dtoJson = (JSONObject) JSONObject.toJSON(dto);
+/*            if(dtoJson != null){
+                String command = dtoJson.get("command").toString();
+                dto.setCommand( "##" + user.getUsername() + "`~\n" + command);
+                Object result = this.nodeUtil.postBody(dto, url, token);
+                return ResponseUtil.ok(result);
+            }*/
 
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);

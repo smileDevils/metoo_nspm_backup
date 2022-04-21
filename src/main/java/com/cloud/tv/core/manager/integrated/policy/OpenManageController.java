@@ -6,6 +6,7 @@ import com.cloud.tv.core.http.HttpTools;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
+import com.cloud.tv.core.service.IssuedService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.PolicyDto;
@@ -35,6 +36,8 @@ public class OpenManageController {
     private HttpTools httpTools;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IssuedService issuedService;
 
     @ApiOperation("列表")
     @RequestMapping("/push/recommend/task/searchtasklist.action")
@@ -107,7 +110,14 @@ public class OpenManageController {
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
             Object result = this.nodeUtil.postBody(dto, url, token);
-            return ResponseUtil.ok(result);
+            JSONObject json = JSONObject.parseObject(result.toString());
+            if(json.get("status") .toString().equals("0")){
+                // 工单统计
+                this.issuedService.pushtaskstatuslist();
+               return ResponseUtil.ok();
+            }else{
+                return ResponseUtil.error(json.get("errmsg").toString());
+            }
         }
         return ResponseUtil.error();
     }
@@ -178,6 +188,8 @@ public class OpenManageController {
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
             Object result = this.nodeUtil.postBody(dto, url, token);
+            // 工单统计
+            this.issuedService.pushtaskstatuslist();
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
@@ -192,6 +204,8 @@ public class OpenManageController {
         if(url != null && token != null){
             url = url + "/push/recommend/task/deletetask";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            // 工单统计
+            this.issuedService.pushtaskstatuslist();
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
