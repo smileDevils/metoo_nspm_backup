@@ -15,10 +15,10 @@ public class TopoNode extends IdEntity {
     private String branchLevel;
     private Long branchId;
     private String branchName;
-    private String ip;
+    private String hostAddress;
     private String deviceName;
     private String vendorName;
-    private Integer type;
+    private String type;
     private Integer origin;
     private String gatherTime;
     private String skipAnalysis;
@@ -37,4 +37,5 @@ public class TopoNode extends IdEntity {
     private String taskType;
     private String taskUuid;
     private Integer timeout;
+    private String webHref;
 }

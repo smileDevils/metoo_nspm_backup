@@ -314,7 +314,7 @@ public class TopologyManagerController {
         return ResponseUtil.error();
     }
 
-    @ApiOperation("子网-关联设备")
+    @ApiOperation("子网（相关设备）")
     @GetMapping("/topology-layer/whale/GET/subnet/linkedDevice")
     public Object linkedDevice(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
@@ -341,6 +341,23 @@ public class TopologyManagerController {
         }
         return ResponseUtil.error();
     }
+
+    @ApiOperation("二层设备(保存)")
+    @RequestMapping("/topology-layer/whale/PUT/topo/action/splitSubnet")
+    public Object topoSplitSubnet(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/topology-layer/whale/PUT/topo/action/splitSubnet";
+            Object result = this.nodeUtil.putBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+
+
 
     @ApiOperation("撤销（设备接入或子网拆分）")
     @RequestMapping("/topology-layer/whale/PUT/topo/action/undo/splitSubnet")
@@ -370,7 +387,7 @@ public class TopologyManagerController {
         return ResponseUtil.error();
     }
 
-    @ApiOperation("VPN-选择设备")
+    @ApiOperation("VPN（设备）|二层设备（设备）")
     @RequestMapping("/topology-layer/whale/GET/devices/summary")
     public Object devicesSummary(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();

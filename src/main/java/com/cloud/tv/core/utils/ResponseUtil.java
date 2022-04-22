@@ -89,6 +89,8 @@ import java.util.Map;
 
         public static Object error(String message) { return new Result(500, message);  }
 
+        public static Object error(int code, String message) { return new Result(500, message);  }
+
         public static Object fail(String data) {
             return new Result(500, data);
         }

@@ -103,7 +103,7 @@ public class NodeDto<T> {
     private String version1;
     private String controllerId;
     private String portNumber;
-    private String timeout;
+    private Integer timeout;
     private String pushCredentialUuid;
     private String deviceTemplateId;
     private String hostAddress;
@@ -170,6 +170,8 @@ public class NodeDto<T> {
     private String startTime;
     private String endTime;
     private String devId;
-
+    private String skipHost;
+    private List elements;
+    private String topoModType;
 
 }
