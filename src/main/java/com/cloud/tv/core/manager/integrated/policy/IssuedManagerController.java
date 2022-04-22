@@ -146,29 +146,32 @@ public class IssuedManagerController {
                 }
                 JSONObject task = JSONObject.parseObject(result.toString());
                 List list = new ArrayList();
-                if(!task.get("data").equals("")){
+                if(task.get("data") != null){
                     JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
                     JSONArray arrays = JSONArray.parseArray(taskData.get("list").toString());
                     for (Object array : arrays){
                         JSONObject obj = JSONObject.parseObject(array.toString());
-                        String theme = obj.get("orderNo").toString();
-                        int index = theme.indexOf("`~");
-                        String userName = "";
-                        if(index >= 0){
-                            userName = theme.substring(0,index);
-                            obj.put("userName", theme.substring(0,index));
-                            obj.put("orderNo", theme.substring(index + 2));
-                        }
-                        if(obj.get("orderType").toString().equals("2") || obj.get("orderType").toString().equals("17")){
-                            String orderNo =  obj.get("orderNo").toString();
+                        if(obj.get("orderNo") != null){
+                            String theme = obj.get("orderNo").toString();
+                            int index = theme.indexOf("`~");
+                            String userName = "";
+                            if(index != -1){
+                                userName = theme.substring(0,index);
+                                obj.put("userName", theme.substring(0,index));
+                                obj.put("orderNo", theme.substring(index + 2));
+                            }
+                            if(obj.get("orderType").toString().equals("2") || obj.get("orderType").toString().equals("17")){
+                                String orderNo =  obj.get("orderNo").toString();
 //                            根据工单id查询用户信息
-                            Order order = this.orderService.getObjByOrderNo(orderNo);
-                            userName = order == null ? "" : order.getUserName();
+                                Order order = this.orderService.getObjByOrderNo(orderNo);
+                                userName = order == null ? "" : order.getUserName();
+                            }
+                            if(users.contains(userName)) {
+                                obj.put("userName", userName);
+                                list.add(obj);
+                            }
                         }
-                        if(users.contains(userName)) {
-                            obj.put("userName", userName);
-                            list.add(obj);
-                        }
+
                     }
                     taskData.put("list", list);
                     task.put("data", taskData);

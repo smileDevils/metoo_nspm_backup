@@ -203,9 +203,31 @@ public class GenerateManageController {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
-            url = url + "push/api/disposal/scenes/pageList";
-            Object result = this.nodeUtil.postBody(dto, url, token);
+            url = url + "/push/api/disposal/scenes/pageList";
+            Object object = this.nodeUtil.postBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("data") != null){
+                List list = new ArrayList();
+                JSONObject data = JSONObject.parseObject(result.get("data").toString());
+                JSONArray arrays = JSONArray.parseArray(data.get("list").toString());
+                for(Object obj : arrays){
+                    JSONObject scene = JSONObject.parseObject(obj.toString());
+                    String name = scene.get("name").toString();
+                    int index = name.indexOf("`~");
+                    if(index != -1){
+                        String str = name.substring(0, index);
+                        scene.put("name", name.substring(str.length() + 2));
+                        list.add(scene);
+                    }else{
+                        list.add(scene);
+                    }
+                }
+                data.put("list",list);
+                result.put("data", data);
+            }
+
             return ResponseUtil.ok(result);
+//            return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
@@ -262,10 +284,10 @@ public class GenerateManageController {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
-            url = url + "push/recommend/download";
+            url = url + "/push/recommend/download";
             Map map = new HashMap();
             map.put("ids", ids);
-          return this.nodeUtil.download(map, url, token);
+            return this.nodeUtil.download(map, url, token);
 
         }
         return ResponseUtil.error();

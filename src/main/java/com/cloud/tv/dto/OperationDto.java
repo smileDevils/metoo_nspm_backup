@@ -59,5 +59,6 @@ public class OperationDto<T> {
     private String postDstIp;
     private String data;
     private String branchLevel;
+    private Integer id;
 }
 
