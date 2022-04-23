@@ -106,13 +106,13 @@ public class TopoGenerateManageController {
             List list = new ArrayList();
             for(Object array : arrays){
                 JSONObject obj = JSONObject.parseObject(array.toString());
-                String theme = obj.get("policyName").toString();
+                String theme = obj.get("description").toString();
                 int index = theme.indexOf("`~");
                 String userName = "";
                 if(index >= 0){
                     userName = theme.substring(0,index);
                     obj.put("userName", theme.substring(0,index));
-                    obj.put("policyName", theme.substring(index + 2));
+                    obj.put("description", theme.substring(index + 2));
                 }
                 if(users.contains(userName)){
                     PolicyDto policy = new PolicyDto();
@@ -160,13 +160,13 @@ public class TopoGenerateManageController {
             List list = new ArrayList();
             for(Object array : arrays){
                 JSONObject obj = JSONObject.parseObject(array.toString());
-                String theme = obj.get("policyName").toString();
+                String theme = obj.get("description").toString();
                 int index = theme.indexOf("`~");
                 String userName = "";
                 if(index >= 0){
                     userName = theme.substring(0,index);
                     obj.put("userName", theme.substring(0,index));
-                    obj.put("policyName", theme.substring(index + 2));
+                    obj.put("description", theme.substring(index + 2));
                 }
                 if(/*users.contains(userName)*/true){
                     PolicyDto policy = new PolicyDto();
@@ -242,7 +242,7 @@ public class TopoGenerateManageController {
             url = url + "/push/recommend/task/new-policy-push";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
+            dto.setDescription(user.getUsername()+"`~"+dto.getDescription());
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

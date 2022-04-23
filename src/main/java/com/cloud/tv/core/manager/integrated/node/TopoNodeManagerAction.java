@@ -66,12 +66,13 @@ public class TopoNodeManagerAction {
                User user = this.userService.findByUserName(currentUser.getUsername());
                dto.setBranchLevel(user.getGroupLevel());
            }
-            url = url + "topology-layer/whale/GET/node/navigation";
+            url = url + "/topology-layer/whale/GET/node/navigation";
             Object result = this.nodeUtil.getBody(dto, url, token);
             Map map = JSONObject.parseObject(result.toString(), Map.class);
             Map resultMap = new HashMap();
             resultMap.put(0, map.get("0"));
             resultMap.put(1, map.get("1"));
+            resultMap.put(3, map.get("3"));
             return ResponseUtil.ok(resultMap);
         }
         return ResponseUtil.error();
@@ -97,21 +98,29 @@ public class TopoNodeManagerAction {
                 if(object.get("data") != null){
                     JSONArray arrays = JSONArray.parseArray(object.get("data").toString());
                     for(Object array : arrays){
-                        JSONObject json = JSONObject.parseObject(array.toString());
-                        if(json.get("errorMess") != null && !json.get("errorMess").toString().equals("")){
-                            String errorMess = json.get("errorMess").toString();
+                        JSONObject data = JSONObject.parseObject(array.toString());
+                        if(data.get("errorMess") != null && !data.get("errorMess").toString().equals("")){
+                            String errorMess = data.get("errorMess").toString();
                             if(errorMess.indexOf("脚本异常") > -1){
                                 errorMess = errorMess.substring(0, errorMess.indexOf("脚本异常"));
-                                json.put("errorMess", errorMess);
+                                data.put("errorMess", errorMess);
                             }
                         }
-                        if(json.get("branchLevel") != null){
-                           Group group = this.groupService.getObjByLevel(json.get("branchLevel").toString());
+                        if(data.get("branchLevel") != null){
+                           Group group = this.groupService.getObjByLevel(data.get("branchLevel").toString());
                            if(group != null){
-                               json.put("branchName", group.getBranchName());
+                               data.put("branchName", group.getBranchName());
                            }
                         }
-                        list.add(json);
+                        if(data.get("type") != null){
+                            String type = data.get("type").toString();
+                            if(type.equals("3")){
+                                data.put("vendorName", "觅通");
+                                data.put("vendorName", "觅通");
+                            }
+
+                        }
+                        list.add(data);
                     }
                     object.put("data", list);
                     return ResponseUtil.ok(object);
@@ -136,7 +145,19 @@ public class TopoNodeManagerAction {
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setBranchLevel(user.getGroupLevel());
             url = url + "/topology/node/getNavigation.action";
-            Object result = this.nodeUtil.getBody(dto, url, token);
+            Object object = this.nodeUtil.getBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("3") != null){
+                Map vendor = JSONObject.parseObject(result.get("3").toString(), Map.class);
+                for (Object key : vendor.keySet()){
+                    if(key.toString().equals("安博通")){
+                        vendor.put("觅通", vendor.get(key.toString()));
+                        vendor.remove("安博通");
+                    }
+                }
+                result.put("3", vendor);
+            }
+
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
@@ -192,6 +213,7 @@ public class TopoNodeManagerAction {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
+
             url = url + "/topology/node/addGatherNode.action";
             Object object = this.nodeUtil.getBody(dto, url, token);
             // 同步节点到本地(检测ip是否已存储在，存在则为更新)
@@ -213,6 +235,40 @@ public class TopoNodeManagerAction {
 //                    this.nodeService.save(topoNode);
 //                }
 //            }
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("节点保存(local)")
+    @RequestMapping("/addGatherNode1")
+    public Object addGatherNodeLocal(NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+
+            url = url + "/topology/node/addGatherNode.action";
+            Object object = this.nodeUtil.getBody(dto, url, token);
+            // 同步节点到本地(检测ip是否已存储在，存在则为更新)
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("result") != null && Boolean.valueOf(result.get("result").toString())){
+                TopoNode topoNode = new TopoNode();
+                if(dto.getBranchLevel() == null){
+                    User user = ShiroUserHolder.currentUser();
+                    topoNode.setBranchId(user.getGroupId());
+                    topoNode.setBranchName(user.getGroupName());
+                    topoNode.setBranchLevel(user.getGroupLevel());
+                }
+                BeanUtils.copyProperties(dto, topoNode);
+                // 检测Ip是否已存在
+                TopoNode obj = this.nodeService.getObjByHostAddress(topoNode.getHostAddress());
+                if(obj != null){
+                    this.nodeService.update(topoNode);
+                }else{
+                    this.nodeService.save(topoNode);
+                }
+            }
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
@@ -352,7 +408,7 @@ public class TopoNodeManagerAction {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
-            url = url + "topology/node/updateNodeSkipAnalysis/";
+            url = url + "/topology/node/updateNodeSkipAnalysis/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

@@ -42,7 +42,7 @@ public class TopoNspmBranchManagerAction {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if (url != null && token != null) {
-            url = url + "topology/branch/getBranch/?id=" + dto.getId();
+            url = url + "/topology/branch/getBranch/?id=" + dto.getId();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -56,7 +56,7 @@ public class TopoNspmBranchManagerAction {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if (url != null && token != null) {
-            url = url + "topology/branch/update?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&id" + dto.getId();
+            url = url + "/topology/branch/update?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&id" + dto.getId();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -70,7 +70,7 @@ public class TopoNspmBranchManagerAction {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if (url != null && token != null) {
-            url = url + "topology/branch/add?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&parentLevel" + dto.getParentLevel();
+            url = url + "/topology/branch/add?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&parentLevel" + dto.getParentLevel();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -84,7 +84,7 @@ public class TopoNspmBranchManagerAction {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if (url != null && token != null) {
-            url = url + "topology/branch/delete/?id=" + dto.getId();
+            url = url + "/topology/branch/delete/?id=" + dto.getId();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }

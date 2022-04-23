@@ -112,19 +112,19 @@ public class TopoIssuedManagerController {
         if(url != null && token != null){
             url = url + "/push/recommend/task/getcommand";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
-            JSONObject results = JSONObject.parseObject(result.toString());
-            JSONArray arrays = JSONArray.parseArray(results.get("data").toString());
-            List list = new ArrayList();
-            for(Object array : arrays){
-                JSONObject obj = JSONObject.parseObject(array.toString());
-                String command = obj.get("command").toString();
-                int index = command.indexOf("\n");
-                String str = command.substring(0, index);
-                obj.put("command", command.substring(str.length() + 1));
-                list.add(obj);
-            }
-            results.put("data", list);
-            return ResponseUtil.ok(results);
+//            JSONObject results = JSONObject.parseObject(result.toString());
+//            JSONArray arrays = JSONArray.parseArray(results.get("data").toString());
+//            List list = new ArrayList();
+//            for(Object array : arrays){
+//                JSONObject obj = JSONObject.parseObject(array.toString());
+//                String command = obj.get("command").toString();
+//                int index = command.indexOf("\n");
+//                String str = command.substring(0, index);
+//                obj.put("command", command.substring(str.length() + 1));
+//                list.add(obj);
+//            }
+//            results.put("data", list);
+            return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
@@ -227,16 +227,6 @@ public class TopoIssuedManagerController {
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
             url = url + "/push/recommend/task/editcommand.action";
-            User currentUser = ShiroUserHolder.currentUser();
-            User user = this.userService.findByUserName(currentUser.getUsername());
-            JSONObject dtoJson = (JSONObject) JSONObject.toJSON(dto);
-/*            if(dtoJson != null){
-                String command = dtoJson.get("command").toString();
-                dto.setCommand( "##" + user.getUsername() + "`~\n" + command);
-                Object result = this.nodeUtil.postBody(dto, url, token);
-                return ResponseUtil.ok(result);
-            }*/
-
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

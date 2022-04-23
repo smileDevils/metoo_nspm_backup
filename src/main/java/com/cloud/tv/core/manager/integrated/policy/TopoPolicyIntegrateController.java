@@ -3,6 +3,7 @@ package com.cloud.tv.core.manager.integrated.policy;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONReader;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.CommUtils;
@@ -19,6 +20,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -330,12 +332,13 @@ public class TopoPolicyIntegrateController {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
-            url = url + "topology-layer/whale/GET/node/navigation";
+            url = url + "/topology-layer/whale/GET/node/navigation";
             Object result = this.nodeUtil.getBody(dto, url, token);
             Map map = JSONObject.parseObject(result.toString(), Map.class);
             Map resultMap = new HashMap();
             resultMap.put(0, map.get("0"));
             resultMap.put(1, map.get("1"));
+            resultMap.put(3, map.get("3"));
             return ResponseUtil.ok(resultMap);
         }
         return ResponseUtil.error();
@@ -357,8 +360,8 @@ public class TopoPolicyIntegrateController {
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
             url = url + "/topology-policy/policy/rule-list-search";
-            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
-            return ResponseUtil.ok(result);
+            Object object = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(object);
         }
         return ResponseUtil.error();
     }
@@ -371,7 +374,13 @@ public class TopoPolicyIntegrateController {
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
             url = url + "/topology-policy/policy/filter-list/rout/rule-list";
-            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            Object object = this.nodeUtil.postFormDataBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("success") != null){
+                if(result.get("success").toString().equals("false")){
+                    return ResponseUtil.error(result.get("message").toString());
+                }
+            }
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
@@ -453,7 +462,7 @@ public class TopoPolicyIntegrateController {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
-            url = url + "topology-policy/policy/filter-list/rout-table";
+            url = url + "/topology-policy/policy/filter-list/rout-table";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

@@ -213,6 +213,21 @@ public class TopologyManagerController {
         return ResponseUtil.error();
     }
 
+
+    @ApiOperation("图层编辑（修改拓扑名称）")
+    @RequestMapping(value="/topology-layer/layerInfo/POST/editLayer")
+    public Object editLayer(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/topology-layer/layerInfo/POST/editLayer";
+            Object result = this.nodeUtil.postFormDataBody(dto  , url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
     @ApiOperation("新建画布")
     @RequestMapping("/topology-layer/layerInfo/POST/saveLayer")
     public Object saveLayer(@RequestBody(required = false) NodeDto dto){

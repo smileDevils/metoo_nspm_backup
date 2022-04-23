@@ -41,7 +41,7 @@ public class TopoOpenManageController {
 
     @ApiOperation("列表")
     @RequestMapping("/push/recommend/task/searchtasklist.action")
-    public Object searchsecuritypolicytasklist(@RequestBody(required = false) PolicyDto dto){
+    public Object searchtasklist(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();

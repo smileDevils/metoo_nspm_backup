@@ -136,5 +136,6 @@ public class PolicyDto implements Serializable {
     private String ipTerms;
     private String state;
     private Integer index;
+    private String nextHop;
 
 }
