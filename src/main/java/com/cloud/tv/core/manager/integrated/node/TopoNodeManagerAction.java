@@ -9,12 +9,11 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
+import com.cloud.tv.core.utils.query.PageInfo;
 import com.cloud.tv.dto.NodeDto;
 import com.cloud.tv.dto.PolicyDto;
-import com.cloud.tv.entity.Group;
-import com.cloud.tv.entity.SysConfig;
-import com.cloud.tv.entity.TopoNode;
-import com.cloud.tv.entity.User;
+import com.cloud.tv.entity.*;
+import com.github.pagehelper.Page;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.beanutils.BeanMap;
 import org.springframework.beans.BeanUtils;
@@ -32,10 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping("/nspm/node")
 @RestController
@@ -73,6 +69,16 @@ public class TopoNodeManagerAction {
             resultMap.put(0, map.get("0"));
             resultMap.put(1, map.get("1"));
             resultMap.put(3, map.get("3"));
+            if(map.get("3") != null){
+                Map vendor = JSONObject.parseObject(map.get("3").toString(), Map.class);
+                for (Object key : vendor.keySet()){
+                    if(key.toString().equals("安博通")){
+                        vendor.put("觅通", vendor.get(key.toString()));
+                        vendor.remove("安博通");
+                    }
+                }
+                resultMap.put("3", vendor);
+            }
             return ResponseUtil.ok(resultMap);
         }
         return ResponseUtil.error();
@@ -183,7 +189,6 @@ public class TopoNodeManagerAction {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        String uuid = dto.getUuid();
         if(url != null && token != null){
             url = url + "/topology/node/simulation/addGateway.action/";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
@@ -254,18 +259,25 @@ public class TopoNodeManagerAction {
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("result") != null && Boolean.valueOf(result.get("result").toString())){
                 TopoNode topoNode = new TopoNode();
-                if(dto.getBranchLevel() == null){
+
+                BeanUtils.copyProperties(dto, topoNode);
+                // 根据等级查询等级信息
+                Group group = this.groupService.getObjByLevel(dto.getBranchLevel());
+                topoNode.setBranchId(group.getId());
+                topoNode.setBranchName(group.getBranchName());
+                topoNode.setBranchLevel(group.getLevel());
+                if(group == null){
                     User user = ShiroUserHolder.currentUser();
                     topoNode.setBranchId(user.getGroupId());
                     topoNode.setBranchName(user.getGroupName());
                     topoNode.setBranchLevel(user.getGroupLevel());
                 }
-                BeanUtils.copyProperties(dto, topoNode);
                 // 检测Ip是否已存在
                 TopoNode obj = this.nodeService.getObjByHostAddress(topoNode.getHostAddress());
                 if(obj != null){
                     this.nodeService.update(topoNode);
                 }else{
+                    topoNode.setAddTime(new Date());
                     this.nodeService.save(topoNode);
                 }
             }
@@ -273,6 +285,7 @@ public class TopoNodeManagerAction {
         }
         return ResponseUtil.error();
     }
+
 
     @ApiOperation("验证Ip是否存在")
     @RequestMapping("/booleanExistIPs")

@@ -2,7 +2,11 @@ package com.cloud.tv.core.service.impl;
 
 import com.cloud.tv.core.mapper.NodeMapper;
 import com.cloud.tv.core.service.INodeService;
+import com.cloud.tv.dto.NodeDto;
 import com.cloud.tv.entity.TopoNode;
+import com.cloud.tv.vo.UserVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +20,20 @@ public class NodeServiceImpl implements INodeService {
     private NodeMapper nodeMapper;
 
     @Override
+    public TopoNode getObjById(Long id) {
+        return this.nodeMapper.getObjById(id);
+    }
+
+    @Override
     public TopoNode getObjByHostAddress(String hostAddress) {
         return this.nodeMapper.getObjByHostAddress(hostAddress);
+    }
+
+    @Override
+    public Page<TopoNode> query(NodeDto nodeDto) {
+        Page<TopoNode> page = PageHelper.startPage(nodeDto.getStart(), nodeDto.getLimit());
+        this.nodeMapper.query(nodeDto);
+        return page;
     }
 
     @Override
@@ -28,5 +44,11 @@ public class NodeServiceImpl implements INodeService {
     @Override
     public int update(TopoNode instance) {
         return this.nodeMapper.update(instance);
+    }
+
+    @Override
+    public int delete(Long id) {
+
+        return this.nodeMapper.delete(id);
     }
 }

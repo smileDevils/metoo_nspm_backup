@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ApiModel("设备")
 @Data
 @Accessors
@@ -19,4 +22,6 @@ public class Device extends IdEntity {
     private String name;
     @ApiModelProperty("设备索引")
     private Integer index;
+    @ApiModelProperty("厂商")
+    private List<Vendor> vendorList = new ArrayList<>();
 }

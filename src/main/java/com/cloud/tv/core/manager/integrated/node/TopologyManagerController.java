@@ -315,15 +315,19 @@ public class TopologyManagerController {
         return ResponseUtil.error();
     }
 
-    @ApiOperation("设备-关联子网")
+    @ApiOperation("源子网查询")
     @RequestMapping("/topology-layer/whale/GET/subnets")
-    public Object subnets(NodeDto dto){
+    public Object subnets(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
             url = url + "/topology-layer/whale/GET/subnets";
-            Object result = this.nodeUtil.getBody(dto, url, token);
+            Object object = this.nodeUtil.getBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("success").toString().equals("false")){
+              return ResponseUtil.error(result.get("message").toString());
+            }
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();

@@ -338,7 +338,16 @@ public class TopoPolicyIntegrateController {
             Map resultMap = new HashMap();
             resultMap.put(0, map.get("0"));
             resultMap.put(1, map.get("1"));
-            resultMap.put(3, map.get("3"));
+            if(map.get("3") != null){
+                Map vendor = JSONObject.parseObject(map.get("3").toString(), Map.class);
+                for (Object key : vendor.keySet()){
+                    if(key.toString().equals("安博通")){
+                        vendor.put("觅通", vendor.get(key.toString()));
+                        vendor.remove("安博通");
+                    }
+                }
+                resultMap.put("3", vendor);
+            }
             return ResponseUtil.ok(resultMap);
         }
         return ResponseUtil.error();

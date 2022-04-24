@@ -1,5 +1,7 @@
 package com.cloud.tv.dto;
 
+import com.cloud.tv.entity.TopoNode;
+import com.cloud.tv.entity.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -14,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("节点配置")
-public class NodeDto<T> {
+public class NodeDto<T> extends PageDto<TopoNode> {
 
     @ApiModelProperty("页数")
     private Integer start;
@@ -90,7 +92,6 @@ public class NodeDto<T> {
 
     // 采集配置
     private Integer pageIndex;
-    private Integer pageSize;
     private String selectBox;
     private String id2;
 
@@ -173,5 +174,7 @@ public class NodeDto<T> {
     private String skipHost;
     private List elements;
     private String topoModType;
+    private String ip4Addr;
+
 
 }
