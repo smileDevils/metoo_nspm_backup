@@ -1,17 +1,14 @@
 package com.cloud.tv.core.manager.integrated.node;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
-import com.cloud.tv.core.service.ICredentialService;
 import com.cloud.tv.core.service.IGroupService;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.CredentialDto;
-import com.cloud.tv.entity.Credential;
 import com.cloud.tv.entity.Group;
 import com.cloud.tv.entity.SysConfig;
 import com.cloud.tv.entity.User;
@@ -99,8 +96,41 @@ public class TopoCredentialManagerController {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         if (url != null && token != null) {
-            url = url + "/push/credential/create";
-            Object result = this.nodeUtil.postBody(dto, url, token);
+            String createUrl = url + "/push/credential/create";
+            Object object = this.nodeUtil.postBody(dto, createUrl, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("code").toString().equals("200")){
+              // 查询uuid
+                CredentialDto dto1 = new CredentialDto();
+                dto.setBranchLevel("");
+                dto.setPageIndex(1);
+                dto.setPageSize(10);
+                dto.setSelectBox("false");
+                String getUrl = url + "/push/credential/getall";
+                Object credential = this.nodeUtil.postBody(dto, getUrl, token);
+                JSONObject credentialJson = JSONObject.parseObject(credential.toString());
+                if (credentialJson.get("content") != null) {
+                    JSONObject content = JSONObject.parseObject(credentialJson.get("content").toString());
+                    if (content.get("list") != null) {
+                        List list = new ArrayList();
+                        JSONArray arrays = JSONArray.parseArray(content.get("list").toString());
+                        for(Iterator var10 = arrays.iterator(); var10.hasNext();) {
+                            Object array = var10.next();
+                            JSONObject json = JSONObject.parseObject(array.toString());
+                            String uuid = json.get("uuid").toString();
+                            // 分配组
+                            CredentialDto dto2 = new CredentialDto();
+                            User currentUser = ShiroUserHolder.currentUser();
+                            User user = this.userService.findByUserName(currentUser.getUsername());
+                            dto2.setBranchLevel(user.getGroupLevel());
+                            dto2.setUuid(uuid);
+                            String updateUrl = url + "/push/credential/batch-credential-update";
+                            this.nodeUtil.postBody(dto2, updateUrl, token);
+                            break;
+                        }
+                    }
+                }
+            }
             return ResponseUtil.ok(result);
         } else {
             return ResponseUtil.error();

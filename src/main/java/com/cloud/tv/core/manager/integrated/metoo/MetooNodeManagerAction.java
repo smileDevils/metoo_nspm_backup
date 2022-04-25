@@ -125,16 +125,49 @@ public class MetooNodeManagerAction {
         if(url != null && token != null){
             url = url + "/topology/node/queryNode.action";
         }
+        if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+            User currentUser = ShiroUserHolder.currentUser();
+            User user = this.userService.findByUserName(currentUser.getUsername());
+            dto.setBranchLevel(user.getGroupLevel());
+        }
         // 分页查询
         Page<TopoNode> page = this.nodeService.query(dto);
         if(page.getResult().size() > 0){
+            // 遍历Topo
+            List<TopoNode> topoNodes = page.getResult();
+            for(TopoNode topoNode : topoNodes){
+                if(topoNode.getState() == -1 || topoNode.getState() == -2 ){
+                    // 获取安博通节点信息，更新采集状态
+                    dto.setFilter(topoNode.getHostAddress());
+                    dto.setState(null);
+                    Object object = this.nodeUtil.getBody(dto, url, token);
+                    JSONObject result = JSONObject.parseObject(object.toString());
+                    if(!result.get("total").toString().equals("0")){
+                        if(result.get("data") != null) {
+                            JSONArray arrays = JSONArray.parseArray(result.get("data").toString());
+                            for(Object array : arrays){
+                                JSONObject data = JSONObject.parseObject(array.toString());
+                                if(Integer.parseInt(data.get("state").toString()) != topoNode.getState()){
+                                    topoNode.setState(Integer.parseInt(data.get("state").toString()));
+                                    this.nodeService.update(topoNode);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             return ResponseUtil.ok(new PageInfo<TopoNode>(page));
         }
         return ResponseUtil.ok();
     }
 
+    /**
+     * 节点关联组(联表查询)
+     * @param dto
+     * @return
+     */
     @ApiOperation("节点保存(local)")
-    @RequestMapping("/addGatherNode1")
+    @RequestMapping("/addGatherNode")
     public Object addGatherNodeLocal(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
@@ -168,6 +201,8 @@ public class MetooNodeManagerAction {
                     this.nodeService.save(topoNode);
                 }
             }
+            // 新增节点,更新Vendor表
+
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();

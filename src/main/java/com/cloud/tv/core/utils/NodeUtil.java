@@ -12,6 +12,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -67,7 +68,13 @@ public class NodeUtil {
 
     public <T> Object postBody(T t, String url, String token){
         Map<String, Object> map = new BeanMap(t);
-        return this.post(map, url, token);
+        Map<String, Object> map1 = new HashMap();
+        for(String key : map.keySet()){
+            if(map.get(key) != null){
+                map1.put(key, map.get(key));
+            }
+        }
+        return this.post(map1, url, token);
     }
 
     public <T> Object postFormDataBody(T t, String url, String token){
