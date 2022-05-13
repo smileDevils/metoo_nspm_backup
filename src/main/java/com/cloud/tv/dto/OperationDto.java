@@ -32,6 +32,7 @@ public class OperationDto<T> {
     private String ipType;
     private String mergeCheck;
     private String outDevIf;
+    private String outDevItf;
     private String outDevItfAlias;
     private String rangeFilter;
     private List serviceList;
@@ -60,5 +61,6 @@ public class OperationDto<T> {
     private String data;
     private String branchLevel;
     private Integer id;
+    private String postDstIpSystem;
 }
 

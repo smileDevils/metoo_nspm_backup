@@ -448,6 +448,21 @@ public class TopoOpenManageController {
         return ResponseUtil.error();
     }
 
+
+    @ApiOperation("验证")
+    @RequestMapping("/push/recommend/verify/startverify")
+    public Object startverify(@RequestBody(required = false) PolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/push/recommend/verify/startverify";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
     @ApiOperation("验证列表")
     @RequestMapping("/push/recommend/task/verifypathinfolist")
     public Object verifypathinfolist(@RequestBody(required = false) PolicyDto dto){

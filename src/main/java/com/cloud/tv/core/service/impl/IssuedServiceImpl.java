@@ -8,7 +8,6 @@ import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.dto.PolicyDto;
 import com.cloud.tv.entity.*;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,7 +117,7 @@ public class IssuedServiceImpl implements IssuedService {
     }
 
     @Override
-    public String queryTask(String invisibleName, String type, List<Policy> policysNew, String command) {
+    public void queryTask(String invisibleName, String type, List<Policy> policysNew, String command) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
@@ -154,6 +153,7 @@ public class IssuedServiceImpl implements IssuedService {
                             order1.setUserName(user.getUsername());
                             order1.setBranchLevel(user.getGroupLevel());
                             order1.setBranchName(user.getGroupName());
+                            order1.setOrderId(taskId);
                             this.orderService.save(order1);
                             //更新策略
                             String uuid = "";
@@ -183,7 +183,6 @@ public class IssuedServiceImpl implements IssuedService {
         }
 
 
-                return null;
     }
 
     public String getInvisible(Integer taskId) throws IOException {

@@ -24,8 +24,6 @@ public class RoleGroupServiceImpl implements IRoleGroupService {
     private RoleGroupMapper roleGroupMapper;
     @Autowired
     private IRoleService roleService;
-    @Autowired
-    private IAccessoryService accessoryService;
 
     @Override
     public RoleGroup getObjById(Long id) {

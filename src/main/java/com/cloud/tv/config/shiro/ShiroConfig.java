@@ -60,7 +60,7 @@ public class ShiroConfig {
          *  添加 jwt 专用过滤器，拦截除 /login 和 /logout 外的请求
          */
         HashMap<String, Filter> myFilters = new HashMap<>(16);
-        myFilters.put("rmb", new MyAccessControlFilter());
+//        myFilters.put("rmb", new MyAccessControlFilter());
         myFilters.put("licenseFilter", new LicenseFilter());
         shiroFilterFactoryBean.setFilters(myFilters);
 
@@ -81,10 +81,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/auth/403", "anon");
         filterChainDefinitionMap.put("/admin/auth/404", "anon");
         filterChainDefinitionMap.put("/rtmp/**", "anon");
-        filterChainDefinitionMap.put("/license/systemInfo", "anon");
-        filterChainDefinitionMap.put("/license/update", "anon");
+//        filterChainDefinitionMap.put("/license/systemInfo", "anon");
+//        filterChainDefinitionMap.put("/license/update", "anon");
 
-        filterChainDefinitionMap.put("/**", "rmb");
+//        filterChainDefinitionMap.put("/**", "rmb");
 
         //filterChainDefinitionMap.put("/buyer/**", "authc");
         filterChainDefinitionMap.put("/license/**", "authc");
@@ -227,7 +227,6 @@ public class ShiroConfig {
         // 只能通过http访问cookie，js不能
         // XSS:保证该系统不会受到跨域的脚本操作攻击
         simpleCookie.setHttpOnly(true);
-        simpleCookie.setPath("/");
         //simpleCookie.setName("simpleCookie");
         //<!-- 记住我cookie生效时间30天 ,单位秒;如果设置为-1标识浏览器关闭就失效 -->
         simpleCookie.setMaxAge(2678400); // 5000   2678400

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.StringUtils;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -73,6 +74,10 @@ public class LoginController{
                         // 登陆成功，签发Jwt Token
                         String jwtToken = JwtUtil.sign(username, JwtUtil.SECRET);
                         response.setHeader(JwtUtil.AUTH_HEADER, jwtToken);
+                        Cookie cookie = new Cookie("access_token", "3c221ede-fb1d-4492-b291-bc7f4983cdf0");
+                        cookie.setMaxAge(-1);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
                         return ResponseUtil.ok();
                         //  return "redirect:/index.jsp";
                     } catch (UnknownAccountException e) {

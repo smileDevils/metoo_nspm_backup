@@ -87,7 +87,7 @@ public class AesEncryptUtils {
         String encrypt = encrypt(content, KEY);
         System.out.println("加密后：" + encrypt);
 
-        String decrypt = decrypt(encrypt, KEY);
+        String decrypt = decrypt("iqiRfaK2eZiaxwhfNvJ4qbGrAMTEhC+rXJw84y2rPPG8QtpK0BChvDfx3azZ70Rj1dvzKxP9tWsZSOCIpNQtVtj/M0uhMn29NCSgUfbCvOBLmfBVHxWJxOUqKzMEM5iNfeqSx4brhPYa+W4xbYWV9rsseWPLqfnj/FGmrBCZVN4TQ/WJMFSHN/gn2wIguTgHJJkIUkqVoujwF7vInnjoPsfzDQmOCjZD6xokfRTn8JsRtJB98qT9H1b3aThf6TAF+daj1ixdOa5TkpkCzpLRvw==", KEY);
         System.out.println("解密后：" + decrypt);
 
     }

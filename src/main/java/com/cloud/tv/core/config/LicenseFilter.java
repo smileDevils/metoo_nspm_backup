@@ -28,7 +28,6 @@ public class LicenseFilter implements Filter {
             chain.doFilter(req, res);
         }else{
             HttpServletResponse response = (HttpServletResponse) res;
-//        response.setStatus(HttpStatus.FORBIDDEN.value());
             String message = "未授权";
             switch (license.getStatus()){
                 case 1:

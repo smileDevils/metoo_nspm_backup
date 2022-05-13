@@ -185,7 +185,7 @@ public class TopoNodeManagerAction {
 
     @ApiOperation("保存")
     @RequestMapping(value="/simulation/addGateway")
-    public Object simulationAddGateway(@RequestBody NodeDto dto){
+    public Object addGateway(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();

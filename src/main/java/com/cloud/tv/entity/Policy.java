@@ -63,6 +63,8 @@ public class Policy extends IdEntity{
     private String invisible;
     @ApiModelProperty("工单号")
     private String orderNo;
+    private String deviceName;
+    private String deviceType;
 
 
 }

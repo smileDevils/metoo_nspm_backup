@@ -44,4 +44,32 @@ public class License extends IdEntity {
 
     @ApiModelProperty("SN码来源 0：同一来源 1：不同来源 不同来源则不允许使用")
     private Integer from;
+
+    @ApiModelProperty("License版本号")
+    private Integer licenseVersion;
+
+    // 授权信息
+    @ApiModelProperty("以导入防火墙")
+    private int useFirewall;
+    private boolean checkFirewall = false;
+    @ApiModelProperty("以导入路由交换")
+    private int useRouter;
+    private boolean checkRouter = false;
+    @ApiModelProperty("以导入主机数")
+    private int useHost;
+    private boolean checkHost = false;
+    @ApiModelProperty("以导入模拟网关")
+    private int useUe;
+    private boolean checkUe = false;
+
+    @ApiModelProperty("授权防火墙")
+    private int licenseFireWall;
+    @ApiModelProperty("授权路由/交换")
+    private int licenseRouter;
+    @ApiModelProperty("授权主机数")
+    private int licenseHost;
+    @ApiModelProperty("授权模拟网关")
+    private int licenseUe;
+
+
 }

@@ -105,6 +105,7 @@ public class NodeDto<T> extends PageDto<TopoNode> {
     private String controllerId;
     private String portNumber;
     private Integer timeout;
+    private String credentialUuid;
     private String pushCredentialUuid;
     private String deviceTemplateId;
     private String hostAddress;
@@ -120,7 +121,7 @@ public class NodeDto<T> extends PageDto<TopoNode> {
     private String charset;
     private String webHref;
     private String isChangeWarn;
-    private String credentialUuid;
+    private String credenGroupManagerControllertialUuid;
     private String ips;
 
     private String cmbDeviceType;
@@ -132,7 +133,7 @@ public class NodeDto<T> extends PageDto<TopoNode> {
     private String layerName;
 
     private String baseUrl;
-    private T content;
+    private Object content;
     private String layerUuid;
     private String name;
     private String layerUuids;
@@ -140,7 +141,7 @@ public class NodeDto<T> extends PageDto<TopoNode> {
     private String subnetUuid;
     private String opUuid;
 
-    private T routeStr;
+    private Object routeStr;
 
     private List interfaces;
     private List beginFlow;
@@ -175,6 +176,17 @@ public class NodeDto<T> extends PageDto<TopoNode> {
     private List elements;
     private String topoModType;
     private String ip4Addr;
-
+    private String currDevicePathStatus;
+    private Object device;
+    private List deviceFlows;
+    private String inIfId;
+    private String outIfId;
+    private Object inInterface;
+    private Object outInterface;
+    private String createdTime;
+    private Object iprange;
+    private String lastModifiedTime;
+    private String subnetMark;
+    private String subnetUserType;
 
 }

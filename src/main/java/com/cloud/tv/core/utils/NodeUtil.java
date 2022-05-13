@@ -71,10 +71,26 @@ public class NodeUtil {
         Map<String, Object> map1 = new HashMap();
         for(String key : map.keySet()){
             if(map.get(key) != null){
-                map1.put(key, map.get(key));
+                if(key.equals("PUuid")){
+                    map1.put("pUuid", map.get(key));
+                }else if(key.equals("PBusinessZoneUuid")){
+                    map1.put("pBusinessZoneUuid", map.get(key));
+                }else{
+                    map1.put(key, map.get(key));
+                }
+
             }
         }
         return this.post(map1, url, token);
+    }
+
+    public <T> Object postFormSend(T t, String url, String token){
+        Map<String, Object> map = new BeanMap(t);
+        MultiValueMap<String, Object> multValueMap = new LinkedMultiValueMap<String, Object>();
+        for(String key : map.keySet()){
+            multValueMap.set(key, map.get(key));
+        }
+        return this.postForm(multValueMap, url, token);
     }
 
     public <T> Object postFormDataBody(T t, String url, String token){
@@ -158,7 +174,27 @@ public class NodeUtil {
     public Object post(Map<String, Object> map, String url, String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);// 设置密钥
-        MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+        MediaType type = MediaType.parseMediaType("application/json");
+        headers.setContentType(type);
+        HttpEntity<Map<String, Object>> httpEntity = null;
+        if(map.isEmpty()){
+            httpEntity = new HttpEntity(headers);
+        }else{
+            httpEntity = new HttpEntity(map,headers);
+        }
+        ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class);
+        if (StringUtils.isNotEmpty(exchange.getBody())) {
+            String body = exchange.getBody();
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return jsonObject;
+        }
+        return null;
+    }
+
+    public Object postForm(MultiValueMap<String, Object> map, String url, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);// 设置密钥
+        MediaType type = MediaType.parseMediaType("application/x-www-form-urlencoded;charset=UTF-8");
         headers.setContentType(type);
         HttpEntity<Map<String, Object>> httpEntity = null;
         if(map.isEmpty()){

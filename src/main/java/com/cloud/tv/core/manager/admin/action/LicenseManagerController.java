@@ -7,9 +7,11 @@ import com.cloud.tv.core.utils.AesEncryptUtils;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.core.utils.SystemInfoUtils;
 import com.cloud.tv.entity.License;
+import com.cloud.tv.vo.LicenseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.*;
 
 @RequestMapping("/license")
@@ -29,19 +31,31 @@ public class LicenseManagerController {
     public Object systemInfo(){
         try {
             System.out.println(this.systemInfoUtils.getBiosUuid());
-            return this.aesEncryptUtils.encrypt(this.systemInfoUtils.getBiosUuid());
+            String sn = this.aesEncryptUtils.encrypt(this.systemInfoUtils.getBiosUuid());
+            return ResponseUtil.ok(sn);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
     }
+   }
 
-    @GetMapping("/info")
-    public Object get(){
-        License license = this.licenseService.query().get(0);
-        Map map = new HashMap();
-        map.put("sn", license.getSystemSN());
-        return ResponseUtil.ok(map);
+    @GetMapping("/query")
+    public Object query(){
+        License obj = this.licenseService.query().get(0);
+        try {
+            String code = this.aesEncryptUtils.decrypt(obj.getLicense());
+            LicenseVo license = JSONObject.parseObject(code, LicenseVo.class);
+            license.setUseDay(10);
+            license.setSurplusDay(10);
+            license.setUseFirewall(0);
+            license.setLicenseRouter(0);
+            license.setUseHost(0);
+            license.setUseUe(0);
+            return ResponseUtil.ok(license);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseUtil.ok();
     }
 
     /**
@@ -50,21 +64,20 @@ public class LicenseManagerController {
      * @return
      */
     @PutMapping("update")
-    public Object license(@RequestParam("license") String license){
+    public Object license(@RequestBody Map license){
         String uuid = this.systemInfoUtils.getBiosUuid();
         // 验证license合法性
-        boolean flag = this.licenseTools.verify(uuid, license);
+        String code = license.get("license").toString();
+        boolean flag = this.licenseTools.verify(uuid, code);
         if(flag){
             License obj = this.licenseService.query().get(0);
             if(!obj.getLicense().equals(license)){
-                obj.setLicense(license);
-                if(obj.getFrom() == 1){
-                    obj.setFrom(0);
-                    obj.setSystemSN(uuid);
-                    obj.setStatus(0);
-                    if(!this.verify(license)){
-                        obj.setStatus(2);
-                    }
+                obj.setLicense(code);
+                obj.setFrom(0);
+                obj.setSystemSN(uuid);
+                obj.setStatus(0);
+                if(!this.verify(code)){
+                    obj.setStatus(2);
                 }
                 this.licenseService.update(obj);
                 return ResponseUtil.ok("授权成功");
@@ -130,17 +143,17 @@ public class LicenseManagerController {
         }
     }
 
-    public boolean verify(String license)  {
+    public boolean verify(String code)  {
         // 检测授权码是否已过期
-        if (license != null) {
-            Map map = null;
+        if (code != null) {
+            License license = null;
             try {
-                map = JSONObject.parseObject(this.aesEncryptUtils.decrypt(license), Map.class);
+                license = JSONObject.parseObject(this.aesEncryptUtils.decrypt(code), License.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (map != null) {
-                String endTimeStamp = map.get("expireTime").toString();// 有效期
+            if (license != null) {
+                String endTimeStamp = license.getEndTime();// 有效期
                 if (endTimeStamp != null && !endTimeStamp.isEmpty()) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(new Date());

@@ -49,18 +49,18 @@ public class UserManagerController {
     }
 
     @RequestMapping("test")
-    public Object getUser(){
-      return this.userService.getObjByLevel(null);
+    public Object getUser() {
+        return this.userService.getObjByLevel(null);
     }
 
     @ApiOperation("用户列表")
     @RequestMapping("/list")
-    public Object list(@RequestBody(required=false) UserDto dto){
-        if(dto == null){
+    public Object list(@RequestBody(required = false) UserDto dto) {
+        if (dto == null) {
             dto = new UserDto();
         }
         Page<UserVo> page = this.userService.getObjsByLevel(dto);
-        if(page.getResult().size() > 0){
+        if (page.getResult().size() > 0) {
             return ResponseUtil.ok(new PageInfo<Role>(page));
         }
         return ResponseUtil.ok();
@@ -80,17 +80,17 @@ public class UserManagerController {
 //        return ResponseUtil.ok();
 //    }
 
-//    @RequiresPermissions("ADMIN:USER:ADD")
+    //    @RequiresPermissions("ADMIN:USER:ADD")
 //    @RequiresPermissions("LK:USER:MANAGER")
     @ApiOperation("用户添加")
     @GetMapping("/add")
-    public Object add(){
+    public Object add() {
         Map params = new HashMap();
         params.put("currentPage", 0);
         params.put("pageSize", 0);
         List<Role> roleList = this.roleService.findObjByMap(params);
-        if(roleList.size() > 0){
-            Map data  = new HashMap();
+        if (roleList.size() > 0) {
+            Map data = new HashMap();
             data.put("roleList", roleList);
             return ResponseUtil.ok(data);
         }
@@ -109,13 +109,13 @@ public class UserManagerController {
         return ResponseUtil.ok(map);
     }*/
 
-//    @RequiresPermissions("ADMIN:USER:UPDATE")
+    //    @RequiresPermissions("ADMIN:USER:UPDATE")
 //    @RequiresPermissions(value = {"LK:USER", "LK:USER:MANAGER"})
     @ApiOperation("用户更新")
     @PostMapping("/update")
-    public Object update(@RequestBody(required = false) UserDto dto){
+    public Object update(@RequestBody(required = false) UserDto dto) {
         User user = this.userService.findObjById(dto.getId());
-        if(user != null){
+        if (user != null) {
             Map data = new HashMap();
             /*List<Role> userRoleList = this.roleService.findRoleByUserId(user.getId());
             data.put("userRoleList",userRoleList);*/
@@ -125,7 +125,7 @@ public class UserManagerController {
             params.put("currentPage", 0);
             params.put("pageSize", 0);
             List<Role> roleList = this.roleService.findObjByMap(params);
-            if(roleList.size() > 0){
+            if (roleList.size() > 0) {
                 data.put("roleList", roleList);
             }
             return ResponseUtil.ok(data);
@@ -152,112 +152,112 @@ public class UserManagerController {
         return ResponseUtil.badArgument();
     }*/
 
-//    @RequiresPermissions("ADMIN:USER:SAVE")
+    //    @RequiresPermissions("ADMIN:USER:SAVE")
 //    @RequiresPermissions(value = {"LK:USER", "LK:USER:MANAGER"}, logical = Logical.OR)
     @ApiOperation("用户保存")
     @PostMapping("/save")
-    public Object save(@RequestBody UserDto dto){
-        if(dto != null && dto.getId() != null){
-            if(dto.getUsername() != null && !dto.getUsername().equals("")){
+    public Object save(@RequestBody UserDto dto) {
+        if (dto != null && dto.getId() != null) {
+            if (dto.getUsername() != null && !dto.getUsername().equals("")) {
                 User currentUser = ShiroUserHolder.currentUser();
                 User user = this.userService.findByUserName(dto.getUsername());
-                if(user != null){
-                    if(!currentUser.getUsername().equals(dto.getUsername())){// 修改用户名强制退出已登录用户
+                if (user != null) {
+                    if (!currentUser.getUsername().equals(dto.getUsername())) {// 修改用户名强制退出已登录用户
                         dto.setFlag(true);
                     }
-                    if(currentUser.getUsername().equals(dto.getUsername())
+                    if (currentUser.getUsername().equals(dto.getUsername())
                             && currentUser.getSex().equals(dto.getSex())
                             && currentUser.getAge().equals(dto.getAge())
                             && StringUtils.isEmpty(dto.getPassword())
-                            && StringUtils.isEmpty(dto.getVerifyPassword())){
+                            && StringUtils.isEmpty(dto.getVerifyPassword())) {
                         return ResponseUtil.ok();
                     }
-                    if(!user.getId().equals(currentUser.getId())){
+                    if (!user.getId().equals(currentUser.getId())) {
                         return ResponseUtil.fail(400, "用户已存在");
                     }
-                }else{
+                } else {
                     dto.setFlag(true);
                 }
-                 if(!StringUtils.isEmpty(dto.getPassword()) || !StringUtils.isEmpty(dto.getVerifyPassword())){
+                if (!StringUtils.isEmpty(dto.getPassword()) || !StringUtils.isEmpty(dto.getVerifyPassword())) {
                     String oldPassword = CommUtils.password(dto.getOldPassword(), currentUser.getSalt());
-                    if(!currentUser.getPassword().equals(oldPassword)){
+                    if (!currentUser.getPassword().equals(oldPassword)) {
                         return ResponseUtil.badArgument("旧密码和原始密码不一致");
                     }
                     String newPassword = CommUtils.password(dto.getPassword(), currentUser.getSalt());
-                    if(newPassword.equals(oldPassword)){
+                    if (newPassword.equals(oldPassword)) {
                         return ResponseUtil.badArgument("新密码不能和旧密码相同");
                     }
-                    if(!dto.getPassword().equals(dto.getVerifyPassword())){
+                    if (!dto.getPassword().equals(dto.getVerifyPassword())) {
                         return ResponseUtil.badArgument("新密码和确认密码不一致");
                     }
-                    if(dto.getPassword().length() < 6 || dto.getPassword().length() > 20){
-                         return ResponseUtil.badArgument("设置6-20位新密码");
+                    if (dto.getPassword().length() < 6 || dto.getPassword().length() > 20) {
+                        return ResponseUtil.badArgument("设置6-20位新密码");
                     }
                     String sale = SaltUtils.getSalt(8);
                     dto.setPassword(CommUtils.password(dto.getPassword(), sale));
                     dto.setSalt(sale);
                     dto.setFlag(true);
                 }
-                if( this.userService.save(dto)){
+                if (this.userService.save(dto)) {
                     return ResponseUtil.ok();
                 }
                 return ResponseUtil.error();
             }
-                return ResponseUtil.badArgument("请输入用户名");
+            return ResponseUtil.badArgument("请输入用户名");
         }
         return ResponseUtil.badArgument("请输入用户ID");
     }
 
-//    @RequiresPermissions("ADMIN:USER:SAVE")
+    //    @RequiresPermissions("ADMIN:USER:SAVE")
     @RequiresPermissions(value = {"LK:USER:MANAGER"})
     @ApiOperation("创建用户")
     @PostMapping("/create")
-    public Object persionalSave(@RequestBody UserDto dto){
-        if(dto != null){
-            if(StringUtil.isEmpty(dto.getUsername())){// 新增时必须验证密码
+    public Object persionalSave(@RequestBody UserDto dto) {
+        if (dto != null) {
+            if (StringUtil.isEmpty(dto.getUsername())) {// 新增时必须验证密码
                 return ResponseUtil.badArgument("请输入用户名");
             }
-            if(dto.getId() == null && StringUtils.isEmpty(dto.getPassword())){
+            if (dto.getId() == null && StringUtils.isEmpty(dto.getPassword())) {
                 return ResponseUtil.badArgument("请输入密码");
             }
             User currentUser = this.userService.findObjById(dto.getId());
             User user = this.userService.findByUserName(dto.getUsername());
-            if(user != null){
-                if(currentUser != null){
-                    if(!user.getId().equals(currentUser.getId())){
+            if (user != null) {
+                if (currentUser != null) {
+                    if (!user.getId().equals(currentUser.getId())) {
                         return ResponseUtil.fail(400, "用户已存在");
                     }
-                }else{
+                } else {
                     return ResponseUtil.fail(400, "用户已存在");
                 }
             }
 
-            if(!StringUtils.isEmpty(dto.getPassword())){
-                if(dto.getPassword().length() < 6 || dto.getPassword().length() > 20){
+            if (!StringUtils.isEmpty(dto.getPassword())) {
+                if (dto.getPassword().length() < 6 || dto.getPassword().length() > 20) {
                     return ResponseUtil.badArgument("设置6-20位新密码");
-                }else{
+                } else {
                     String sale = SaltUtils.getSalt(8);
                     String password = CommUtils.password(dto.getPassword(), sale);
                     dto.setPassword(password);
                     dto.setSalt(sale);
                 }
             }
-            if( this.userService.save(dto)){
+            if (this.userService.save(dto)) {
                 return ResponseUtil.ok();
             }
             return ResponseUtil.error();
-         }
+        }
         return ResponseUtil.badArgument();
-     }
+    }
 
 
-//    @RequiresPermissions("ADMIN:USER:DELETE")
+    //    @RequiresPermissions("ADMIN:USER:DELETE")
     @RequiresPermissions(value = {"LK:USER:MANAGER"})
     @ApiOperation("用户删除")
     @RequestMapping("/delete")
-    public Object delete(@RequestBody UserDto dto){
+    public Object delete(@RequestBody UserDto dto) {
         User user = this.userService.findObjById(dto.getId());
-        if(user != null){
+        if (user != null) {
             user.setDeleteStatus(-1);
             this.userService.update(user);
             // 清空用户直播间
@@ -266,13 +266,13 @@ public class UserManagerController {
             params.put("currentPage", 0);
             params.put("userId", user.getId());
             List<LiveRoom> liveRoomList = this.liveRoomService.findObjByMap(params);
-            for(LiveRoom liveRoom : liveRoomList){
+            for (LiveRoom liveRoom : liveRoomList) {
                 liveRoom.setDeleteStatus(-1);
                 this.liveRoomService.update(liveRoom);
             }
             // 清空用户直播
             List<RoomProgram> roomProgramList = this.roomProgramService.findObjByCondition(params);
-            for(RoomProgram roomProgram : roomProgramList){
+            for (RoomProgram roomProgram : roomProgramList) {
                 roomProgram.setDeleteStatus(-1);
                 this.roomProgramService.update(roomProgram);
             }
@@ -282,7 +282,7 @@ public class UserManagerController {
             params.put("currentPage", 0);
             params.put("userId", user.getId());
             List<Video> videoList = this.videoService.findObjByMap(params);
-            for(Video video : videoList){
+            for (Video video : videoList) {
                 video.setDeleteStatus(-1);
                 this.videoService.update(video);
             }
@@ -294,35 +294,76 @@ public class UserManagerController {
         return ResponseUtil.badArgument();
     }
 
-//    @RequiresPermissions(value = {"LK:USER"}) // 创建帐号应分配个人中心权限
+    //    @RequiresPermissions(value = {"LK:USER"}) // 创建帐号应分配个人中心权限
     @ApiOperation("个人中心")
     @RequestMapping("/personal")
-    public Object personal(){
+    public Object personal() {
         User user = ShiroUserHolder.currentUser();
-        if(user == null){
+        if (user == null) {
             return ResponseUtil.unlogin();
         }
-        return user;
+        return ResponseUtil.ok(user);
     }
 
     @RequestMapping("/allocation")
-    public Object allocation(@RequestBody UserDto dto){
-        if(dto.getGroupId() != null){
+    public Object allocation(@RequestBody UserDto dto) {
+        if (dto.getGroupId() != null) {
             Group group = this.groupService.queryObjById(dto.getGroupId());
-            if(group != null){
-               List<User> userList = this.userService.findObjByIds(dto.getUserIds());
-               for(User user : userList){
-                   user.setGroupId(group.getId());
-                   user.setGroupLevel(group.getLevel());
-               }
-               boolean allocation = this.userService.allocation(userList);
-               if(allocation){
-                   return ResponseUtil.ok();
-               }
-                 return ResponseUtil.error();
+            if (group != null) {
+                List<User> userList = this.userService.findObjByIds(dto.getUserIds());
+                for (User user : userList) {
+                    user.setGroupId(group.getId());
+                    user.setGroupLevel(group.getLevel());
+                }
+                boolean allocation = this.userService.allocation(userList);
+                if (allocation) {
+                    return ResponseUtil.ok();
+                }
+                return ResponseUtil.error();
             }
         }
         return null;
+    }
+
+
+    @ApiOperation("修改密码")
+    @RequestMapping("/editPassword")
+    public Object editPaswork(@RequestBody UserDto dto) {
+        if (dto != null && dto.getId() != null) {
+            User currentUser = ShiroUserHolder.currentUser();
+            User user = this.userService.findObjById(dto.getId());
+            if(currentUser == user){
+                if (!StringUtils.isEmpty(dto.getPassword()) || !StringUtils.isEmpty(dto.getVerifyPassword())) {
+                    String oldPassword = CommUtils.password(dto.getOldPassword(), currentUser.getSalt());
+                    if (!currentUser.getPassword().equals(oldPassword)) {
+                        return ResponseUtil.badArgument("旧密码和原始密码不一致");
+                    }
+                    String newPassword = CommUtils.password(dto.getPassword(), currentUser.getSalt());
+                    if (newPassword.equals(oldPassword)) {
+                        return ResponseUtil.badArgument("新密码不能和旧密码相同");
+                    }
+                    if (!dto.getPassword().equals(dto.getVerifyPassword())) {
+                        return ResponseUtil.badArgument("新密码和确认密码不一致");
+                    }
+                    if (dto.getPassword().length() < 6 || dto.getPassword().length() > 20) {
+                        return ResponseUtil.badArgument("设置6-20位新密码");
+                    }
+                    String sale = SaltUtils.getSalt(8);
+                    dto.setPassword(CommUtils.password(dto.getPassword(), sale));
+                    dto.setSalt(sale);
+                    dto.setFlag(true);
+                    if (this.userService.save(dto)) {
+                        return ResponseUtil.ok();
+                    }
+                } else {
+
+                    return ResponseUtil.badArgument("请输入密码或确认密码");
+                }
+            }
+            return ResponseUtil.badArgument();
+
+        }
+        return ResponseUtil.badArgument("请输入用户ID");
     }
 
 

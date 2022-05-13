@@ -9,10 +9,7 @@ import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.PolicyDto;
-import com.cloud.tv.entity.Order;
-import com.cloud.tv.entity.Policy;
-import com.cloud.tv.entity.SysConfig;
-import com.cloud.tv.entity.User;
+import com.cloud.tv.entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.jws.Oneway;
 import javax.xml.ws.Response;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api("策略下发")
 @RequestMapping("/nspm/policy")
@@ -99,8 +98,16 @@ public class TopoIssuedManagerController {
     @ApiOperation("策略信息")
     @RequestMapping("/getPolicy")
     public Object policys(@RequestBody Policy policy){
+        Map map = new HashMap();
+
         List<Policy> policys = this.policyService.getObjOrderNo(policy.getOrderNo());
-        return ResponseUtil.ok(policys);
+        map.put("policys", policys);
+        if(policys.size() > 0){
+            Policy obj = policys.get(0);
+            map.put("deviceName", obj.getDeviceName());
+            map.put("deviceType", obj.getDeviceType());
+        }
+        return ResponseUtil.ok(map);
     }
 
     @ApiOperation("下发详情")
@@ -111,19 +118,19 @@ public class TopoIssuedManagerController {
         String token = sysConfig.getNspmToken();
         if(url != null && token != null){
             url = url + "/push/recommend/task/getcommand";
-            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
-//            JSONObject results = JSONObject.parseObject(result.toString());
-//            JSONArray arrays = JSONArray.parseArray(results.get("data").toString());
-//            List list = new ArrayList();
-//            for(Object array : arrays){
-//                JSONObject obj = JSONObject.parseObject(array.toString());
-//                String command = obj.get("command").toString();
-//                int index = command.indexOf("\n");
-//                String str = command.substring(0, index);
-//                obj.put("command", command.substring(str.length() + 1));
-//                list.add(obj);
-//            }
-//            results.put("data", list);
+            Object object = this.nodeUtil.postFormDataBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            JSONArray arrays = JSONArray.parseArray(result.get("data").toString());
+            List list = new ArrayList();
+            for(Object array : arrays){
+                JSONObject obj = JSONObject.parseObject(array.toString());
+                Order order = this.orderService.getObjByOrderId(Long.parseLong(obj.get("taskId").toString()));
+                if (order != null){
+                    obj.put("editUserName", order.getUserName());
+                }
+                list.add(obj);
+            }
+            result.put("data", list);
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();

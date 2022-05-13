@@ -687,5 +687,19 @@ public class TopologyManagerController {
         return ResponseUtil.error();
     }
 
+    @ApiOperation("设备策略")
+    @PostMapping("/topology-policy/pathAnaly/external/deviceDetail")
+    public Object deviceDetail(@RequestBody(required = false) NodeDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String url = sysConfig.getNspmUrl();
+        String token = sysConfig.getNspmToken();
+        if(url != null && token != null){
+            url = url + "/topology-policy/pathAnaly/external/deviceDetail";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
 
 }

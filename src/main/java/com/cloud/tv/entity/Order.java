@@ -13,6 +13,7 @@ import lombok.experimental.Accessors;
 public class Order extends IdEntity {
 
     private String orderNo;
+    private String orderId;
     private String userName;
     private Long userId;
     private String branchName;

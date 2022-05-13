@@ -19,14 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 
-@Service("roleService")
+@Service
 @Transactional
 public class RoleServiceImpl implements IRoleService {
 
     @Autowired
     private RoleMapper roleMapper;
-    @Autowired
-    private IRoleGroupService roleGroupService;
     @Autowired
     private IResService resService;
     @Autowired

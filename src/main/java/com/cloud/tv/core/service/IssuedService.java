@@ -11,5 +11,5 @@ public interface IssuedService {
 
     List<Task> query();
 
-    String queryTask(String invisibleName, String type, List<Policy> policysNew, String command);
+    void queryTask(String invisibleName, String type, List<Policy> policysNew, String command);
 }

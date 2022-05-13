@@ -15,6 +15,11 @@ public class OrderServiceImpl implements IOrderService {
     private OrderMapper orderMapper;
 
     @Override
+    public Order getObjByOrderId(Long orderId) {
+        return this.orderMapper.getObjByOrderId(orderId);
+    }
+
+    @Override
     public Order getObjByOrderNo(String orderNo) {
         return this.orderMapper.getObjByOrderNo(orderNo);
     }

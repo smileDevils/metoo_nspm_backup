@@ -57,7 +57,7 @@ public class LicenseServiceImpl implements ILicenseService {
                     e.printStackTrace();
                 }
                 if (map != null) {
-                    String endTimeStamp = map.get("expireTime").toString();// 有效期
+                    String endTimeStamp = map.get("endTime").toString();// 有效期
                     if (endTimeStamp != null && !endTimeStamp.isEmpty()) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(new Date());
