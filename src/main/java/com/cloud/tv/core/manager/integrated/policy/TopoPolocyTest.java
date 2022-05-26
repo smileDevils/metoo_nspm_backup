@@ -68,9 +68,9 @@ public class TopoPolocyTest {
 //    @RequestMapping("/viewData")
 //    public Object viewData(@RequestBody(required = false) PolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-//        String url = sysConfig.getNspmUrl();
+//        
 //        String token = sysConfig.getNspmToken();
-//        if(url != null && token != null){
+//        if(token != null){
 //            url = url + "topology-policy/report/policyView/viewData";
 //            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
 //            return ResponseUtil.ok(result);
@@ -81,9 +81,9 @@ public class TopoPolocyTest {
 //    @GetMapping(value = "/node/navigation")
 //    public Object nodeNavigation(PolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-//        String url = sysConfig.getNspmUrl();
+//        
 //        String token = sysConfig.getNspmToken();
-//        if(url != null && token != null){
+//        if(token != null){
 //            url = url + "topology-layer/whale/GET/node/navigation";
 //            Object result = this.nodeUtil.getBody(dto, url, token);
 //            return ResponseUtil.ok(result);

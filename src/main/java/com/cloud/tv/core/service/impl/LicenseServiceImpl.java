@@ -1,6 +1,7 @@
 package com.cloud.tv.core.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.tv.core.manager.admin.tools.DateTools;
 import com.cloud.tv.core.mapper.LicenseMapper;
 import com.cloud.tv.core.service.ILicenseService;
 import com.cloud.tv.core.utils.AesEncryptUtils;
@@ -57,14 +58,10 @@ public class LicenseServiceImpl implements ILicenseService {
                     e.printStackTrace();
                 }
                 if (map != null) {
-                    String endTimeStamp = map.get("endTime").toString();// 有效期
-                    if (endTimeStamp != null && !endTimeStamp.isEmpty()) {
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(new Date());
-                        long currentTime = calendar.getTimeInMillis();
-                        long timeStampSec = currentTime / 1000;// 13位时间戳（单位毫秒）转换为10位字符串（单位秒）
-                        String timestamp = String.format("%010d", timeStampSec);// 当前时间
-                        if (Long.valueOf(endTimeStamp).compareTo(Long.valueOf(timestamp)) <= 0) {
+                    Long endTime = Long.parseLong(map.get("endTime").toString());// 有效期
+                    if (endTime != null) {
+                        long currentTime = DateTools.currentTimeMillis();
+                        if (endTime - currentTime <= 0) {
                             license.setStatus(2);// 过期
                         } else {
                             license.setStatus(0);// 恢复为未过期

@@ -25,10 +25,10 @@ public class TopoNspmBranchManagerAction {
     @PostMapping(value = "/findBranchTree")
     public Object findBranchTree(@RequestBody(required = false) BranchDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "topology/branch/findBranchTree/";
+        if (token != null) {
+            String url = "topology/branch/findBranchTree/";
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -39,10 +39,10 @@ public class TopoNspmBranchManagerAction {
     @PostMapping(value = "/getBranch")
     public Object getBranch(@RequestBody(required = false) BranchDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/topology/branch/getBranch/?id=" + dto.getId();
+        if (token != null) {
+            String url = "/topology/branch/getBranch/?id=" + dto.getId();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -53,10 +53,10 @@ public class TopoNspmBranchManagerAction {
     @PostMapping(value = "/update")
     public Object update(@RequestBody(required = false) BranchDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/topology/branch/update?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&id" + dto.getId();
+        if (token != null) {
+            String url = "/topology/branch/update?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&id" + dto.getId();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -67,10 +67,10 @@ public class TopoNspmBranchManagerAction {
     @PostMapping(value = "/add")
     public Object add(@RequestBody(required = false) BranchDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/topology/branch/add?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&parentLevel" + dto.getParentLevel();
+        if(token != null){
+            String url = "/topology/branch/add?branchName=" + dto.getBranchName() + "&branchDesc=" + dto.getBranchDesc() + "&parentLevel" + dto.getParentLevel();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -81,10 +81,10 @@ public class TopoNspmBranchManagerAction {
     @PostMapping(value = "/delete")
     public Object delete(@RequestBody(required = false) BranchDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/topology/branch/delete/?id=" + dto.getId();
+        if (token != null) {
+            String url = "/topology/branch/delete/?id=" + dto.getId();
             Object result = this.nodeUtil.postBody(null, url, token);
             return ResponseUtil.ok(result);
         }

@@ -30,10 +30,10 @@ public class TopoExposeManagerController {
     @PostMapping(value = "/api/danger/attackSurface/hostExposureList")
     public Object statisticalInformation(@RequestBody ExposureDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/attackSurface/hostExposureList";
+        if(token != null){
+            String url = "/risk/api/danger/attackSurface/hostExposureList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

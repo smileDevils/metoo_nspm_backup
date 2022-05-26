@@ -14,13 +14,19 @@ import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SessionStorageEvaluator;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.DefaultSessionManager;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -60,7 +66,7 @@ public class ShiroConfig {
          *  添加 jwt 专用过滤器，拦截除 /login 和 /logout 外的请求
          */
         HashMap<String, Filter> myFilters = new HashMap<>(16);
-//        myFilters.put("rmb", new MyAccessControlFilter());
+        myFilters.put("rmb", new MyAccessControlFilter());
         myFilters.put("licenseFilter", new LicenseFilter());
         shiroFilterFactoryBean.setFilters(myFilters);
 
@@ -70,21 +76,23 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/index.jsp", "authc");// authc 请求这个资源需要认证和授权;参数可以为视图可以为路径（/index.jsp、/**、/path/*）
         filterChainDefinitionMap.put("/user/login", "anon");// 设置所有资源都受限；避免登录资源受限，设置登录为公共资源
 
+
         filterChainDefinitionMap.put("/user/register", "anon");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/web/**", "anon");
 
         filterChainDefinitionMap.put("/buyer/captcha", "anon");
         filterChainDefinitionMap.put("/buyer/login", "anon");// 设置所有资源都受限；避免登录资源受限，设置登录为公共资源
+        filterChainDefinitionMap.put("/buyer/logout", "anon");
         filterChainDefinitionMap.put("/buyer/register", "anon");
         filterChainDefinitionMap.put("/admin/auth/401", "anon");
         filterChainDefinitionMap.put("/admin/auth/403", "anon");
         filterChainDefinitionMap.put("/admin/auth/404", "anon");
         filterChainDefinitionMap.put("/rtmp/**", "anon");
+
+        filterChainDefinitionMap.put("/**", "rmb");
 //        filterChainDefinitionMap.put("/license/systemInfo", "anon");
 //        filterChainDefinitionMap.put("/license/update", "anon");
-
-//        filterChainDefinitionMap.put("/**", "rmb");
 
         //filterChainDefinitionMap.put("/buyer/**", "authc");
         filterChainDefinitionMap.put("/license/**", "authc");
@@ -120,7 +128,7 @@ public class ShiroConfig {
     // 创建安全管理器 web环境中配置webSecurity
     // getDefaultWevSecurityManager(Realm realm)
     @Bean
-    public DefaultWebSecurityManager getDefaultWevSecurityManager() {
+    public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
 
         // 1, 给安全管理器设置Realm
@@ -131,9 +139,10 @@ public class ShiroConfig {
 //        realms.add(getRealm());
 //        defaultWebSecurityManager.setRealms(realms);
         // 2，给安全管理器设置SessionManager
-        defaultWebSecurityManager.setSessionManager(getDefaultWebSessionManager());
+        //  getDefaultWebSessionManager (isAuthenticated:false)
+        defaultWebSecurityManager.setSessionManager(getDefaultSessionManager());
         // 3，给安全管理器设置RememberMeManager
-        defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
+//        defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
 
         // 3.关闭shiro自带的session
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
@@ -184,14 +193,25 @@ public class ShiroConfig {
 
     // 配置org.apache.shiro.web.session.mgt.DefaultWebSessionManager(shiro session的管理)
     @Bean("sessionManager")
-    public DefaultWebSessionManager getDefaultWebSessionManager() {
+    public DefaultWebSessionManager getDefaultSessionManager() {
         DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
        // defaultWebSessionManager.setGlobalSessionTimeout(1000 * 60 * 60 * 24*7);// 会话过期时间，单位：毫秒(在无操作时开始计时)
         defaultWebSessionManager.setGlobalSessionTimeout(-1000L);// -1000L,永不过期
         defaultWebSessionManager.setSessionValidationSchedulerEnabled(true);
         defaultWebSessionManager.setSessionIdCookieEnabled(true);
+        defaultWebSessionManager.setSessionIdUrlRewritingEnabled(false);// 移除自带的JSESSIONID，方式第二次打开浏览器是进行注销操作发生
         return defaultWebSessionManager;
     }
+
+//    @Bean("sessionManager")
+//    public DefaultSessionManager getDefaultSessionManager() {
+//        DefaultSessionManager defaultSessionManager = new DefaultSessionManager();
+//        // defaultSessionManager.setGlobalSessionTimeout(1000 * 60 * 60 * 24*7);// 会话过期时间，单位：毫秒(在无操作时开始计时)
+//        defaultSessionManager.setGlobalSessionTimeout(-1000L);// -1000L,永不过期
+//        defaultSessionManager.setSessionValidationSchedulerEnabled(true);
+////        defaultSessionManager.setSessionIdCookieEnabled(true);
+//        return defaultSessionManager;
+//    }
 
     /**
      * 禁用session, 不保存用户登录状态。保证每次请求都重新认证
@@ -248,6 +268,30 @@ public class ShiroConfig {
     }
 
     /**
+     *  开启shiro aop 注解支持. 否则注解不生效
+     *  使用代理方式;所以需要开启代码支持;
+     * @return
+     */
+    @Bean
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+        return new LifecycleBeanPostProcessor();
+    }
+    @Bean
+    @DependsOn({"lifecycleBeanPostProcessor"})
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager defaultWebSecurityManager){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(defaultWebSecurityManager);
+        return authorizationAttributeSourceAdvisor;
+    }
+
+    /**
      * Jwt配置，需实现Realm接口
      * @return
      */
@@ -259,8 +303,6 @@ public class ShiroConfig {
         // 设置加密次数
         jwtRealm.setCredentialsMatcher(credentialsMatcher);
         return jwtRealm;
-
-
     }
 
 }

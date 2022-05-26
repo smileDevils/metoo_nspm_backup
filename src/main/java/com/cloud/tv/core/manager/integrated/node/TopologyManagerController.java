@@ -8,11 +8,13 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
+import com.cloud.tv.core.utils.http.UrlConvertUtil;
 import com.cloud.tv.dto.NodeDto;
 import com.cloud.tv.entity.SysConfig;
 import com.cloud.tv.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.beanutils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -39,20 +41,21 @@ public class TopologyManagerController {
     private IUserService userService;
     @Autowired
     private RestTemplateUtil restTemplateUtil;
+    @Autowired
+    private UrlConvertUtil urlConvertUtil;
 
 
     @ApiOperation("图层列表")
     @RequestMapping(value="/topology-layer/layerInfo/GET/listLayers")
     public Object listLayers(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
-        String photoUrl = url;
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
+        if(token != null){
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             if(user.getUsername().equals("testadmin")){
-                url = url + "topology-layer/layerInfo/GET/listLayers";
+                String url = "topology-layer/layerInfo/GET/listLayers";
                 dto.setBranchLevel("00");
                 token = sysConfig.getTestToken();
                 Object result = this.nodeUtil.getBody(dto, url, token);
@@ -69,9 +72,10 @@ public class TopologyManagerController {
                 results.put("rows", list);
                 return ResponseUtil.ok(results);
             }else{
-                url = url + "/topology-layer/layerInfo/GET/listLayers";
-
-                dto.setBranchLevel(user.getGroupLevel());
+                String url = "/topology-layer/layerInfo/GET/listLayers";
+                if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+                    dto.setBranchLevel(user.getGroupLevel());
+                }
                 Object result = this.nodeUtil.getBody(dto, url, token);
                 JSONObject results = JSONObject.parseObject(result.toString());
                 // 检测用户
@@ -86,9 +90,11 @@ public class TopologyManagerController {
                     String userName = obj.get("layerDesc").toString();
                     if(users.contains(userName)){
                         if(obj.get("layerUuid") != null){
-                            String photos = photoUrl + "/topology-layer/" + obj.get("layerUuid") + ".png";
+                            String photosUrl = "/topology-layer/" + obj.get("layerUuid") + ".png";
+                            photosUrl = this.urlConvertUtil.convert(photosUrl);
 //                            photoUrl = "https://img20.360buyimg.com/pop/s1180x940_jfs/t1/198549/9/21811/83119/625f7592E8cad4ada/8a771626b433d9fb.png";
-                            String photo = this.restTemplateUtil.getInputStream(photos);
+
+                            String photo = this.restTemplateUtil.getInputStream(photosUrl);
                             obj.put("photo", photo);
                         }
                         obj.put("userName", userName);
@@ -203,10 +209,10 @@ public class TopologyManagerController {
     @RequestMapping(value="/topology-layer/layerInfo/GET/defaultLayer")
     public Object defaultLayer(){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/GET/defaultLayer";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/GET/defaultLayer";
             Object result = this.nodeUtil.getBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -218,10 +224,10 @@ public class TopologyManagerController {
     @RequestMapping(value="/topology-layer/layerInfo/POST/editLayer")
     public Object editLayer(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/POST/editLayer";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/POST/editLayer";
             Object result = this.nodeUtil.postFormDataBody(dto  , url, token);
             return ResponseUtil.ok(result);
         }
@@ -232,13 +238,13 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/POST/saveLayer")
     public Object saveLayer(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
+        if(token != null){
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setDesc(user.getUsername());
-            url = url + "/topology-layer/layerInfo/POST/saveLayer";
+            String url = "/topology-layer/layerInfo/POST/saveLayer";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -249,10 +255,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/DELETE/layers")
     public Object DELETE(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/DELETE/layers";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/DELETE/layers";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -263,10 +269,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/PUT/defaultLayer")
     public Object defaultLayer(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/PUT/defaultLayer";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/PUT/defaultLayer";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -277,10 +283,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/GET/getLayerByUuid")
     public Object getLayerByUuid(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/GET/getLayerByUuid";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/GET/getLayerByUuid";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -291,10 +297,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/POST/copyLayer")
     public Object copyLayer(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/POST/copyLayer";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/POST/copyLayer";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -305,10 +311,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/POST/editLayerBranch")
     public Object editLayerBranch(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/POST/editLayerBranch";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/POST/editLayerBranch";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -319,10 +325,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/GET/subnets")
     public Object subnets(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/subnets";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/subnets";
             Object object = this.nodeUtil.getBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("success").toString().equals("false")){
@@ -337,10 +343,10 @@ public class TopologyManagerController {
     @GetMapping("/topology-layer/whale/GET/subnet/linkedDevice")
     public Object linkedDevice(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/subnet/linkedDevice";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/subnet/linkedDevice";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -351,10 +357,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/POST/topo/action/all-split-subnet-summary")
     public Object subnetSimmary(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/POST/topo/action/all-split-subnet-summary";
+        if(token != null){
+            String url = "/topology-layer/whale/POST/topo/action/all-split-subnet-summary";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -365,10 +371,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/PUT/topo/action/splitSubnet")
     public Object topoSplitSubnet(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/PUT/topo/action/splitSubnet";
+        if(token != null){
+            String url = "/topology-layer/whale/PUT/topo/action/splitSubnet";
             Object result = this.nodeUtil.putBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -382,10 +388,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/PUT/topo/action/undo/splitSubnet")
     public Object splitSubnet(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/PUT/topo/action/undo/splitSubnet";
+        if(token != null){
+            String url = "/topology-layer/whale/PUT/topo/action/undo/splitSubnet";
             Object result = this.nodeUtil.putFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -396,10 +402,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/GET/topo/action/linkVpn")
     public Object linkVpn(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/topo/action/linkVpn";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/topo/action/linkVpn";
             Object result = this.nodeUtil.getBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -410,10 +416,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/GET/devices/summary")
     public Object devicesSummary(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/devices/summary";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/devices/summary";
             Object result = this.nodeUtil.getBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -424,10 +430,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/GET/vpn/subnet")
     public Object vpnSubnet(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/vpn/subnet";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/vpn/subnet";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -438,10 +444,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/PUT/topo/action/linkVpn")
     public Object putLingVpn(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/PUT/topo/action/linkVpn";
+        if(token != null){
+            String url = "/topology-layer/whale/PUT/topo/action/linkVpn";
             Object result = this.nodeUtil.putBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -452,10 +458,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/DELETE/topo/action/linkVpn")
     public Object deleteLinkVpn(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/DELETE/topo/action/linkVpn";
+        if(token != null){
+            String url = "/topology-layer/whale/DELETE/topo/action/linkVpn";
             Object result = this.nodeUtil.deleteBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -466,10 +472,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/POST/updateLayerStatus")
     public Object updateLayerStatus(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/layerInfo/POST/updateLayerStatus";
+        if(token != null){
+            String url = "/topology-layer/layerInfo/POST/updateLayerStatus";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -480,10 +486,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology/queryRoutesByLayerUuid.action")
     public Object queryRoutesByLayerUuid(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/queryRoutesByLayerUuid.action";
+        if(token != null){
+            String url = "/topology/queryRoutesByLayerUuid.action";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -494,10 +500,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology/addRoute.action")
     public Object addRoute(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/addRoute.action";
+        if(token != null){
+            String url = "/topology/addRoute.action";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -507,10 +513,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/GET/detailedPath/run")
     public Object run(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/detailedPath/run";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/detailedPath/run";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -521,10 +527,10 @@ public class TopologyManagerController {
     @PostMapping("/topology-layer/whale/GET/device/subnets")
     public Object deviceSubnets(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/device/subnets";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/device/subnets";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -535,10 +541,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/alarm/zone/listLogicZoneAndSubnets")
     public Object listLogicZoneAndSubnets(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listLogicZoneAndSubnets";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listLogicZoneAndSubnets";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -549,10 +555,10 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/whale/GET/device/zones")
     public Object zones(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/device/zones";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/device/zones";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -563,10 +569,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/danger/hostComputerSoftware/hostComputerList")
     public Object hostComputerList(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/hostComputerList";
+        if(token != null){
+            String url = "/risk/api/danger/hostComputerSoftware/hostComputerList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -579,10 +585,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/danger/hostComputerSoftware/assetGroupList")
     public Object assetGroupList(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/assetGroupList";
+        if(token != null){
+            String url = "/risk/api/danger/hostComputerSoftware/assetGroupList";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -593,10 +599,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/danger/assetHost/getSubnetByAssetGroup")
     public Object getSubnetByAssetGroup(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/assetHost/getSubnetByAssetGroup";
+        if(token != null){
+            String url = "/risk/api/danger/assetHost/getSubnetByAssetGroup";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -607,10 +613,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/danger/assetHost/pageList")
     public Object pageList(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/assetHost/pageList";
+        if(token != null){
+            String url = "/risk/api/danger/assetHost/pageList";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -621,10 +627,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/danger/businessZone/businessZoneTree")
     public Object businessZoneTree(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/businessZoneTree";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/businessZoneTree";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -635,10 +641,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/alarm/zone/listLogicZoneSubnetWithPage")
     public Object listLogicZoneSubnetWithPage(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listLogicZoneSubnetWithPage";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listLogicZoneSubnetWithPage";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -649,10 +655,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/danger/businessZone/pageList")
     public Object businessZone(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/pageList";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/pageList";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -663,10 +669,10 @@ public class TopologyManagerController {
     @PostMapping("/combing/api/hit/rawlog/findList")
     public Object findList(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/rawlog/findList";
+        if(token != null){
+            String url = "/combing/api/hit/rawlog/findList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -677,10 +683,10 @@ public class TopologyManagerController {
     @PostMapping("/risk/api/alarm/zone/listLogicZone")
     public Object listLogicZone(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listLogicZone";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listLogicZone";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -691,10 +697,10 @@ public class TopologyManagerController {
     @PostMapping("/topology-policy/pathAnaly/external/deviceDetail")
     public Object deviceDetail(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/pathAnaly/external/deviceDetail";
+        if(token != null){
+            String url = "/topology-policy/pathAnaly/external/deviceDetail";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

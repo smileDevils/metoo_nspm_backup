@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 @Api("用户管理")
-@RestController
 @RequestMapping("/admin/user")
+@RestController
 public class UserManagerController {
 
     @Autowired
@@ -42,16 +42,6 @@ public class UserManagerController {
     @Autowired
     private IGroupService groupService;
 
-    private static Logger log = LoggerFactory.getLogger(UserManagerController.class);
-
-    public static void main(String[] args) {
-        log.info("====================test");
-    }
-
-    @RequestMapping("test")
-    public Object getUser() {
-        return this.userService.getObjByLevel(null);
-    }
 
     @ApiOperation("用户列表")
     @RequestMapping("/list")
@@ -66,22 +56,7 @@ public class UserManagerController {
         return ResponseUtil.ok();
     }
 
-//    @ApiOperation("用户列表")
-//    @RequestMapping("/list")
-//    public Object list(@RequestBody(required=false) UserDto dto){
-//        if(dto == null){
-//            dto = new UserDto();
-//        }
-//        Page<UserVo> page = this.userService.query(dto);
-//        int i = 0;
-//        if(page.getResult().size() > 0){
-//            return ResponseUtil.ok(new PageInfo<Role>(page));
-//        }
-//        return ResponseUtil.ok();
-//    }
-
-    //    @RequiresPermissions("ADMIN:USER:ADD")
-//    @RequiresPermissions("LK:USER:MANAGER")
+    @RequiresPermissions("LK:USER:MANAGER")
     @ApiOperation("用户添加")
     @GetMapping("/add")
     public Object add() {
@@ -109,7 +84,6 @@ public class UserManagerController {
         return ResponseUtil.ok(map);
     }*/
 
-    //    @RequiresPermissions("ADMIN:USER:UPDATE")
 //    @RequiresPermissions(value = {"LK:USER", "LK:USER:MANAGER"})
     @ApiOperation("用户更新")
     @PostMapping("/update")
@@ -208,7 +182,6 @@ public class UserManagerController {
         return ResponseUtil.badArgument("请输入用户ID");
     }
 
-    //    @RequiresPermissions("ADMIN:USER:SAVE")
     @RequiresPermissions(value = {"LK:USER:MANAGER"})
     @ApiOperation("创建用户")
     @PostMapping("/create")
@@ -258,6 +231,8 @@ public class UserManagerController {
     public Object delete(@RequestBody UserDto dto) {
         User user = this.userService.findObjById(dto.getId());
         if (user != null) {
+            // 判断用户是否为管理员
+
             user.setDeleteStatus(-1);
             this.userService.update(user);
             // 清空用户直播间
@@ -332,7 +307,7 @@ public class UserManagerController {
         if (dto != null && dto.getId() != null) {
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findObjById(dto.getId());
-            if(currentUser == user){
+            if(currentUser.getUsername().equals(user.getUsername())){
                 if (!StringUtils.isEmpty(dto.getPassword()) || !StringUtils.isEmpty(dto.getVerifyPassword())) {
                     String oldPassword = CommUtils.password(dto.getOldPassword(), currentUser.getSalt());
                     if (!currentUser.getPassword().equals(oldPassword)) {

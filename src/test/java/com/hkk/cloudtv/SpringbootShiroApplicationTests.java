@@ -12,4 +12,5 @@ import org.springframework.data.redis.core.RedisTemplate;
 class SpringbootShiroApplicationTests {
 
 
+
 }

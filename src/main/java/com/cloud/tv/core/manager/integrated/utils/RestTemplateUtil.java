@@ -70,22 +70,23 @@ public class RestTemplateUtil {
             ResponseEntity<byte[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, byte[].class);
             //获取entity中的数据
             byte[] body = responseEntity.getBody();
-            FileOutputStream fileOutputStream = null;
-            try {
-                fileOutputStream = new FileOutputStream(new File("C:\\Users\\46075\\Desktop\\新建文件夹 (4)\\1.jpg"));
-                try {
-                    fileOutputStream.write(body);
-                    //关闭流
-                    fileOutputStream.close();
-                    return new String(Base64.getEncoder().encode(body));
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            return new String(Base64.getEncoder().encode(body));
+//            FileOutputStream fileOutputStream = null;
+//            try {
+//                fileOutputStream = new FileOutputStream(new File("C:\\Users\\46075\\Desktop\\新建文件夹 (4)\\1.jpg"));
+//                try {
+//                    fileOutputStream.write(body);
+//                    //关闭流
+//                    fileOutputStream.close();
+//
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
 
         }
         return null;

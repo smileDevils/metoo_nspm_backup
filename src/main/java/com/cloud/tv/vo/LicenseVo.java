@@ -21,13 +21,15 @@ import lombok.experimental.Accessors;
 public class LicenseVo {
 
     @ApiModelProperty("开始时间")
-    private String startTime;
+    private Long startTime;
     @ApiModelProperty("结束时间")
-    private String endTime;
+    private Long endTime;
+    @ApiModelProperty("授权时间")
+    private int licenseDay;
     @ApiModelProperty("License类型 0：试用版 1，授权版 2：终身版")
-    private Integer type;
+    private String type;
     @ApiModelProperty("License版本号")
-    private Integer licenseVersion;
+    private String licenseVersion;
 
     // 授权信息
     @ApiModelProperty("授权防火墙")

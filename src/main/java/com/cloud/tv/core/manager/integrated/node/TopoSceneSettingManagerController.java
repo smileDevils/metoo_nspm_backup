@@ -41,10 +41,10 @@ public class TopoSceneSettingManagerController {
     @PostMapping(value = "/push/api/disposal/scenes/pageList")
     public Object list(@RequestBody(required = false) SceneDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/push/api/disposal/scenes/pageList";
+        if(token != null){
+            String url = "/push/api/disposal/scenes/pageList";
             Object result = this.nodeUtil.postBody(dto, url, token);  List<String>
             users = this.userService.getObjByLevel(dto.getBranchLevel());
             if(users == null || users.size() <= 0){
@@ -79,10 +79,10 @@ public class TopoSceneSettingManagerController {
     @PostMapping(value = "/push/api/disposal/scenes/edit")
     public Object edit(@RequestBody(required = false) SceneDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/push/api/disposal/scenes/edit";
+        if(token != null){
+            String url = "/push/api/disposal/scenes/edit";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setName(user.getUsername()+"`~"+dto.getName());
@@ -96,10 +96,10 @@ public class TopoSceneSettingManagerController {
     @PostMapping(value = "/push/api/disposal/scenes/getByUUId")
     public Object getByUUId(@RequestBody(required = false) SceneDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/push/api/disposal/scenes/getByUUId";
+        if(token != null){
+            String url = "/push/api/disposal/scenes/getByUUId";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -110,12 +110,12 @@ public class TopoSceneSettingManagerController {
     @PostMapping(value = "/push/api/disposal/scenes/delete")
     public Object delete(@RequestBody(required = false) SceneDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
+        if(token != null){
             String[] ids = dto.getIds().split(",");
             if(ids.length>0){
-                url = url + "/push/api/disposal/scenes/delete";
+                String url = "/push/api/disposal/scenes/delete";
                 for(String id : ids){
                     SceneDto obj = new SceneDto();
                     obj.setId(Integer.parseInt(id));

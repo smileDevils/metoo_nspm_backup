@@ -72,10 +72,10 @@ public class TopoNspmIndexManagerAction {
     @RequestMapping("/policy")
     public Object policy(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            String nodeUrl = url + "/topology/node/queryNode.action";
+        if(token != null){
+            String nodeUrl = "/topology/node/queryNode.action";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setBranchLevel(user.getGroupLevel());
@@ -105,7 +105,7 @@ public class TopoNspmIndexManagerAction {
                     }
                 }
             }
-                String policyUrl = url + "/topology-policy/report/policyView/viewData";
+                String policyUrl = "/topology-policy/report/policyView/viewData";
                 List policys = new ArrayList();
                 List<Map<String, Double>> list = new ArrayList<Map<String, Double>>();
                 for(Object obj : arrays){
@@ -205,10 +205,10 @@ public class TopoNspmIndexManagerAction {
     @RequestMapping(value="/devices")
     public Object devices(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/getChangeDevices.action";
+        if(token != null){
+            String url = "/topology/node/getChangeDevices.action";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -219,10 +219,10 @@ public class TopoNspmIndexManagerAction {
     @PostMapping(value = "/policy-check-pie")
     public Object policyCheckPie(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/report/policy/policy-check-pie";
+        if(token != null){
+            String url = "/topology-policy/report/policy/policy-check-pie";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject resultJ = JSONObject.parseObject(result.toString());
             if(resultJ.get("data") != null){

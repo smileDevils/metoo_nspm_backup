@@ -28,16 +28,16 @@ public class License extends IdEntity {
     private String license;
 
     @ApiModelProperty("开始时间")
-    private String startTime;
+    private Long startTime;
 
     @ApiModelProperty("结束时间")
-    private String endTime;
+    private Long endTime;
 
     @ApiModelProperty("过期时间")
     private String expireTime;
 
     @ApiModelProperty("License类型 0：试用版 1，授权版 2：终身版")
-    private Integer type;
+    private String type;
 
     @ApiModelProperty("License状态  0：未过期 1:未授权 2：已过期")
     private Integer status;
@@ -46,7 +46,7 @@ public class License extends IdEntity {
     private Integer from;
 
     @ApiModelProperty("License版本号")
-    private Integer licenseVersion;
+    private String licenseVersion;
 
     // 授权信息
     @ApiModelProperty("以导入防火墙")

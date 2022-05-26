@@ -41,6 +41,11 @@
         age, userRole, email, mobile, note, groupId, groupName, groupLevel
     </sql>
 
+    <sql id="Base_Update_Info">
+        id, username, sex,
+        age, userRole, email, mobile, note, groupId, groupName, groupLevel
+    </sql>
+
     <insert id="insert" parameterType="com.cloud.tv.entity.User" keyProperty="id" useGeneratedKeys="true">
         insert into metoo_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -280,7 +285,7 @@
 
     <!--根据 Level查询用户-->
     <select id="getObjsByLevel" parameterType="String" resultType="com.cloud.tv.entity.User">
-        SELECT *
+        SELECT <include refid="Base_Update_Info" />
         FROM metoo_user
         where groupLevel = #{level} or groupLevel in (
           SELECT level FROM metoo_group WHERE parentLevel = #{level}

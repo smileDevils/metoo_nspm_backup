@@ -72,10 +72,9 @@ public class  CredentialServiceImpl implements ICredentialService {
     @Override
     public Map<String, String> getUuid(CredentialDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/credential/getall";
+        if(token != null){
+            String url = "/push/credential/getall";
             Object result = this.nodeUtil.postBody(dto, url, token);
             JSONObject json = JSONObject.parseObject(result.toString());
             if(json.get("content") != null){

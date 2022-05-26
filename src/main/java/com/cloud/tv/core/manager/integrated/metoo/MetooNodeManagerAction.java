@@ -55,10 +55,10 @@ public class MetooNodeManagerAction {
     @RequestMapping("/nodeQuery/backup")
     public Object nodeQuery1(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/queryNode.action";
+        if(token != null){
+            String url = "/topology/node/queryNode.action";
             if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
                 User currentUser = ShiroUserHolder.currentUser();
                 User user = this.userService.findByUserName(currentUser.getUsername());
@@ -120,43 +120,44 @@ public class MetooNodeManagerAction {
     @RequestMapping("/nodeQuery")
     public Object nodeQuery(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/queryNode.action";
-        }
-        if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
-            User currentUser = ShiroUserHolder.currentUser();
-            User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setBranchLevel(user.getGroupLevel());
-        }
-        // 分页查询
-        Page<TopoNode> page = this.nodeService.query(dto);
-        if(page.getResult().size() > 0){
-            // 遍历Topo
-            List<TopoNode> topoNodes = page.getResult();
-            for(TopoNode topoNode : topoNodes){
-                if(topoNode.getState() == -1 || topoNode.getState() == -2 ){
-                    // 获取安博通节点信息，更新采集状态
-                    dto.setFilter(topoNode.getHostAddress());
-                    dto.setState(null);
-                    Object object = this.nodeUtil.getBody(dto, url, token);
-                    JSONObject result = JSONObject.parseObject(object.toString());
-                    if(!result.get("total").toString().equals("0")){
-                        if(result.get("data") != null) {
-                            JSONArray arrays = JSONArray.parseArray(result.get("data").toString());
-                            for(Object array : arrays){
-                                JSONObject data = JSONObject.parseObject(array.toString());
-                                if(Integer.parseInt(data.get("state").toString()) != topoNode.getState()){
-                                    topoNode.setState(Integer.parseInt(data.get("state").toString()));
-                                    this.nodeService.update(topoNode);
+        if(token != null) {
+            String url = "/topology/node/queryNode.action";
+
+            if (dto.getBranchLevel() == null || dto.getBranchLevel().equals("")) {
+                User currentUser = ShiroUserHolder.currentUser();
+                User user = this.userService.findByUserName(currentUser.getUsername());
+                dto.setBranchLevel(user.getGroupLevel());
+            }
+            // 分页查询
+            Page<TopoNode> page = this.nodeService.query(dto);
+            if (page.getResult().size() > 0) {
+                // 遍历Topo
+                List<TopoNode> topoNodes = page.getResult();
+                for (TopoNode topoNode : topoNodes) {
+                    if (topoNode.getState() == -1 || topoNode.getState() == -2) {
+                        // 获取安博通节点信息，更新采集状态
+                        dto.setFilter(topoNode.getHostAddress());
+                        dto.setState(null);
+                        Object object = this.nodeUtil.getBody(dto, url, token);
+                        JSONObject result = JSONObject.parseObject(object.toString());
+                        if (!result.get("total").toString().equals("0")) {
+                            if (result.get("data") != null) {
+                                JSONArray arrays = JSONArray.parseArray(result.get("data").toString());
+                                for (Object array : arrays) {
+                                    JSONObject data = JSONObject.parseObject(array.toString());
+                                    if (Integer.parseInt(data.get("state").toString()) != topoNode.getState()) {
+                                        topoNode.setState(Integer.parseInt(data.get("state").toString()));
+                                        this.nodeService.update(topoNode);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                return ResponseUtil.ok(new PageInfo<TopoNode>(page));
             }
-            return ResponseUtil.ok(new PageInfo<TopoNode>(page));
         }
         return ResponseUtil.ok();
     }
@@ -170,10 +171,10 @@ public class MetooNodeManagerAction {
     @RequestMapping("/addGatherNode")
     public Object addGatherNodeLocal(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/addGatherNode.action";
+        if(token != null){
+            String url = "/topology/node/addGatherNode.action";
             Object object = this.nodeUtil.getBody(dto, url, token);
             // 同步节点到本地(检测ip是否已存储在，存在则为更新)
             JSONObject result = JSONObject.parseObject(object.toString());
@@ -212,10 +213,10 @@ public class MetooNodeManagerAction {
     @RequestMapping("/updateNode")
     public Object updateNode(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/updateNode.action";
+        if(token != null){
+            String url = "/topology/node/updateNode.action";
             Object object = this.nodeUtil.getBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(Boolean.valueOf(result.get("result").toString())){
@@ -244,10 +245,10 @@ public class MetooNodeManagerAction {
     @RequestMapping("/nodeDelete")
     public Object nodeDelete(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/nodeDelete.action";
+        if(token != null){
+            String url = "/topology/node/nodeDelete.action";
             TopoNode topoNode = this.nodeService.getObjById(Long.parseLong(dto.getId()));
             if(topoNode != null){
                 Object object = this.nodeUtil.getBody(dto, url, token);

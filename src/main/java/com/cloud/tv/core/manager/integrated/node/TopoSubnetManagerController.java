@@ -33,10 +33,10 @@ public class TopoSubnetManagerController {
     @RequestMapping("/topology/whaleSubnet/GET/subnets")
     public Object subnets(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/whaleSubnet/GET/subnets";
+        if(token != null){
+            String url = "/topology/whaleSubnet/GET/subnets";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -47,10 +47,10 @@ public class TopoSubnetManagerController {
     @RequestMapping("/topology/whaleSubnet/PUT/subnets/batch-update-level")
     public Object batchUpdateLevel(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/whaleSubnet/PUT/subnets/batch-update-level";
+        if(token != null){
+            String url = "/topology/whaleSubnet/PUT/subnets/batch-update-level";
             Object result = this.nodeUtil.putBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -61,10 +61,10 @@ public class TopoSubnetManagerController {
     @RequestMapping("/topology/whaleSubnet/PUT/subnet")
     public Object subnet(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/whaleSubnet/PUT/subnet";
+        if(token != null){
+            String url = "/topology/whaleSubnet/PUT/subnet";
             Object result = this.nodeUtil.putBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -75,10 +75,10 @@ public class TopoSubnetManagerController {
     @RequestMapping("/push/recommend/label/list")
     public Object labelList(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/label/list";
+        if(token != null){
+            String url = "/push/recommend/label/list";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -89,10 +89,10 @@ public class TopoSubnetManagerController {
     @GetMapping("/topology/whaleSubnet/GET/subnet/excel")
     public Object download(){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/whaleSubnet/GET/subnet/excel";
+        if(token != null){
+            String url = "/topology/whaleSubnet/GET/subnet/excel";
             Map map = new HashMap();
             map.put("page", 1);
             map.put("size", 10000);

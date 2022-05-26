@@ -37,10 +37,9 @@ public class IssuedServiceImpl implements IssuedService {
     @Override
     public void pushtaskstatuslist(){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/pushtaskstatuslist";
+        if(token != null){
+            String url = "/push/task/pushtaskstatuslist";
             Object result = this.nodeUtil.postFormDataBody(null, url, token);
             JSONObject dataJson = JSONObject.parseObject(result.toString());
             if(dataJson.get("data") != null){
@@ -119,10 +118,9 @@ public class IssuedServiceImpl implements IssuedService {
     @Override
     public void queryTask(String invisibleName, String type, List<Policy> policysNew, String command) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         // 更新策略orderNo
-        String taskUrl = url + "/push/task/pushtasklist";
+        String taskUrl = "/push/task/pushtasklist";
         PolicyDto dto = new PolicyDto();
         dto.setPage(1);
         dto.setPsize(20);
@@ -171,7 +169,7 @@ public class IssuedServiceImpl implements IssuedService {
                             policyDto.setType("0");
                             policyDto.setTaskId(Integer.parseInt(taskId));
                             policyDto.setDeviceUuid(uuid);
-                            String commamdUrl = url + "/push/recommend/task/editcommand.action";
+                            String commamdUrl = "/push/recommend/task/editcommand.action";
                             this.nodeUtil.postBody(policyDto, commamdUrl, token);
                             break;
                         }
@@ -189,7 +187,7 @@ public class IssuedServiceImpl implements IssuedService {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        String commandUrl = url + "/push/recommend/task/getcommand";
+        String commandUrl = "/push/recommend/task/getcommand";
         PolicyDto policyDto = new PolicyDto();
         policyDto.setTaskId(taskId);
         Object result = this.nodeUtil.postFormDataBody(policyDto, commandUrl, token);

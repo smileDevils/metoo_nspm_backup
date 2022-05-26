@@ -1,8 +1,8 @@
 package com.cloud.tv.config.shiro;
 
-import com.cloud.tv.core.service.IRegisterService;
 import com.cloud.tv.core.service.IResService;
 import com.cloud.tv.core.service.IRoleService;
+import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.shiro.salt.MyByteSource;
 import com.cloud.tv.core.shiro.tools.ApplicationContextUtils;
 import com.cloud.tv.entity.Res;
@@ -19,25 +19,6 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
-/**
- * <p>
- *     Title: MyRealm.java
- * </p>
- *
- * <p>
- *     Description: 自定义Realm
- *     同时开启身份验证和权限验证，需要继承AuthorizingRealm
- * </p>
- *
- *         for(Role role : roles){
- *                     SystemTest.out.println("角色：" + role.getType());
- *                     simpleAuthorizationInfo.addRole(role.getType());
- *                     simpleAuthorizationInfo.addStringPermission("BUYER:*:*");
- *                 }
- * <p>
- *     authen: hkk
- * </p>MultiRealmAuthenticator
- */
 public class MyRealm extends AuthorizingRealm {
 
     @Autowired
@@ -58,9 +39,9 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
-        IRegisterService registerService = (IRegisterService) ApplicationContextUtils.getBean("registerService");
+        IUserService userService = (IUserService) ApplicationContextUtils.getBean("userServiceImpl");
 
-        User user = registerService.findByUsername(username);
+        User user = userService.findByUserName(username);
         if(!ObjectUtils.isEmpty(user)){
             if(username.equals(user.getUsername())){
               /* Collection sessions = sess
@@ -78,7 +59,8 @@ public class MyRealm extends AuthorizingRealm {
                  * 参数三：盐值
                  * 参数四：当前Realm对象的名称，直接调用父类的getName()方法即可
                  */
-                return new SimpleAuthenticationInfo(user, user.getPassword(),  new MyByteSource(user.getSalt()), this.getName());
+                String userName = user.getUsername();
+                return new SimpleAuthenticationInfo(userName, user.getPassword(),  new MyByteSource(user.getSalt()), this.getName());
             }
         }
         return null;
@@ -86,61 +68,22 @@ public class MyRealm extends AuthorizingRealm {
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        // 获取身份信息
-        User user = (User) principalCollection.getPrimaryPrincipal();
-        // 根据身份信息获取角色信息，资源信息
-
-       //User user = registerService.findByUsername(primaryPrincipal);
-        // User user = registerService.findRolesByUserName(primaryPrincipal.getUsername());
+        String username = (String) principalCollection.getPrimaryPrincipal();
+        IUserService userService = (IUserService) ApplicationContextUtils.getBean("userServiceImpl");
+        User user = userService.findByUserName(username);
         List<Role> roles = this.roleService.findRoleByUserId(user.getId());//user.getRoles();
         if(!CollectionUtils.isEmpty(roles)){
             if(user != null){
-                String username = user.getUsername();
                 SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-
-               /* roles.forEach(role->{
-                     simpleAuthorizationInfo.addRole(role.getRoleCode());
-                   // simpleAuthorizationInfo.addRole(role.getType());
-                    //SystemTest.out.println(role.getName());
-                    //simpleAuthorizationInfo.addStringPermission("BUYER:*:*");
-                   // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*:*");
-                   // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*");
-                    List<Res> reses = resService.findResByRoleId(role.getId());
-                    if(!CollectionUtils.isEmpty(reses)){
-                        reses.forEach(res -> {
-                            simpleAuthorizationInfo.addStringPermission(res.getValue());
-                        });
-                    }
-                });*/
-
                 for(Role role : roles){
                     simpleAuthorizationInfo.addRole(role.getRoleCode());
-                    // simpleAuthorizationInfo.addRole(role.getType());
-                    //SystemTest.out.println(role.getName());
-                    //simpleAuthorizationInfo.addStringPermission("BUYER:*:*");
-                    // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*:*");
-                    // simpleAuthorizationInfo.addStringPermission(role.getType() + ":*");
                     List<Res> permissions = resService.findResByRoleId(role.getId());
                     if(!CollectionUtils.isEmpty(permissions)){
                         permissions.forEach(permission -> {
-                            System.out.println("permission: " + permission.getValue());
                             simpleAuthorizationInfo.addStringPermission(permission.getValue());
                         });
                     }
                 }
-           /* if(primaryPrincipal.equals(username)){
-                SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-                // simpleAuthorizationInfo.setRoles("buyer");
-                if(user.getUserRole().equals("BUYER")){
-                    simpleAuthorizationInfo.addRole("BUYER");
-                    simpleAuthorizationInfo.addStringPermission("BUYER:*:*");
-                }else if(user.getUserRole().equals("SELLER")){
-                    simpleAuthorizationInfo.addRole("SELLER");
-                    simpleAuthorizationInfo.addStringPermission("SELLER:*:*");
-                }else if(user.getUserRole().equals("ADMIN")){
-                    simpleAuthorizationInfo.addRole("ADMIN");
-                    simpleAuthorizationInfo.addStringPermission("ADMIN:*:*");
-                }*/
                 return simpleAuthorizationInfo;
             }
         }

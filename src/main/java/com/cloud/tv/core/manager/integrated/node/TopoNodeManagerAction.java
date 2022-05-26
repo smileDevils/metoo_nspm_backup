@@ -54,15 +54,15 @@ public class TopoNodeManagerAction {
     @GetMapping(value = "/topology-layer/whale/GET/node/navigation")
     public Object nodeNavigation(PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
+        if(token != null){
            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
                User currentUser = ShiroUserHolder.currentUser();
                User user = this.userService.findByUserName(currentUser.getUsername());
                dto.setBranchLevel(user.getGroupLevel());
            }
-            url = url + "/topology-layer/whale/GET/node/navigation";
+            String url = "/topology-layer/whale/GET/node/navigation";
             Object result = this.nodeUtil.getBody(dto, url, token);
             Map map = JSONObject.parseObject(result.toString(), Map.class);
             Map resultMap = new HashMap();
@@ -88,10 +88,9 @@ public class TopoNodeManagerAction {
     @RequestMapping("/nodeQuery")
     public Object nodeQuery(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/queryNode.action";
+        if(token != null){
+            String url = "topology/node/queryNode.action";
             if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
                 User currentUser = ShiroUserHolder.currentUser();
                 User user = this.userService.findByUserName(currentUser.getUsername());
@@ -141,16 +140,16 @@ public class TopoNodeManagerAction {
     @RequestMapping("/vendor")
     public Object vendor(@RequestBody(required = false) NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
+        if(token != null){
             if(dto == null){
                 dto = new NodeDto();
             }
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setBranchLevel(user.getGroupLevel());
-            url = url + "/topology/node/getNavigation.action";
+            String url = "/topology/node/getNavigation.action";
             Object object = this.nodeUtil.getBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("3") != null){
@@ -173,10 +172,10 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/device/devices")
     public Object deviceDevices(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/device/devices/";
+        if(token != null){
+            String url = "/topology/node/device/devices/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -187,10 +186,10 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/simulation/addGateway")
     public Object addGateway(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/simulation/addGateway.action/";
+        if(token != null){
+            String url = "/topology/node/simulation/addGateway.action/";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(object);
         }
@@ -201,10 +200,10 @@ public class TopoNodeManagerAction {
     @RequestMapping("/updateNode")
     public Object updateNode(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/updateNode.action";
+        if(token != null){
+            String url = "/topology/node/updateNode.action";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -215,11 +214,11 @@ public class TopoNodeManagerAction {
     @RequestMapping("/addGatherNode")
     public Object addGatherNode(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
+        if(token != null){
 
-            url = url + "/topology/node/addGatherNode.action";
+            String url = "/topology/node/addGatherNode.action";
             Object object = this.nodeUtil.getBody(dto, url, token);
             // 同步节点到本地(检测ip是否已存储在，存在则为更新)
             JSONObject result = JSONObject.parseObject(object.toString());
@@ -249,11 +248,11 @@ public class TopoNodeManagerAction {
     @RequestMapping("/addGatherNode1")
     public Object addGatherNodeLocal(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
+        if(token != null){
 
-            url = url + "/topology/node/addGatherNode.action";
+            String url = "/topology/node/addGatherNode.action";
             Object object = this.nodeUtil.getBody(dto, url, token);
             // 同步节点到本地(检测ip是否已存储在，存在则为更新)
             JSONObject result = JSONObject.parseObject(object.toString());
@@ -291,10 +290,10 @@ public class TopoNodeManagerAction {
     @RequestMapping("/booleanExistIPs")
     public Object booleanExistIPs(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/booleanExistIPs.action";
+        if(token != null){
+            String url = "/topology/node/booleanExistIPs.action";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -305,10 +304,10 @@ public class TopoNodeManagerAction {
     @RequestMapping("/nodeDelete")
     public Object nodeDelete(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/nodeDelete.action";
+        if(token != null){
+            String url = "/topology/node/nodeDelete.action";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -319,11 +318,11 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/view/configuration")
     public Object viewConfiguration(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
         String uuid = dto.getUuid();
-        if(url != null && token != null){
-            url = url + "/topology/businessSubnet/GET/deviceInfo/" + uuid;
+        if(token != null){
+            String url = "/topology/businessSubnet/GET/deviceInfo/" + uuid;
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -334,10 +333,10 @@ public class TopoNodeManagerAction {
    @PutMapping(value="/deviceBusinessSubnet")
     public Object deviceBusinessSubnet(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/businessSubnet/PUT/deviceBusinessSubnet/";
+        if(token != null){
+            String url = "/topology/businessSubnet/PUT/deviceBusinessSubnet/";
             Object result = this.nodeUtil.putBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -348,10 +347,10 @@ public class TopoNodeManagerAction {
     @PutMapping(value="/businessSubnet")
     public Object businessSubnet(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/businessSubnet/PUT/businessSubnet/";
+        if(token != null){
+            String url = "/topology/businessSubnet/PUT/businessSubnet/";
             Object result = this.nodeUtil.putBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -362,10 +361,10 @@ public class TopoNodeManagerAction {
     @PutMapping(value="device/rawConfig")
     public Object rawConfig(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/device/rawConfig/";
+        if(token != null){
+            String url = "/topology/node/device/rawConfig/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -376,10 +375,10 @@ public class TopoNodeManagerAction {
     @PostMapping(value="/queryNodeHistory")
     public Object queryNodeHistory(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/queryNodeHistory.action/";
+        if(token != null){
+            String url = "/topology/node/queryNodeHistory.action/";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -390,10 +389,10 @@ public class TopoNodeManagerAction {
     @GetMapping(value="/showConfig")
     public Object showConfig(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/showConfig.action    ";
+        if(token != null){
+            String url = "/topology/node/showConfig.action    ";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -404,24 +403,52 @@ public class TopoNodeManagerAction {
     @PostMapping(value="/queryRouteTableHistory")
     public Object queryRouteTableHistory(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/queryRouteTableHistory.action/";
+        if(token != null){
+            String url = "/topology/node/queryRouteTableHistory.action/";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
 
+    @ApiOperation("采集历史-配置文件")
+    @GetMapping(value="/downloadHistory.action")
+    public Object downloadHistory(@RequestParam("id") String id){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url =  "/topology/node/downloadHistory.action";
+            Map map = new HashMap();
+            map.put("id", id);
+            return this.nodeUtil.download(map, url, token);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("路由表-配置下载")
+    @GetMapping(value="/downloadRouteTableHistory.action")
+    public Object downloadRouteTableHistory(@RequestParam("id") String id){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url =  "/topology/node/downloadRouteTableHistory.action";
+            Map map = new HashMap();
+            map.put("id", id);
+            return this.nodeUtil.download(map, url, token);
+        }
+        return ResponseUtil.error();
+    }
+
+
     @ApiOperation("参与路径计算")
     @RequestMapping(value="/updateNodeSkipAnalysis")
     public Object updateNodeSkipAnalysis(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/updateNodeSkipAnalysis/";
+        if(token != null){
+            String url = "/topology/node/updateNodeSkipAnalysis/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -432,10 +459,10 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/updateNodeToSameInbound")
     public Object updateNodeToSameInbound(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/updateNodeToSameInbound/";
+        if(token != null){
+            String url = "/topology/node/updateNodeToSameInbound/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -446,10 +473,10 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/updateNodeLayerTwoDevice")
     public Object updateNodeLayerTwoDevice(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/updateNodeLayerTwoDevice/";
+        if(token != null){
+            String url = "/topology/node/updateNodeLayerTwoDevice/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -460,10 +487,10 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/device/reversion")
     public Object deviceReversion(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/device/reversion/";
+        if(token != null){
+            String url = "/topology/node/device/reversion/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -474,10 +501,10 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/device/change")
     public Object deviceChange(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/device/change/";
+        if(token != null){
+            String url = "/topology/node/device/change/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -488,10 +515,10 @@ public class TopoNodeManagerAction {
     @GetMapping(value="/showRouteTableConfig")
     public Object showRouteTableConfig(NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/showRouteTableConfig.action/";
+        if(token != null){
+            String url = "/topology/node/showRouteTableConfig.action/";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -503,10 +530,10 @@ public class TopoNodeManagerAction {
     @GetMapping(value="/engineJson")
     public Object engineJson(){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/engineJson.action";
+        if(token != null){
+            String url = "/topology/node/engineJson.action";
             Object result = this.nodeUtil.getBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -517,10 +544,10 @@ public class TopoNodeManagerAction {
     @RequestMapping(value="/push/credential/getall")
     public Object push(@RequestBody NodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/credential/getall/";
+        if(token != null){
+            String url = "/push/credential/getall/";
             if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
                 User currentUser = ShiroUserHolder.currentUser();
                 User user = this.userService.findByUserName(currentUser.getUsername());
@@ -536,10 +563,10 @@ public class TopoNodeManagerAction {
     @GetMapping(value="/cycle/getCyclePage")
     public Object cycleGetCyclePage(){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/cycle/getCyclePage/";
+        if(token != null){
+            String url = "/topology/cycle/getCyclePage/";
             Object result = this.nodeUtil.getBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -551,10 +578,10 @@ public class TopoNodeManagerAction {
     public Object doGather(@RequestBody NodeDto dto) {
 
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if (url != null && token != null) {
-            url = url + "/topology/node/doGather.action/";
+        if (token != null) {
+            String url = "/topology/node/doGather.action/";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -573,10 +600,10 @@ public class TopoNodeManagerAction {
     @GetMapping(value="/batch-import-excel")
     public Object upload(@RequestParam(value = "multipartFile", required = false) MultipartFile file, String encrypt) throws IOException {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/batch-import-excel/";
+        if(token != null){
+            String url = "/topology/node/batch-import-excel/";
             ByteArrayResource fileAsResource = new ByteArrayResource(file.getBytes()) {
                 @Override
                 public String getFilename() {
@@ -607,10 +634,10 @@ public class TopoNodeManagerAction {
     @PostMapping(value = "/upload")
     public Object upload(@RequestParam(value = "file", required = false) MultipartFile file, NodeDto dto) throws IOException {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/upload.action/";
+        if(token != null){
+            String url = "/topology/node/upload.action/";
             ByteArrayResource fileAsResource = new ByteArrayResource(file.getBytes()) {
                 @Override
                 public String getFilename() {
@@ -642,10 +669,10 @@ public class TopoNodeManagerAction {
     @PostMapping(value = "/uploadRouteTable")
     public Object uploadRouteTable(@RequestParam(value = "file", required = false) MultipartFile file, NodeDto dto) throws IOException {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/node/uploadRouteTable.action/";
+        if(token != null){
+            String url = "/topology/node/uploadRouteTable.action/";
             ByteArrayResource fileAsResource = new ByteArrayResource(file.getBytes()) {
                 @Override
                 public String getFilename() {

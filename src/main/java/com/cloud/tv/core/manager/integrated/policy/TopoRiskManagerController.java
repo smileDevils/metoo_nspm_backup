@@ -25,10 +25,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "alarm/access/newestRecordAndDistinguish")
     public Object newestRecordAndDistinguish(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/newestRecordAndDistinguish";
+        if(token != null){
+            String url = "risk/api/alarm/access/newestRecordAndDistinguish";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -39,10 +39,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "alarm/access/resultToMatrix")
     public Object resultToMatrix(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/resultToMatrix";
+        if(token != null){
+            String url = "risk/api/alarm/access/resultToMatrix";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -53,10 +53,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "alarm/access/resultToList")
     public Object resultToList(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/resultToList";
+        if(token != null){
+            String url = "risk/api/alarm/access/resultToList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -67,10 +67,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "api/alarm/access/listAccessAlarm")
     public Object listAccessAlarm(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/listAccessAlarm";
+        if(token != null){
+            String url = "risk/api/alarm/access/listAccessAlarm";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -81,10 +81,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/access/check")
     public Object check(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/check";
+        if(token != null){
+            String url = "risk/api/alarm/access/check";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -95,10 +95,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/access/percentage")
     public Object percentage(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/percentage";
+        if(token != null){
+            String url = "risk/api/alarm/access/percentage";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -109,10 +109,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/danger/threadPool/shutdown")
     public Object shutdown(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/danger/threadPool/shutdown";
+        if(token != null){
+            String url = "risk/api/danger/threadPool/shutdown";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -123,10 +123,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/access/ruleAllList")
     public Object ruleAllList(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/ruleAllList";
+        if(token != null){
+            String url = "risk/api/alarm/access/ruleAllList";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -137,10 +137,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/access/insertOrUpdate")
     public Object insertOrUpdate(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/insertOrUpdate";
+        if(token != null){
+            String url = "risk/api/alarm/access/insertOrUpdate";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -151,10 +151,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/access/delete")
     public Object delete(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/delete";
+        if(token != null){
+            String url = "risk/api/alarm/access/delete";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -165,10 +165,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/access/beforeCheck")
     public Object beforeCheck(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/access/beforeCheck";
+        if(token != null){
+            String url = "risk/api/alarm/access/beforeCheck";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -179,10 +179,10 @@ public class TopoRiskManagerController {
         @PostMapping(value = "/api/alarm/rule/newestRecord")
     public Object newestRecord(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/rule/newestRecord";
+        if(token != null){
+            String url = "risk/api/alarm/rule/newestRecord";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -193,10 +193,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/rule/getZoneAccessRuleAlarmToMatrix")
     public Object getZoneAccessRuleAlarmToMatrix(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/rule/getZoneAccessRuleAlarmToMatrix";
+        if(token != null){
+            String url = "risk/api/alarm/rule/getZoneAccessRuleAlarmToMatrix";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -207,10 +207,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/rule/percentage")
     public Object rulePercentage(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/rule/percentage";
+        if(token != null){
+            String url = "risk/api/alarm/rule/percentage";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -221,10 +221,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/rule/getZoneAccessRuleAlarmToList")
     public Object getZoneAccessRuleAlarmToList(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/rule/getZoneAccessRuleAlarmToList";
+        if(token != null){
+            String url = "risk/api/alarm/rule/getZoneAccessRuleAlarmToList";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -235,10 +235,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/rule/check")
     public Object ruleChech(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/rule/check";
+        if(token != null){
+            String url = "risk/api/alarm/rule/check";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -249,10 +249,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/alarm/rule/listRuleAlarmDetail")
     public Object listRuleAlarmDetail(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/alarm/rule/listRuleAlarmDetail";
+        if(token != null){
+            String url = "risk/api/alarm/rule/listRuleAlarmDetail";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -263,10 +263,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/get/object")
     public Object getObject(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/get/object";
+        if(token != null){
+            String url = "risk/api/compliance/get/object";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -277,10 +277,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/save/object")
     public Object saveObject(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/save/object";
+        if(token != null){
+            String url = "risk/api/compliance/save/object";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -291,10 +291,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/delete/object")
     public Object deleteObject(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/delete/object";
+        if(token != null){
+            String url = "risk/api/compliance/delete/object";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -305,10 +305,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/object/info")
     public Object info(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/object/info";
+        if(token != null){
+            String url = "risk/api/compliance/object/info";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -319,10 +319,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/matrix/list")
     public Object matrixList(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/matrix/list";
+        if(token != null){
+            String url = "risk/api/compliance/matrix/list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -333,10 +333,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/matrix/save")
     public Object matrixSave(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/matrix/save";
+        if(token != null){
+            String url = "risk/api/compliance/matrix/save";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -347,10 +347,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/matrix/delete")
     public Object matrixDelete(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/matrix/delete";
+        if(token != null){
+            String url = "risk/api/compliance/matrix/delete";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -361,10 +361,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/rules/list")
     public Object ruleList(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/rules/list";
+        if(token != null){
+            String url = "risk/api/compliance/rules/list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -375,10 +375,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/get/menu")
     public Object getMenu(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/get/menu";
+        if(token != null){
+            String url = "risk/api/compliance/get/menu";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -389,10 +389,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/rules/save")
     public Object rulesSave(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/rules/save";
+        if(token != null){
+            String url = "risk/api/compliance/rules/save";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -403,10 +403,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/rules/update")
     public Object rulesUpdate(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/rules/update";
+        if(token != null){
+            String url = "risk/api/compliance/rules/update";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -417,10 +417,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/rules/delete")
     public Object rulesDelete(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/rules/delete";
+        if(token != null){
+            String url = "risk/api/compliance/rules/delete";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -431,10 +431,10 @@ public class TopoRiskManagerController {
     @PostMapping(value = "/api/compliance/verify/dredge")
     public Object verify(@RequestBody(required = false) RiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "risk/api/compliance/verify/dredge";
+        if(token != null){
+            String url = "risk/api/compliance/verify/dredge";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

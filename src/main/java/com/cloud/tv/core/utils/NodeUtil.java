@@ -1,6 +1,7 @@
 package com.cloud.tv.core.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.tv.core.utils.http.UrlConvertUtil;
 import com.cloud.tv.dto.NodeDto;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.lang.StringUtils;
@@ -23,8 +24,12 @@ public class NodeUtil {
 
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private UrlConvertUtil urlConvertUtil;
+
 
     public Object nodeResult(NodeDto dto, String url, String token) {
+
         if (dto != null) {
             HttpHeaders headers = new HttpHeaders();
             HttpMethod method = HttpMethod.POST;
@@ -62,11 +67,13 @@ public class NodeUtil {
 
 
     public <T> Object getBody(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         Map<String, Object> map = new BeanMap(t);
         return this.exchange(map, url, token);
     }
 
     public <T> Object postBody(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         Map<String, Object> map = new BeanMap(t);
         Map<String, Object> map1 = new HashMap();
         for(String key : map.keySet()){
@@ -85,6 +92,7 @@ public class NodeUtil {
     }
 
     public <T> Object postFormSend(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         Map<String, Object> map = new BeanMap(t);
         MultiValueMap<String, Object> multValueMap = new LinkedMultiValueMap<String, Object>();
         for(String key : map.keySet()){
@@ -94,6 +102,7 @@ public class NodeUtil {
     }
 
     public <T> Object postFormDataBody(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         Map<String, Object> map = new BeanMap(t);
         MultiValueMap<String, Object> multValueMap = new LinkedMultiValueMap<String, Object>();
         for(String key : map.keySet()){
@@ -106,11 +115,13 @@ public class NodeUtil {
     }
 
     public <T> Object putBody(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         Map<String, Object> map = new BeanMap(t);
         return this.put(map, url, token);
     }
 
     public <T> Object putFormDataBody(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         Map<String, Object> map = new BeanMap(t);
         MultiValueMap<String, Object> multValueMap = new LinkedMultiValueMap<String, Object>();
         for(String key : map.keySet()){
@@ -120,6 +131,7 @@ public class NodeUtil {
     }
 
     public <T> Object deleteBody(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         Map<String, Object> map = new BeanMap(t);
         return this.deleteChange(map, url, token);
     }
@@ -257,6 +269,7 @@ public class NodeUtil {
     }
 
     public ResponseEntity download(Map<String, Object> map, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);// 设置密钥
         //设置请求参数
@@ -273,6 +286,7 @@ public class NodeUtil {
     }
 
     public ResponseEntity downloadPost(Map<String, Object> map, String url, String token){
+        url = this.urlConvertUtil.convert(url);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);// 设置密钥
         //设置请求参数

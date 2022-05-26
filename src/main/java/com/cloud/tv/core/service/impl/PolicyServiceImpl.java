@@ -70,12 +70,11 @@ public class PolicyServiceImpl implements IPolicyService {
             // 计算总数
             // 策略统计
             SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-            String url = sysConfig.getNspmUrl();
             String token = sysConfig.getNspmToken();
             int total = 0;
             double score = 0;
-            if(url != null && token != null){
-                String policyUrl = url + "/topology-policy/report/policy/policy-list-pie";
+            if(token != null){
+                String policyUrl = "/topology-policy/report/policy/policy-list-pie";
                 Object result = this.nodeUtil.postFormDataBody(dto, policyUrl, token);
                 JSONObject policyResult = JSONObject.parseObject(result.toString());
                 if(policyResult.get("data") != null){
@@ -83,7 +82,7 @@ public class PolicyServiceImpl implements IPolicyService {
                     total += Integer.parseInt(data.get("total").toString());
                 }
                 // 对象统计
-                String objectUrl = url + "/topology-policy/report/policy/object-list-pie";
+                String objectUrl = "/topology-policy/report/policy/object-list-pie";
                 Object objectResult = this.nodeUtil.postFormDataBody(dto, objectUrl, token);
                 JSONObject ObjectResultJ = JSONObject.parseObject(objectResult.toString());
                 if(ObjectResultJ.get("data") != null){
@@ -93,7 +92,7 @@ public class PolicyServiceImpl implements IPolicyService {
 
                 if(total != 0){
                     // 问题策略优化统计
-                    String policyOptUrl = url + "/topology-policy/report/policy/policy-check-pie";
+                    String policyOptUrl =  "/topology-policy/report/policy/policy-check-pie";
                     Object policyOptResult = this.nodeUtil.postFormDataBody(dto, policyOptUrl, token);
                     JSONObject policyOptResultJ = JSONObject.parseObject(policyOptResult.toString());
                     if(policyOptResultJ.get("data") != null){
@@ -111,7 +110,7 @@ public class PolicyServiceImpl implements IPolicyService {
                         }
                     }
                     // 问题对象优化统计
-                    String objectOptUrl = url + "/topology-policy/report/policy/object-check-pie";
+                    String objectOptUrl = "/topology-policy/report/policy/object-check-pie";
                     Object objectOptResult = this.nodeUtil.postFormDataBody(dto, objectOptUrl, token);
                     JSONObject objectOptResultJ = JSONObject.parseObject(objectOptResult.toString());
                     if(objectOptResultJ.get("data") != null){

@@ -3,10 +3,13 @@ package com.cloud.tv.core.manager.admin.action;
 import com.cloud.tv.core.service.IRoleGroupService;
 import com.cloud.tv.core.service.IRoleService;
 import com.cloud.tv.core.utils.ResponseUtil;
+import com.cloud.tv.core.utils.query.PageInfo;
 import com.cloud.tv.dto.RoleGroupDto;
+import com.cloud.tv.dto.UserDto;
 import com.cloud.tv.entity.Role;
 import com.cloud.tv.entity.RoleGroup;
 import com.cloud.tv.req.RoleGroupReq;
+import com.cloud.tv.vo.UserVo;
 import com.github.pagehelper.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,26 +31,26 @@ public class RoleGroupManagerController {
     private IRoleService roleService;
 
 //    @RequiresPermissions("ADMIN:ROLEGROUP:LIST")
-    @ApiOperation("角色组列表")
-    @PostMapping("/list")
-    public Object list(@RequestBody RoleGroupDto dto){
-        Map data = new HashMap();
-        if(dto.getCurrentPage() == null || dto.getCurrentPage().equals("")){
-            dto.setCurrentPage(1);
-        }
-        if(dto.getPageSize() == null || dto.getPageSize().equals("")){
-            dto.setPageSize(15);
-        }
-        Map<String, Integer> params = new HashMap<String, Integer>();
-        params.put("pageSize", dto.getPageSize());
-        params.put("currentPage", (dto.getCurrentPage() ) );
-        Page<RoleGroup> page = this.roleGroupService.query(params);
-        data.put("data", page.getResult());
-        data.put("currentPage", dto.getCurrentPage());
-        data.put("pageSize", page.getPageSize());
-        data.put("pages", page.getPages());
-        return ResponseUtil.query(data);
-    }
+//    @ApiOperation("角色组列表")
+//    @PostMapping("/list")
+//    public Object list(@RequestBody RoleGroupDto dto){
+//        Map data = new HashMap();
+//        if(dto.getCurrentPage() == null || dto.getCurrentPage().equals("")){
+//            dto.setCurrentPage(1);
+//        }
+//        if(dto.getPageSize() == null || dto.getPageSize().equals("")){
+//            dto.setPageSize(15);
+//        }
+//        Map<String, Integer> params = new HashMap<String, Integer>();
+//        params.put("pageSize", dto.getPageSize());
+//        params.put("currentPage", (dto.getCurrentPage() ) );
+//        Page<RoleGroup> page = this.roleGroupService.query(params);
+//        data.put("data", page.getResult());
+//        data.put("currentPage", dto.getCurrentPage());
+//        data.put("pageSize", page.getPageSize());
+//        data.put("pages", page.getPages());
+//        return ResponseUtil.query(data);
+//    }
 
 
     @ApiOperation("角色组列表/角色")

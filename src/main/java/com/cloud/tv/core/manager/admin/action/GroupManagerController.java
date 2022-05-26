@@ -25,25 +25,6 @@ public class GroupManagerController {
     @Autowired
     private IUserService userService;
 
-//    @RequestMapping("/list")
-//    @ResponseBody
-//    public Object list(@RequestBody(required = false) GroupDto dto){
-//        List<Group> parent = this.groupService.queryChild(null);
-//        if(parent.size() > 0){
-//            List<Group> branchList = new ArrayList<Group>();
-//            for(Group obj : parent){
-//                if(this.groupTools.genericGroup(obj).size() > 0){
-//                    this.groupTools.genericGroup(obj);
-//                }
-//                branchList.add(obj);
-//            }
-//            return ResponseUtil.ok(branchList);
-//        }
-//        return ResponseUtil.ok();
-//    }
-
-
-
     @RequestMapping("/list")
     @ResponseBody
     public Object list(@RequestBody(required = false) GroupDto dto){

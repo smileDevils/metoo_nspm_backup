@@ -28,10 +28,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/listLogicZone")
     public Object listLogicZone(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listLogicZone";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listLogicZone";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -42,10 +42,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/pageList")
     public Object pageList(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/pageList";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/pageList";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -56,10 +56,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/businessZoneTree")
     public Object businessZoneTree(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/businessZoneTree";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/businessZoneTree";
             Object result = this.nodeUtil.postFormSend(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -70,10 +70,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/getByBusinessZoneUuid")
     public Object getByBusinessZoneUuid(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/getByBusinessZoneUuid";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/getByBusinessZoneUuid";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -85,10 +85,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/businessZoneRename")
     public Object businessZoneRename(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/businessZoneRename";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/businessZoneRename";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -100,10 +100,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/getOptionalLogicZoneList")
     public Object getOptionalLogicZoneList(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/getOptionalLogicZoneList";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/getOptionalLogicZoneList";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -114,10 +114,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/deleteLogicZone")
     public Object deleteLogicZone(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/deleteLogicZone";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/deleteLogicZone";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -128,10 +128,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/addOrEdit")
     public Object addOrEdit(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/addOrEdit";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/addOrEdit";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -142,10 +142,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/deleteByUuid")
     public Object deleteByUuid(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/deleteByUuid";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/deleteByUuid";
             Object result = this.nodeUtil.postFormSend(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -156,10 +156,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/danger/businessZone/bulkMove")
     public Object bulkMove(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/businessZone/bulkMove";
+        if(token != null){
+            String url = "/risk/api/danger/businessZone/bulkMove";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -170,10 +170,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/listLogicZoneSubnet")
     public Object listLogicZoneSubnet(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listLogicZoneSubnet";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listLogicZoneSubnet";
             Object result = this.nodeUtil.postFormSend(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -184,10 +184,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/listZoneType")
     public Object listZoneType(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listZoneType";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listZoneType";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -198,10 +198,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/listZoneTypeDetail")
     public Object listZoneTypeDetail(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listZoneTypeDetail";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listZoneTypeDetail";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -212,10 +212,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/listDeviceSubnet")
     public Object listDeviceSubnet(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listDeviceSubnet";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listDeviceSubnet";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -226,10 +226,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/saveOrUpdateLogicZone")
     public Object saveOrUpdateLogicZone(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/saveOrUpdateLogicZone";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/saveOrUpdateLogicZone";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -240,10 +240,10 @@ public class TopoZoneManagerAction {
     @RequestMapping("/alarm/zone/getByZoneUuid")
     public Object getByZoneUuid(@RequestBody(required = false) ZoneDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/getByZoneUuid";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/getByZoneUuid";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

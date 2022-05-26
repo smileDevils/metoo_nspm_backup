@@ -46,11 +46,11 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/pushtasklist")
     public Object pushtasklist(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            String taskUrl = url + "/push/task/pushtasklist";
-            Object result = this.nodeUtil.postFormDataBody(dto, taskUrl, token);
+        if(token != null){
+            String url = "/push/task/pushtasklist";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             if(result != null){
                 List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
                 if(users == null || users.size() <= 0){
@@ -114,10 +114,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/recommend/task/getcommand")
     public Object getcommand(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/getcommand";
+        if(token != null){
+            String url = "/push/recommend/task/getcommand";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             JSONArray arrays = JSONArray.parseArray(result.get("data").toString());
@@ -140,10 +140,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/pushtaskstatuslist")
     public Object pushtaskstatuslist(){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/pushtaskstatuslist";
+        if(token != null){
+            String url = "/push/task/pushtaskstatuslist";
             Object result = this.nodeUtil.postFormDataBody(null, url, token);
             return ResponseUtil.ok(result);
         }
@@ -154,10 +154,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/getdevicenum")
     public Object getdevicenum(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/getdevicenum";
+        if(token != null){
+            String url = "/push/task/getdevicenum";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -168,10 +168,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/startpushtasks")
     public Object startpushtasks(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/startpushtasks";
+        if(token != null){
+            String url = "/push/task/startpushtasks";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             this.issuedService.pushtaskstatuslist();
             return ResponseUtil.ok(result);
@@ -183,10 +183,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/stoppushtasks")
     public Object stoppushtasks(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/stoppushtasks";
+        if(token != null){
+            String url = "/push/task/stoppushtasks";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             this.issuedService.pushtaskstatuslist();
             return ResponseUtil.ok(result);
@@ -198,10 +198,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/checkNatOrder")
     public Object checkNatOrder(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/checkNatOrder";
+        if(token != null){
+            String url = "/push/task/checkNatOrder";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -212,10 +212,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/startdevicepushtasks")
     public Object startdevicepushtasks(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/startdevicepushtasks";
+        if(token != null){
+            String url = "/push/task/startdevicepushtasks";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             // 工单统计
             this.issuedService.pushtaskstatuslist();
@@ -230,10 +230,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/recommend/task/editcommand.action")
     public Object editcommand(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/editcommand.action";
+        if(token != null){
+            String url = "/push/recommend/task/editcommand.action";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -244,10 +244,10 @@ public class TopoIssuedManagerController {
     @RequestMapping("/push/task/setschedule")
     public Object setschedule(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/task/setschedule";
+        if(token != null){
+            String url = "/push/task/setschedule";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

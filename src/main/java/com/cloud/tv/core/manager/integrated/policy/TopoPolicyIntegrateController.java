@@ -124,10 +124,10 @@ public class TopoPolicyIntegrateController {
     @RequestMapping("/viewData")
     public Object vendors(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            String nodeUrl = url + "/topology/node/queryNode.action";
+        if(token != null){
+            String url = "/topology/node/queryNode.action";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setBranchLevel(user.getGroupLevel());
@@ -138,7 +138,7 @@ public class TopoPolicyIntegrateController {
             JSONArray arrays = new JSONArray();
             Integer total = 0;
             if(dto.getType() != null && !dto.getType().equals("")){
-                Object nodes = this.nodeUtil.getBody(dto, nodeUrl, token);
+                Object nodes = this.nodeUtil.getBody(dto, url, token);
                 JSONObject object = JSONObject.parseObject(nodes.toString());
                 JSONArray array = JSONArray.parseArray(object.get("data").toString());
                 arrays.addAll(array);
@@ -149,7 +149,7 @@ public class TopoPolicyIntegrateController {
                 types.add("1");
                 for(String type : types){
                     dto.setType(type);
-                    Object nodes = this.nodeUtil.getBody(dto, nodeUrl, token);
+                    Object nodes = this.nodeUtil.getBody(dto, url, token);
                     JSONObject object = JSONObject.parseObject(nodes.toString());
                     if(object.get("data") != null) {
                         JSONArray array = JSONArray.parseArray(object.get("data").toString());
@@ -160,7 +160,7 @@ public class TopoPolicyIntegrateController {
             }
             Map map = new HashMap();
             map.put("total", total);
-            String policyUrl = url + "/topology-policy/report/policyView/viewData";
+            String url2 = "/topology-policy/report/policyView/viewData";
             List policys = new ArrayList();
             for(Object obj : arrays){
                 if(obj != null){
@@ -174,7 +174,7 @@ public class TopoPolicyIntegrateController {
                         policyDto.setVendor(node.get("vendorName").toString());
                         policyDto.setType(node.get("type").toString());
                         policyDto.setDeviceUuid(node.get("uuid").toString());
-                        Object policy = this.nodeUtil.postFormDataBody(policyDto, policyUrl, token);
+                        Object policy = this.nodeUtil.postFormDataBody(policyDto, url2, token);
                         JSONObject json = JSONObject.parseObject(policy.toString());
                         if(json.get("data") != null){
                             JSONArray data = JSONArray.parseArray(json.get("data").toString());
@@ -233,7 +233,7 @@ public class TopoPolicyIntegrateController {
                                     }
                                 }
                                 double checkTotal = policyGrade + objectGrade;
-                                BigDecimal b1 = new BigDecimal(Double.toString(total));
+                                BigDecimal b1 = new BigDecimal(Double.toString(policysTotal));
                                 BigDecimal b2 = new BigDecimal(checkTotal);
                                 Double b3 = b2.divide(b1, 2, RoundingMode.HALF_UP).doubleValue();
                                 BigDecimal b4 = new BigDecimal(1);
@@ -256,10 +256,10 @@ public class TopoPolicyIntegrateController {
 //    @RequestMapping("/viewData")
 //    public Object vendors(@RequestBody(required = false) PolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-//        String url = sysConfig.getNspmUrl();
+//        
 //        String token = sysConfig.getNspmToken();
-//        if(url != null && token != null){
-//            String nodeUrl = url + "/topology/node/queryNode.action";
+//        if(token != null){
+//            String nodeString url = "/topology/node/queryNode.action";
 //            User currentUser = ShiroUserHolder.currentUser();
 //            User user = this.userService.findByUserName(currentUser.getUsername());
 //            dto.setBranchLevel(user.getGroupLevel());
@@ -292,7 +292,7 @@ public class TopoPolicyIntegrateController {
 //            }
 //                Map map = new HashMap();
 //                map.put("total", total);
-//                String policyUrl = url + "/topology-policy/report/policyView/viewData";
+//                String policyString url = "/topology-policy/report/policyView/viewData";
 //                List policys = new ArrayList();
 //                for(Object obj : arrays){
 //                    if(obj != null){
@@ -463,10 +463,10 @@ public class TopoPolicyIntegrateController {
     @GetMapping(value = "/node/navigation")
     public Object nodeNavigation(PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-layer/whale/GET/node/navigation";
+        if(token != null){
+            String url = "/topology-layer/whale/GET/node/navigation";
             Object result = this.nodeUtil.getBody(dto, url, token);
             Map map = JSONObject.parseObject(result.toString(), Map.class);
             Map resultMap = new HashMap();
@@ -499,10 +499,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/rule-list-search")
     public Object ruleListSearch(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/rule-list-search";
+        if(token != null){
+            String url = "/topology-policy/policy/rule-list-search";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(object);
         }
@@ -513,10 +513,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/rule-list")
     public Object ruleList(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/filter-list/rout/rule-list";
+        if(token != null){
+            String url = "/topology-policy/policy/filter-list/rout/rule-list";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("success") != null){
@@ -533,10 +533,10 @@ public class TopoPolicyIntegrateController {
     @RequestMapping("/query-object-detail")
     public Object queryObjectDetail(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/device/query-object-detail";
+        if(token != null){
+            String url = "/topology-policy/device/query-object-detail";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -546,10 +546,10 @@ public class TopoPolicyIntegrateController {
     @RequestMapping("/batch-skip-check")
     public Object batchSkipCheck(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/batch-skip-check";
+        if(token != null){
+            String url = "/topology-policy/policy/batch-skip-check";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -560,10 +560,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/policy-list-pie")
     public Object policyListPie(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/report/policy/policy-list-pie";
+        if(token != null){
+            String url = "/topology-policy/report/policy/policy-list-pie";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -574,10 +574,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/filter-list")
     public Object filterList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/filter-list";
+        if(token != null){
+            String url = "/topology-policy/policy/filter-list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -588,10 +588,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/filter-list/static-rout")
     public Object filterListStaticRout(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/filter-list/static-rout";
+        if(token != null){
+            String url = "/topology-policy/policy/filter-list/static-rout";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -602,10 +602,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/filter-list/rout-table")
     public Object filterListRoutTable(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/filter-list/rout-table";
+        if(token != null){
+            String url = "/topology-policy/policy/filter-list/rout-table";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -613,13 +613,13 @@ public class TopoPolicyIntegrateController {
     }
 
     @ApiOperation("安全域")
-    @PostMapping(value = "/listDeviceZone")
+        @PostMapping(value = "/listDeviceZone")
     public Object listDeviceZone(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listDeviceZone";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listDeviceZone";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -631,10 +631,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/listDeviceInterface")
     public Object listDeviceInterface(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listDeviceInterface";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listDeviceInterface";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -645,10 +645,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/raw-config")
     public Object rawConfig(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/device/raw-config";
+        if(token != null){
+            String url = "/topology-policy/device/raw-config";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -659,10 +659,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/remark/get")
     public Object remarkGet(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/remark/get";
+        if(token != null){
+            String url = "/topology-policy/policy/remark/get";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -673,10 +673,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/remark/save")
     public Object remarkSave(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/remark/save";
+        if(token != null){
+            String url = "/topology-policy/policy/remark/save";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -687,10 +687,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/listDeviceZoneInterface")
     public Object listDeviceZoneInterface(@RequestBody  PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/alarm/zone/listDeviceZoneInterface";
+        if(token != null){
+            String url = "/risk/api/alarm/zone/listDeviceZoneInterface";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -701,10 +701,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/object-list-pie")
     public Object objectListPie(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/report/policy/object-list-pie";
+        if(token != null){
+            String url = "/topology-policy/report/policy/object-list-pie";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -715,10 +715,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/object-list")
     public Object objectList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/device/object-list";
+        if(token != null){
+            String url = "/topology-policy/device/object-list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -729,10 +729,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/device/search-address")
     public Object searchAddress(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/device/search-address";
+        if(token != null){
+            String url = "/topology-policy/device/search-address";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -743,10 +743,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/device/search-service")
     public Object searchService(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/device/search-service";
+        if(token != null){
+            String url = "/topology-policy/device/search-service";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -760,10 +760,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/check")
     public Object check(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/check";
+        if(token != null){
+            String url = "/topology-policy/policy/check";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -774,10 +774,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/policy-check-pie")
     public Object policyCheckPie(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/report/policy/policy-check-pie";
+        if(token != null){
+            String url = "/topology-policy/report/policy/policy-check-pie";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -788,10 +788,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/unrefAclList")
     public Object unrefAclList(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/unrefAclList";
+        if(token != null){
+            String url = "/topology-policy/policy/unrefAclList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -802,10 +802,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/check/primary")
     public Object checkPrimary(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/check/primary";
+        if(token != null){
+            String url = "/topology-policy/policy/check/primary";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -816,10 +816,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/object-check-pie")
     public Object objectCheckPie(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/report/policy/object-check-pie";
+        if(token != null){
+            String url = "/topology-policy/report/policy/object-check-pie";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -830,10 +830,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/object/check")
     public Object objectCheck(@RequestBody(required = false)PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/object/check/";
+        if(token != null){
+            String url = "/topology-policy/object/check/";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -842,13 +842,13 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("命中收敛-厂商")
     @PostMapping(value = "/listVendorName")
-    public Object listVendorName(@RequestBody PolicyDto dto){
+    public Object listVendorName(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/count/listVendorName";
-            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+        if(token != null){
+            String url = "/combing/api/hit/count/listVendorName";
+            Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
@@ -856,12 +856,12 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("命中收敛-内网ip地址管理")
     @PostMapping(value = "/intranetIpList")
-    public Object intranetIpList(@RequestBody PolicyDto dto){
+    public Object intranetIpList(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/logConfig/intranetIpList";
+        if(token != null){
+            String url = "/combing/api/hit/logConfig/intranetIpList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -872,10 +872,9 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/listDevNodeLogConfig")
     public Object listDevNodeLogConfig(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/count/listDevNodeLogConfig";
+        if(token != null){
+            String url = "/combing/api/hit/count/listDevNodeLogConfig";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -886,10 +885,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/saveIntranetIp")
     public Object saveIntranetIp(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/logConfig/saveIntranetIp";
+        if(token != null){
+            String url = "/combing/api/hit/logConfig/saveIntranetIp";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -900,10 +899,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/logConfigList")
     public Object logConfigList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/logConfig/list";
+        if(token != null){
+            String url = "/combing/api/hit/logConfig/list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -914,10 +913,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/logConfigEdit")
     public Object logConfigEdit(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/logConfig/edit";
+        if(token != null){
+            String url = "/combing/api/hit/logConfig/edit";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -928,10 +927,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/hitCountList")
     public Object hitCountList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/hit/count/hitCountList";
+        if(token != null){
+            String url = "/combing/api/hit/count/hitCountList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -942,10 +941,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/skipCheck")
     public Object skipCheck(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/skip-check";
+        if(token != null){
+            String url = "/topology-policy/policy/skip-check";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -956,10 +955,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/task/list")
     public Object taskList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/task/list";
+        if(token != null){
+            String url = "/combing/api/suggest/task/list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -970,10 +969,9 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/task/getDevNode")
     public Object getDevNode(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/task/getDevNode";
+        if(token != null){
+            String url = "/combing/api/suggest/task/getDevNode";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -984,10 +982,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/task/checkDevLog")
     public Object checkDevLog(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/task/checkDevLog";
+        if(token != null){
+            String url = "/combing/api/suggest/task/checkDevLog";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -998,10 +996,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/task/add")
     public Object taskAdd(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/task/add";
+        if(token != null){
+            String url = "/combing/api/suggest/task/add";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1012,10 +1010,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/task/delete")
     public Object delete(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/task/delete";
+        if(token != null){
+            String url = "/combing/api/suggest/task/delete";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1026,10 +1024,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/result/list")
     public Object resultList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/result/list";
+        if(token != null){
+            String url = "/combing/api/suggest/result/list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1040,10 +1038,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/task/again")
     public Object again(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/task/again";
+        if(token != null){
+            String url = "/combing/api/suggest/task/again";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1054,10 +1052,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/threadPool/stopTask")
     public Object stopTask(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/threadPool/stopTask";
+        if(token != null){
+            String url = "/combing/api/suggest/threadPool/stopTask";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1068,10 +1066,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/rawlog/findList")
     public Object findList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/rawlog/findList";
+        if(token != null){
+            String url = "/combing/api/suggest/rawlog/findList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1082,10 +1080,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/combing/api/suggest/rawlog/findDeviceIsVsys")
     public Object findDeviceIsVsys(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/combing/api/suggest/rawlog/findDeviceIsVsys";
+        if(token != null){
+            String url = "/combing/api/suggest/rawlog/findDeviceIsVsys";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1096,10 +1094,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/policy/getPolicyCompareTaskList")
     public Object getPolicyCompareTaskList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/getPolicyCompareTaskList";
+        if(token != null){
+            String url = "/topology-policy/policy/getPolicyCompareTaskList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1110,10 +1108,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/policy/createPolicyCompareTask")
     public Object createPolicyCompareTask(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/createPolicyCompareTask";
+        if(token != null){
+            String url = "/topology-policy/policy/createPolicyCompareTask";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1124,10 +1122,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/policy/deletePolicyCompareTask")
     public Object deletePolicyCompareTask(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/deletePolicyCompareTask";
+        if(token != null){
+            String url = "/topology-policy/policy/deletePolicyCompareTask";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1138,10 +1136,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/policy/policyCompareTaskDetail")
     public Object policyCompareTaskDetail(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/policyCompareTaskDetail";
+        if(token != null){
+            String url = "/topology-policy/policy/policyCompareTaskDetail";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1152,10 +1150,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/policy/policyCompare/list")
     public Object policyCompareList(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/policyCompare/list";
+        if(token != null){
+            String url = "/topology-policy/policy/policyCompare/list";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1166,10 +1164,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/topology-policy/policy/policyCompare/statisticalInformation")
     public Object statisticalInformation(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology-policy/policy/policyCompare/statisticalInformation";
+        if(token != null){
+            String url = "/topology-policy/policy/policyCompare/statisticalInformation";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1180,10 +1178,10 @@ public class TopoPolicyIntegrateController {
 //    @PostMapping(value = "/push/task/addpushtasks")
 //    public Object addPushShtasks(@RequestBody PolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-//        String url = sysConfig.getNspmUrl();
+//        
 //        String token = sysConfig.getNspmToken();
-//        if(url != null && token != null){
-//            String addUrl = url + "/push/task/addpushtasks";
+//        if(token != null){
+//            String addString url = "/push/task/addpushtasks";
 //            User currentUser = ShiroUserHolder.currentUser();
 //            User user = this.userService.findByUserName(currentUser.getUsername());
 //            JSONObject dtoJson = (JSONObject) JSONObject.toJSON(dto);
@@ -1211,7 +1209,7 @@ public class TopoPolicyIntegrateController {
 //                            policyDto.setPageSize(dto.getPageSize());
 //                            policyDto.setDeviceUuid(dto.getDeviceUuid());
 //                            policyDto.setType(dto.getType());
-//                            String policyUrl = url + "/topology-policy/policy/check";
+//                            String policyString url = "/topology-policy/policy/check";
 //                            Object policyResult = this.nodeUtil.postFormDataBody(policyDto, policyUrl, token);
 //                            JSONObject resultJson = JSONObject.parseObject(policyResult.toString());
 //                            if(resultJson.get("data") != null){
@@ -1250,7 +1248,7 @@ public class TopoPolicyIntegrateController {
 //                            policyDto.setDeviceUuid(dto.getDeviceUuid());
 //                            policyDto.setType(dto.getType());
 //                            policyDto.setObjectType(dto.getObjectType());
-//                            String objectUrl = url + "/topology-policy/object/check";
+//                            String objectString url = "/topology-policy/object/check";
 //                            Object objectResult = this.nodeUtil.postFormDataBody(policyDto, objectUrl, token);
 //                            JSONObject objects = JSONObject.parseObject(objectResult.toString());
 //                            if(objects.get("data") != null){
@@ -1295,10 +1293,10 @@ public class TopoPolicyIntegrateController {
     @PostMapping(value = "/push/task/addpushtasks")
     public Object addPushShtasks(@RequestBody PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            String addUrl = url + "/push/task/addpushtasks";
+        if(token != null){
+            String url = "/push/task/addpushtasks";
             JSONObject dtoJson = (JSONObject) JSONObject.toJSON(dto);
             if(dtoJson != null){
                 JSONArray arrays = JSONArray.parseArray(dtoJson.get("tasks").toString());
@@ -1312,7 +1310,7 @@ public class TopoPolicyIntegrateController {
                     arrays.clear();
                     arrays.add(json);
                     dto.setTasks(arrays);
-                    Object result = this.nodeUtil.postFormDataBody(dto, addUrl, token);
+                    Object result = this.nodeUtil.postFormDataBody(dto, url, token);
                     JSONObject resultJ = JSONObject.parseObject(result.toString());
                     if(resultJ.get("status").toString().equals("0")) {
                         // 更新字符状态
@@ -1328,8 +1326,8 @@ public class TopoPolicyIntegrateController {
                             policyDto.setPageSize(dto.getPageSize());
                             policyDto.setDeviceUuid(dto.getDeviceUuid());
                             policyDto.setType(dto.getType());
-                            String policyUrl = url + "/topology-policy/policy/check";
-                            Object policyResult = this.nodeUtil.postFormDataBody(policyDto, policyUrl, token);
+                            String url2 = "/topology-policy/policy/check";
+                            Object policyResult = this.nodeUtil.postFormDataBody(policyDto, url2, token);
                             JSONObject resultJson = JSONObject.parseObject(policyResult.toString());
                             if (resultJson.get("data") != null) {
                                 JSONArray poliscyArrays = JSONArray.parseArray(resultJson.get("data").toString());
@@ -1371,8 +1369,8 @@ public class TopoPolicyIntegrateController {
                             policyDto.setDeviceUuid(dto.getDeviceUuid());
                             policyDto.setType(dto.getType());
                             policyDto.setObjectType(dto.getObjectType());
-                            String objectUrl = url + "/topology-policy/object/check";
-                            Object objectResult = this.nodeUtil.postFormDataBody(policyDto, objectUrl, token);
+                            String url2 = "/topology-policy/object/check";
+                            Object objectResult = this.nodeUtil.postFormDataBody(policyDto, url2, token);
                             JSONObject objects = JSONObject.parseObject(objectResult.toString());
                             if(objects.get("data") != null){
                                 JSONArray objectArray = JSONArray.parseArray(objects.get("data").toString());
@@ -1424,21 +1422,21 @@ public class TopoPolicyIntegrateController {
         // 计算总数
         // 策略统计
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
         int total = 0;
         double score = 0;
-        if(url != null && token != null){
-            String policyUrl = url + "/topology-policy/report/policy/policy-list-pie";
-            Object result = this.nodeUtil.postFormDataBody(dto, policyUrl, token);
+        if(token != null){
+            String url = "/topology-policy/report/policy/policy-list-pie";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject policyResult = JSONObject.parseObject(result.toString());
             if(policyResult.get("data") != null){
                 JSONObject data = JSONObject.parseObject(policyResult.get("data").toString());
                 total += Integer.parseInt(data.get("total").toString());
             }
             // 对象统计
-            String objectUrl = url + "/topology-policy/report/policy/object-list-pie";
-            Object objectResult = this.nodeUtil.postFormDataBody(dto, objectUrl, token);
+            String url2 = "/topology-policy/report/policy/object-list-pie";
+            Object objectResult = this.nodeUtil.postFormDataBody(dto, url2, token);
             JSONObject ObjectResultJ = JSONObject.parseObject(objectResult.toString());
             if(ObjectResultJ.get("data") != null){
                 JSONObject data = JSONObject.parseObject(ObjectResultJ.get("data").toString());
@@ -1447,8 +1445,8 @@ public class TopoPolicyIntegrateController {
 
 
             // 策略优化统计
-            String policyOptUrl = url + "/topology-policy/report/policy/policy-check-pie";
-            Object policyOptResult = this.nodeUtil.postFormDataBody(dto, policyOptUrl, token);
+            String url3 = "/topology-policy/report/policy/policy-check-pie";
+            Object policyOptResult = this.nodeUtil.postFormDataBody(dto, url3, token);
             JSONObject policyOptResultJ = JSONObject.parseObject(policyOptResult.toString());
             if(policyOptResultJ.get("data") != null){
                 JSONObject data = JSONObject.parseObject(policyOptResultJ.get("data").toString());
@@ -1465,8 +1463,8 @@ public class TopoPolicyIntegrateController {
                 }
             }
             // 对象优化统计
-            String objectOptUrl = url + "/topology-policy/report/policy/object-check-pie";
-            Object objectOptResult = this.nodeUtil.postFormDataBody(dto, objectOptUrl, token);
+            String url4 = "/topology-policy/report/policy/object-check-pie";
+            Object objectOptResult = this.nodeUtil.postFormDataBody(dto, url4, token);
             JSONObject objectOptResultJ = JSONObject.parseObject(objectOptResult.toString());
             if(objectOptResultJ.get("data") != null){
                 JSONObject data = JSONObject.parseObject(objectOptResultJ.get("data").toString());

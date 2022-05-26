@@ -17,7 +17,7 @@ import java.util.List;
 
 //rtmp://lk.soarmall.com:1935/hls
 @RestController
-@RequestMapping("admin/config")
+@RequestMapping("/admin/config")
 public class SysconfigManagerController {
 
     @Autowired

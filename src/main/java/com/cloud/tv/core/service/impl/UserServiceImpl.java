@@ -225,13 +225,12 @@ public class UserServiceImpl implements IUserService {
                 if(dto.isFlag() && currentUser.getId().equals(user.getId())){
                      SecurityUtils.getSubject().logout();
                     // 修改身份信息后，动态更改Subject的用户属性
-                    Subject subject = SecurityUtils.getSubject();
-                    PrincipalCollection principalCollection = subject.getPrincipals();
-                    String realmName = principalCollection.getRealmNames().iterator().next();
-                    User userInfo = this.userMapper.findByUserName(user.getUsername());// 查询指定属性，封装到Subject内
+                   /* Subject subject = SecurityUtils.getSubject();
+                    String username = (String) subject.getPrincipal();
+                    User userInfo = this.userMapper.findByUserName(username);// 查询指定属性，封装到Subject内
                     PrincipalCollection newPrincipalCollection =
-                            new SimplePrincipalCollection(userInfo, realmName);
-                    subject.runAs(newPrincipalCollection);
+                            new SimplePrincipalCollection(userInfo, userInfo.getUsername());
+                    subject.runAs(newPrincipalCollection);*/
                 }
 
                 //第二种防止 强制退出被修改用户

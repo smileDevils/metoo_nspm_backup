@@ -32,7 +32,7 @@ import java.io.FileNotFoundException;
  * </author>
  */
 @ControllerAdvice
-@Order(-1)
+@Order(2)
 public class GlobalExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);

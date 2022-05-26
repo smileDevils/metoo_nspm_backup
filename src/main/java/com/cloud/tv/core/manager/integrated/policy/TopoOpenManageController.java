@@ -43,11 +43,11 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/searchtasklist.action")
     public Object searchtasklist(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            String pushUrl = url + "/push/recommend/task/searchtasklist";
-            Object result = this.nodeUtil.postFormDataBody(dto, pushUrl, token);
+        if(token != null){
+            String url = "/push/recommend/task/searchtasklist";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             // 检测用户
             List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
             if(users == null || users.size() <= 0){
@@ -73,8 +73,8 @@ public class TopoOpenManageController {
                         policy.setTaskId(Integer.parseInt(obj.get("id").toString()));
                         policy.setPage(1);
                         policy.setPsize(1);
-                        String taskUrl = url + "/push/task/pushtasklist";
-                        Object taskList = this.nodeUtil.postFormDataBody(policy, taskUrl, token);
+                        String url2 = "/push/task/pushtasklist";
+                        Object taskList = this.nodeUtil.postFormDataBody(policy, url2, token);
                         if(taskList != null){
                             JSONObject task = JSONObject.parseObject(taskList.toString());
                             if(!task.get("data").equals("")){
@@ -102,10 +102,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/addGlobalRecommendTask")
     public Object addGlobalRecommendTask(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/addGlobalRecommendTask";
+        if(token != null){
+            String url = "/push/recommend/task/addGlobalRecommendTask";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
@@ -126,10 +126,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/addGlobalinternat")
     public Object addGlobalinternat(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/addGlobalinternat";
+        if(token != null){
+            String url = "/push/recommend/task/addGlobalinternat";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
@@ -143,10 +143,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/label/list")
     public Object labelList(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/label/list";
+        if(token != null){
+            String url = "/push/recommend/label/list";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -157,10 +157,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/gettaskbyid")
     public Object gettaskbyid(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/gettaskbyid";
+        if(token != null){
+            String url = "/push/recommend/task/gettaskbyid";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject results = JSONObject.parseObject(result.toString());
             JSONObject obj = JSONObject.parseObject(results.get("data").toString());
@@ -180,10 +180,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/edit")
     public Object edit(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/edit";
+        if(token != null){
+            String url = "/push/recommend/task/edit";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
             dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
@@ -204,10 +204,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/deletetask")
     public Object deletetask(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/deletetask";
+        if(token != null){
+            String url = "/push/recommend/task/deletetask";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             // 工单统计
             this.issuedService.pushtaskstatuslist();
@@ -220,10 +220,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/recommend/startGlobalRecommendTaskList")
     public Object startGlobalRecommendTaskList(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/recommend/startGlobalRecommendTaskList";
+        if(token != null){
+            String url = "/push/recommend/recommend/startGlobalRecommendTaskList";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -234,10 +234,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/recommend/restart")
     public Object restart(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/recommend/restart";
+        if(token != null){
+            String url = "/push/recommend/recommend/restart";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -248,10 +248,10 @@ public class TopoOpenManageController {
     @GetMapping("/push/recommend/download")
     public Object download(@RequestParam(required = false) String ids){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/download";
+        if(token != null){
+            String url = "/push/recommend/download";
             Map map = new HashMap();
             map.put("ids", ids);
             return this.nodeUtil.download(map, url, token);
@@ -263,10 +263,10 @@ public class TopoOpenManageController {
     @GetMapping("/push/recommend/task/export")
     public Object export(PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/export";
+        if(token != null){
+            String url = "/push/recommend/task/export";
             if(dto.getIsReload().equals("true")){
                 Object result = this.nodeUtil.getBody(dto, url, token);
                 return ResponseUtil.ok(result);
@@ -283,10 +283,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/gettaskstatus")
     public Object gettaskstatus(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/gettaskstatus";
+        if(token != null){
+            String url = "/push/recommend/task/gettaskstatus";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -297,10 +297,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/getpathstatic")
     public Object etpathstatic(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/getpathstatic";
+        if(token != null){
+            String url = "/push/recommend/task/getpathstatic";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -311,10 +311,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/analyzepathinfolist")
     public Object analyzepathinfolist(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/analyzepathinfolist";
+        if(token != null){
+            String url = "/push/recommend/task/analyzepathinfolist";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -325,10 +325,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/enablepath")
     public Object enablepath(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/enablepath";
+        if(token != null){
+            String url = "/push/recommend/task/enablepath";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -339,10 +339,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/pathdetail")
     public Object pathdetail(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/pathdetail";
+        if(token != null){
+            String url = "/push/recommend/task/pathdetail";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -353,10 +353,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/getrisk")
     public Object getrisk(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/getrisk";
+        if(token != null){
+            String url = "/push/recommend/task/getrisk";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -367,10 +367,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/devicedetail")
     public Object devicedetail(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/devicedetail";
+        if(token != null){
+            String url = "/push/recommend/task/devicedetail";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -382,10 +382,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/getmergedpolicy")
     public Object getmergedpolicy(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/getmergedpolicy";
+        if(token != null){
+            String url = "/push/recommend/task/getmergedpolicy";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -396,10 +396,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/getcheckresult")
     public Object getcheckresult(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/getcheckresult";
+        if(token != null){
+            String url = "/push/recommend/task/getcheckresult";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -410,10 +410,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/getpolicy")
     public Object getpolicy(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/getpolicy";
+        if(token != null){
+            String url = "/push/recommend/task/getpolicy";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -424,10 +424,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/searchbatchlist")
     public Object searchbatchlist(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/searchbatchlist";
+        if(token != null){
+            String url = "/push/recommend/task/searchbatchlist";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -438,10 +438,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/getbatchdevicenum")
     public Object getbatchdevicenum(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/getbatchdevicenum";
+        if(token != null){
+            String url = "/push/recommend/getbatchdevicenum";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -453,10 +453,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/verify/startverify")
     public Object startverify(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/verify/startverify";
+        if(token != null){
+            String url = "/push/recommend/verify/startverify";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -467,10 +467,10 @@ public class TopoOpenManageController {
     @RequestMapping("/push/recommend/task/verifypathinfolist")
     public Object verifypathinfolist(@RequestBody(required = false) PolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/push/recommend/task/verifypathinfolist";
+        if(token != null){
+            String url = "/push/recommend/task/verifypathinfolist";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

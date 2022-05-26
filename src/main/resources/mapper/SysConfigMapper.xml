@@ -35,6 +35,9 @@
             <if test=" appId != null">
                 appId = #{appId}
             </if>
+            <if test=" nspmToken != null">
+                nspmToken = #{nspmToken}
+            </if>
         </set>
         where id=#{id}
     </update>

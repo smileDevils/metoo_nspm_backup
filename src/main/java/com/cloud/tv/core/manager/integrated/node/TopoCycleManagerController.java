@@ -29,10 +29,10 @@ public class TopoCycleManagerController {
     @RequestMapping("/topology/cycle/getCyclePage")
     public Object getCyclePage(@RequestBody(required = false) CycleDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/cycle/getCyclePage";
+        if(token != null){
+            String url = "/topology/cycle/getCyclePage";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -43,10 +43,10 @@ public class TopoCycleManagerController {
     @RequestMapping("/topology/cycle/saveCycle")
     public Object saveCycle(CycleDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/cycle/saveCycle";
+        if(token != null){
+            String url = "/topology/cycle/saveCycle";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -57,10 +57,10 @@ public class TopoCycleManagerController {
     @RequestMapping("/topology/cycle/updateCycle")
     public Object updateCycle(CycleDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/cycle/updateCycle";
+        if(token != null){
+            String url = "/topology/cycle/updateCycle";
             Object result = this.nodeUtil.getBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -71,10 +71,10 @@ public class TopoCycleManagerController {
     @RequestMapping("/topology/cycle/batch-cycle-update")
     public Object batchUpdate(@RequestBody(required = false) CycleDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/cycle/batch-cycle-update";
+        if(token != null){
+            String url = "/topology/cycle/batch-cycle-update";
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

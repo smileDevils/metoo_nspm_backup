@@ -2,6 +2,7 @@ package com.cloud.tv.core.manager.admin.action;
 
 import com.cloud.tv.core.service.TestInitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,9 +12,19 @@ public class TestInitAction {
     @Autowired
     private TestInitService testInitService;
 
-    @RequestMapping("/testInit")
+    @Value("asd")
+    private String client;
+
+    private String b;
+
+    public void init(){
+        this.b="456";
+    }
+
+    @RequestMapping("/admin/testInit")
     public String test(){
-//        return this.testInitService.getA();
-        return null;
+        System.out.println(client);
+        System.out.println(b);
+        return this.testInitService.getA();
     }
 }

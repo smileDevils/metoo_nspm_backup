@@ -29,10 +29,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/hostComputerSoftware/assetGroupTree")
     public Object assetGroupTree(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/assetGroupTree";
+        if(token != null){
+            String url =  "/risk/api/danger/hostComputerSoftware/assetGroupTree";
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -43,14 +43,13 @@ public class AssetManagerAction {
         return ResponseUtil.badArgument();
     }
 
-    @ApiOperation("主机列表")
+    @ApiOperation("主机列表") ///risk
     @RequestMapping("/risk/api/danger/assetHost/pageTreeList")
     public Object pageTreeList(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/assetHost/pageTreeList";
+        if(token != null){
+            String url = "/risk/api/danger/assetHost/pageTreeList";
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -65,10 +64,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/hostComputerSoftware/hostComputerSoftwareListByAssetId")
     public Object hostComputerSoftwareListByAssetId(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/hostComputerSoftwareListByAssetId";
+        if(token != null){
+            String url =  "/risk/api/danger/hostComputerSoftware/hostComputerSoftwareListByAssetId";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -83,10 +82,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/assetHost/findIptablesByAssetUuid")
     public Object findIptablesByAssetUuid(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/assetHost/findIptablesByAssetUuid";
+        if(token != null){
+            String url =  "/risk/api/danger/assetHost/findIptablesByAssetUuid";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -101,10 +100,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/hostComputerSoftware/querySubnetUuidByIp")
     public Object querySubnetUuidByIp(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/querySubnetUuidByIp";
+        if(token != null){
+            String url =  "/risk/api/danger/hostComputerSoftware/querySubnetUuidByIp";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -119,10 +118,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/assetHost/addOrEdit")
     public Object addOrEdit(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/assetHost/addOrEdit";
+        if(token != null){
+            String url =  "/risk/api/danger/assetHost/addOrEdit";
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -137,10 +136,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/assetHost/getByAssetUuid")
     public Object getByAssetUuid(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/assetHost/getByAssetUuid";
+        if(token != null){
+            String url =  "/risk/api/danger/assetHost/getByAssetUuid";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -155,10 +154,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/hostComputerSoftware/updateAssetGroupByUUIds")
     public Object updateAssetGroupByUUIds(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/updateAssetGroupByUUIds";
+        if(token != null){
+            String url =  "/risk/api/danger/hostComputerSoftware/updateAssetGroupByUUIds";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -173,10 +172,10 @@ public class AssetManagerAction {
     @RequestMapping("/topology/assets/assetsOBJ_queryManufacturer.action")
     public Object assetsOBJ_queryManufacturer(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/topology/assets/assetsOBJ_queryManufacturer.action";
+        if(token != null){
+            String url =  "/topology/assets/assetsOBJ_queryManufacturer.action";
             Object object = this.nodeUtil.postFormDataBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("success").toString().equals("true")){
@@ -191,10 +190,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/assetHost/batchDelete")
     public Object batchDelete(@RequestBody Risk dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/assetHost/batchDelete";
+        if(token != null){
+            String url =  "/risk/api/danger/assetHost/batchDelete";
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -209,10 +208,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/hostComputerSoftware/assetGroupList")
     public Object assetGroupList(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-        url = url + "/risk/api/danger/hostComputerSoftware/assetGroupList";
+        if(token != null){
+        String url =  "/risk/api/danger/hostComputerSoftware/assetGroupList";
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -227,10 +226,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/hostComputerSoftware/editAssetGroup")
     public Object editAssetGroup(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/editAssetGroup";
+        if(token != null){
+            String url = "/risk/api/danger/hostComputerSoftware/editAssetGroup";
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
@@ -245,10 +244,10 @@ public class AssetManagerAction {
     @RequestMapping("/risk/api/danger/hostComputerSoftware/deleteAssetGroupByArrayIds")
     public Object deleteAssetGroupByArrayIds(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
+        
         String token = sysConfig.getNspmToken();
-        if(url != null && token != null){
-            url = url + "/risk/api/danger/hostComputerSoftware/deleteAssetGroupByArrayIds";
+        if(token != null){
+            String url =  "/risk/api/danger/hostComputerSoftware/deleteAssetGroupByArrayIds";
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){

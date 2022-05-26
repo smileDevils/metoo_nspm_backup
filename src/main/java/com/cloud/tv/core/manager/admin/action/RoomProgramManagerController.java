@@ -115,7 +115,7 @@ public class RoomProgramManagerController {
     @RequiresPermissions("LK:ROOMPROGRAM")
     @ApiOperation(value = "直播列表")
     @RequestMapping("/list")
-    public Object list(@RequestBody RoomProgramDto dto) {
+    public Object list(@RequestBody(required = false) RoomProgramDto dto) {
         User user = ShiroUserHolder.currentUser();
         if (dto == null) {
             dto = new RoomProgramDto();
