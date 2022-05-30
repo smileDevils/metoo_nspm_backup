@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 /**
  * 数据库多数据源配置
  */
-@Configuration
+//@Configuration
 public class DataSourceConfig {
 
     // nspm数据库配置

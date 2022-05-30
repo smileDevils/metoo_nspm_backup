@@ -36,19 +36,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebConfiguration {
 
-//    @Bean
-//    public LicenseFilter licenseFilter(){
-//        return new LicenseFilter();
-//    };
-//
-//    @Bean
-//    public FilterRegistrationBean registerTestFilter(){
-//        FilterRegistrationBean  registration = new FilterRegistrationBean ();
-//        registration.setFilter(licenseFilter());
-//        registration.addUrlPatterns("/admin/*","/license/*");// 过滤规则
-//        registration.setName("License");
-//        registration.setOrder(1);
-//        return registration;
-//    }
+    @Bean
+    public LicenseFilter licenseFilter(){
+        return new LicenseFilter();
+    };
+
+    @Bean
+    public FilterRegistrationBean registerTestFilter(){
+        FilterRegistrationBean  registration = new FilterRegistrationBean ();
+        registration.setFilter(licenseFilter());
+        registration.addUrlPatterns("/admin/*");// 过滤规则
+        registration.setName("License");
+        registration.setOrder(1);
+        return registration;
+    }
 
 }

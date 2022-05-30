@@ -121,7 +121,7 @@ public class TopoNspmIndexManagerAction {
                             policyDto.setDeviceUuid(node.get("uuid").toString());
                             Object policy = this.nodeUtil.postFormDataBody(policyDto, policyUrl, token);
                             JSONObject json = JSONObject.parseObject(policy.toString());
-                            dataMap.put("grade", 100);
+                            dataMap.put("grade", new Double(100));
                             dataMap.put("objectTotal", 0);
                             dataMap.put("policyTotal", 0);
                             dataMap.put("policyCheckTotal", 0);
@@ -131,8 +131,26 @@ public class TopoNspmIndexManagerAction {
 
                                 JSONObject dataJson = JSONObject.parseObject(data.get(0).toString());
                                 dataMap.put("deviceName", dataJson.get("deviceName") != null  ? dataJson.get("deviceName") : "");
+//                                // 策略总数
+//                                Integer policyTotal = dataJson.get("policyTotal") != null ? Integer.parseInt(dataJson.get("policyTotal").toString()) : 0;
                                 // 策略总数
-                                Integer policyTotal = dataJson.get("policyTotal") != null ? Integer.parseInt(dataJson.get("policyTotal").toString()) : 0;
+                               Integer policyTotal = 0;
+//                            Integer policyTotal = dataJson.get("policyTotal") != null ? Integer.parseInt(dataJson.get("policyTotal").toString()) : 0;
+//                            dataMap.put("policyTotal", policyTotal);
+                                if(dataJson.get("policyTotalDetail") != null){
+                                    JSONArray policyTotalDetails = JSONArray.parseArray(dataJson.get("policyTotalDetail").toString());
+                                    JSONObject policyTotalDetail = JSONObject.parseObject(policyTotalDetails.get(0).toString());
+                                    Integer aclTotal = 0;
+                                    Integer natTotal = 0;
+                                    Integer policyRoutTotal = 0;
+                                    Integer safeTotal = 0;
+                                    aclTotal = Integer.parseInt(policyTotalDetail.get("aclTotal").toString());
+                                    natTotal = Integer.parseInt(policyTotalDetail.get("natTotal").toString());
+                                    policyRoutTotal = Integer.parseInt(policyTotalDetail.get("policyRoutTotal").toString());
+                                    safeTotal = Integer.parseInt(policyTotalDetail.get("safeTotal").toString());
+                                    policyTotal = aclTotal + natTotal + policyRoutTotal + safeTotal;
+                                }
+
                                 dataMap.put("policyTotal", policyTotal);
                                 // 对象总数
                                 Integer objectTotal = dataJson.get("objectTotal") != null ? Integer.parseInt(dataJson.get("objectTotal").toString()) : 0;
@@ -184,10 +202,10 @@ public class TopoNspmIndexManagerAction {
                                     }
                                     double checkTotal = policyGrade + objectGrade;
                                     BigDecimal b1 = new BigDecimal(Double.toString(total));
-                                    BigDecimal b2 = new BigDecimal(checkTotal);
-                                    Double b3 = b2.divide(b1, 2, RoundingMode.HALF_UP).doubleValue();
+                                    BigDecimal b2 = new BigDecimal(Double.toString(checkTotal));
+                                    BigDecimal b3 = b2.divide(b1, 2, BigDecimal.ROUND_HALF_UP);
                                     BigDecimal b4 = new BigDecimal(1);
-                                    dataMap.put("grade", b4.subtract(new BigDecimal(Double.toString(b3))).doubleValue() * 100);
+                                    dataMap.put("grade", b4.subtract(b3).doubleValue() * 100);
                                 }
                             }
                             list.add(dataMap);

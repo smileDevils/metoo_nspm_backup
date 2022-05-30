@@ -48,7 +48,6 @@ public class License extends IdEntity {
     @ApiModelProperty("License版本号")
     private String licenseVersion;
 
-    // 授权信息
     @ApiModelProperty("以导入防火墙")
     private int useFirewall;
     private boolean checkFirewall = false;
@@ -70,6 +69,5 @@ public class License extends IdEntity {
     private int licenseHost;
     @ApiModelProperty("授权模拟网关")
     private int licenseUe;
-
 
 }

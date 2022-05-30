@@ -23,8 +23,8 @@ public class ListSortUtil {
         Collections.sort(list, new Comparator<Map<String, Double>>() {
             @Override
             public int compare(Map<String, Double> o1, Map<String, Double> o2) {
-                Integer key1 = o1.get("grade").intValue();
-                Integer key2 = o2.get("grade").intValue();
+                Double key1 = o1.get("grade");
+                Double key2 = o2.get("grade");
                 return key1.compareTo(key2);
             }
         });

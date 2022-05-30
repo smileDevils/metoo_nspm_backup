@@ -29,13 +29,15 @@ public class LicenseFilter implements Filter {
         }else{
             HttpServletResponse response = (HttpServletResponse) res;
             String message = "未授权";
-            switch (license.getStatus()){
-                case 1:
-                    message = "未授权";
-                    break;
-                case 2:
-                    message = "授权已过期";
-                    break;
+            if(license != null){
+                switch (license.getStatus()){
+                    case 1:
+                        message = "未授权";
+                        break;
+                    case 2:
+                        message = "授权已过期";
+                        break;
+                }
             }
             Result result = new Result(413, message);
             response.setCharacterEncoding("UTF-8");

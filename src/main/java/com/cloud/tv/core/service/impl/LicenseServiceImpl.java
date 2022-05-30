@@ -10,8 +10,6 @@ import com.cloud.tv.entity.License;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,47 +32,48 @@ public class LicenseServiceImpl implements ILicenseService {
         if (licenseList.size() > 0) {
             license = licenseList.get(0);
         }
-        if (license != null) {
-            String systemSN = license.getSystemSN();
-            boolean from = true;// 是否检测授权码：不在同意设备时不允许使用
-            // 初始化设备，并检查当前设备是否为初始化设备
-            if (systemSN == null || systemSN.isEmpty()) {// 申请码为空
-                license.setSystemSN(biosUuid);
-            } else {
-                if (!systemSN.equals(biosUuid)) {// 申请码不一致
-                    license.setFrom(1);
-                    license.setStatus(1);
-                } else {// 一致时恢复来源
-                    license.setFrom(0);
-                }
-            }
-            // 检测授权码是否已过期
-            if (from && license.getLicense() != null && !license.getLicense().isEmpty()) {
-                String licenseInfo = license.getLicense();
-                Map map = null;
-                try {
-                    map = JSONObject.parseObject(this.aesEncryptUtils.decrypt(licenseInfo), Map.class);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (map != null) {
-                    Long endTime = Long.parseLong(map.get("endTime").toString());// 有效期
-                    if (endTime != null) {
-                        long currentTime = DateTools.currentTimeMillis();
-                        if (endTime - currentTime <= 0) {
-                            license.setStatus(2);// 过期
-                        } else {
-                            license.setStatus(0);// 恢复为未过期
-                        }
+        // 检测授权码是否已过期
+        if (license.getLicense() != null && !license.getLicense().isEmpty()) {
+                String systemSN = license.getSystemSN();
+                boolean from = true;// 是否检测授权码：不在同意设备时不允许使用
+                // 初始化设备，并检查当前设备是否为初始化设备
+                if (systemSN == null || systemSN.isEmpty()) {// 申请码为空
+                    license.setSystemSN(biosUuid);
+                } else {
+                    if (!systemSN.equals(biosUuid)) {// 申请码不一致
+                        license.setFrom(1);
+                        license.setStatus(1);
+                    } else {// 一致时恢复来源
+                        license.setFrom(0);
                     }
-                }else{
-                    license.setStatus(1);// 未授权
                 }
+                // 检测授权码是否已过期
+                if (from) {
+                    String licenseInfo = license.getLicense();
+                    Map map = null;
+                    try {
+                        map = JSONObject.parseObject(this.aesEncryptUtils.decrypt(licenseInfo), Map.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (map != null) {
+                        Long endTime = Long.parseLong(map.get("endTime").toString());// 有效期
+                        if (endTime != null) {
+                            long currentTime = DateTools.currentTimeMillis();
+                            if (endTime - currentTime <= 0) {
+                                license.setStatus(2);// 过期
+                            } else {
+                                license.setStatus(0);// 恢复为未过期
+                            }
+                        }
+                    } else {
+                        license.setStatus(1);// 未授权
+                    }
+                }
+                // 更新License 优化是否执行更新
+                this.update(license);
+                return license;
             }
-            // 更新License
-            this.update(license);
-            return license;
-        }
         return null;
     }
 

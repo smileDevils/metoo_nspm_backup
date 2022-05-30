@@ -94,8 +94,8 @@ public class LicenseManagerController {
     @RequestMapping("/systemInfo")
     public Object systemInfo(){
         try {
-            System.out.println(this.systemInfoUtils.getBiosUuid());
-            String sn = this.aesEncryptUtils.encrypt(this.systemInfoUtils.getBiosUuid());
+//            String sn = this.aesEncryptUtils.encrypt(this.systemInfoUtils.getBiosUuid());
+            String sn = this.systemInfoUtils.getBiosUuid();
             return ResponseUtil.ok(sn);
         } catch (Exception e) {
             e.printStackTrace();

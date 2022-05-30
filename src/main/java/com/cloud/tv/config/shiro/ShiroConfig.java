@@ -52,7 +52,7 @@ import java.util.Map;
 public class ShiroConfig {
 
 
-    // 创建ShiroFilter  //负责拦截所有请求
+    // 1, 创建ShiroFilter  //负责拦截所有请求
     // 配置访问资源所需要的权限
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager) {
@@ -91,8 +91,6 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/rtmp/**", "anon");
 
         filterChainDefinitionMap.put("/**", "rmb");
-//        filterChainDefinitionMap.put("/license/systemInfo", "anon");
-//        filterChainDefinitionMap.put("/license/update", "anon");
 
         //filterChainDefinitionMap.put("/buyer/**", "authc");
         filterChainDefinitionMap.put("/license/**", "authc");
@@ -125,15 +123,15 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-    // 创建安全管理器 web环境中配置webSecurity
+    //2, 创建安全管理器 web环境中配置webSecurity
     // getDefaultWevSecurityManager(Realm realm)
     @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager() {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
 
-        // 1, 给安全管理器设置Realm
+        // 1-1, 给安全管理器设置Realm
         defaultWebSecurityManager.setRealm(getRealm());
-        // 1，给安全管理器设置Realms
+        // 1-2，给安全管理器设置Realms
 //        List<Realm> realms = new ArrayList<Realm>();
 //        realms.add(jwtRealm());
 //        realms.add(getRealm());
@@ -152,7 +150,7 @@ public class ShiroConfig {
         return defaultWebSecurityManager;
     }
 
-    // 创建自定义realm
+    // 3, 自定义realm
     @Bean
     public Realm getRealm() {
         MyRealm myRealm = new MyRealm();
@@ -283,7 +281,6 @@ public class ShiroConfig {
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;
     }
-
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager defaultWebSecurityManager){
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();

@@ -9,6 +9,7 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
+import com.cloud.tv.core.utils.http.UrlConvertUtil;
 import com.cloud.tv.core.utils.query.PageInfo;
 import com.cloud.tv.dto.NodeDto;
 import com.cloud.tv.dto.PolicyDto;
@@ -49,6 +50,8 @@ public class TopoNodeManagerAction {
     private IGroupService groupService;
     @Autowired
     private INodeService nodeService;
+    @Autowired
+    private UrlConvertUtil urlConvertUtil;
 
     @ApiOperation("设备列表")
     @GetMapping(value = "/topology-layer/whale/GET/node/navigation")
@@ -604,6 +607,7 @@ public class TopoNodeManagerAction {
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology/node/batch-import-excel/";
+            url = this.urlConvertUtil.convert(url);
             ByteArrayResource fileAsResource = new ByteArrayResource(file.getBytes()) {
                 @Override
                 public String getFilename() {
@@ -638,6 +642,7 @@ public class TopoNodeManagerAction {
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology/node/upload.action/";
+            url = this.urlConvertUtil.convert(url);
             ByteArrayResource fileAsResource = new ByteArrayResource(file.getBytes()) {
                 @Override
                 public String getFilename() {
@@ -673,6 +678,7 @@ public class TopoNodeManagerAction {
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology/node/uploadRouteTable.action/";
+            url = this.urlConvertUtil.convert(url);
             ByteArrayResource fileAsResource = new ByteArrayResource(file.getBytes()) {
                 @Override
                 public String getFilename() {

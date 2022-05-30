@@ -34,6 +34,7 @@ public class PageDto<T> {
 
     private String orderType = "DESC";
 
+
     public PageDto(Integer currentPage, Integer pageSize) {
        this.currentPage = currentPage;
        this.pageSize = pageSize;

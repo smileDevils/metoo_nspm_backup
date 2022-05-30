@@ -66,26 +66,26 @@ public class LoginController{
                     if(userName.equals(username)){
                         flag = false;
                     }
-                }
-                if(flag){
-                    UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-                    try {
-                        if(isRememberMe != null && isRememberMe.equals("1")){
-                            token.setRememberMe(true);
-                            // 或 UsernamePasswordToken token = new UsernamePasswordToken(username,password,true);
-                        }else{
-                            token.setRememberMe(false);
-                        }
-                        subject.login(token);
-                        session.removeAttribute("captcha");
-                        Cookie cookie = new Cookie("access_token", this.sysConfigService.findSysConfigList().getNspmToken().trim());
-                        cookie.setMaxAge(43200);
-                        cookie.setPath("/");
-                        response.addCookie(cookie);
-                        return ResponseUtil.ok();
-                        //  return "redirect:/index.jsp";
-                    } catch (UnknownAccountException e) {
-                        e.printStackTrace();
+                    }
+                    if(flag){
+                        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+                        try {
+                            if(isRememberMe != null && isRememberMe.equals("1")){
+                                token.setRememberMe(true);
+                                // 或 UsernamePasswordToken token = new UsernamePasswordToken(username,password,true);
+                            }else{
+                                token.setRememberMe(false);
+                            }
+                            subject.login(token);
+                            session.removeAttribute("captcha");
+                            Cookie cookie = new Cookie("access_token", this.sysConfigService.findSysConfigList().getNspmToken().trim());
+                            cookie.setMaxAge(43200);
+                            cookie.setPath("/");
+                            response.addCookie(cookie);
+                            return ResponseUtil.ok();
+                            //  return "redirect:/index.jsp";
+                        } catch (UnknownAccountException e) {
+                            e.printStackTrace();
                         msg = "用户名错误";
                         System.out.println("用户名错误");
                         return new Result(410, msg);

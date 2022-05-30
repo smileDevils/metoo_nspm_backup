@@ -287,8 +287,13 @@
     <select id="getObjsByLevel" parameterType="String" resultType="com.cloud.tv.entity.User">
         SELECT <include refid="Base_Update_Info" />
         FROM metoo_user
-        where groupLevel = #{level} or groupLevel in (
-          SELECT level FROM metoo_group WHERE parentLevel = #{level}
+        WHERE
+          deleteStatus = 0
+        AND
+          groupLevel = #{level}
+        OR
+          groupLevel in (
+        SELECT level FROM metoo_group WHERE parentLevel = #{level}
         )
     </select>
 

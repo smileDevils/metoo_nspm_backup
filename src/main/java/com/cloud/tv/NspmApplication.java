@@ -54,7 +54,7 @@ public class NspmApplication extends SpringBootServletInitializer {
         return builder.sources(this.getClass());
     }
 
-    // 在容器启动成功后的最后一步回调（类似开机自启动）
+//     在容器启动成功后的最后一步回调（类似开机自启动）
     @Component
     @Order(0)
     static class Runner implements CommandLineRunner{
@@ -63,8 +63,8 @@ public class NspmApplication extends SpringBootServletInitializer {
         private ITopologyTokenService topologyTokenService;
 
         @Override
-        public void run(String... args)  {
-                this.topologyTokenService.initToken();
+        public void run(String... args) {
+            this.topologyTokenService.initToken();
         }
     }
 

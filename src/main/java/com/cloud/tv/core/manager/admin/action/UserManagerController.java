@@ -43,6 +43,7 @@ public class UserManagerController {
     private IGroupService groupService;
 
 
+    @RequiresPermissions("LK:USER:MANAGER")
     @ApiOperation("用户列表")
     @RequestMapping("/list")
     public Object list(@RequestBody(required = false) UserDto dto) {

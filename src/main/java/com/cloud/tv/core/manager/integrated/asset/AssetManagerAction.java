@@ -1,5 +1,6 @@
 package com.cloud.tv.core.manager.integrated.asset;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Api("资产管理")
 @RequestMapping("/nspm/asset")
 @RestController
@@ -24,6 +28,29 @@ public class AssetManagerAction {
     private ISysConfigService sysConfigService;
     @Autowired
     private NodeUtil nodeUtil;
+
+    public static void main(String[] args) {
+        String assetIpInfo = "电信内网:1.1.1.1[1.1.1.0/30][无逻辑安全域][CSZYW-ZTDC-2F1-A20-HLJR-HW-USG6680-005][澳大利亚],政企专线:2.2.2.2[186.0.0.0/30][无逻辑安全域][IDC_FW_212][法国]";
+
+        String[] assetIpInfos = assetIpInfo.split(",");
+        StringBuffer stringBuffer  = new StringBuffer();
+        int i = 0;
+        for(String asset : assetIpInfos){
+            i ++;
+            int indexOne = asset.indexOf("][",1);
+            int indexTwo = asset.indexOf("][",asset.indexOf("][")+1);
+            int indexThree = asset.indexOf("][",indexTwo+1);
+            System.out.println(asset.substring(0,indexOne + 1));
+            System.out.println(asset.substring(indexTwo + 1, indexThree + 1));
+            asset = asset.substring(0,indexOne + 1)+ asset.substring(indexTwo + 1, indexThree + 1);
+
+            if(i == assetIpInfos.length)
+                stringBuffer.append(asset);
+            else
+                stringBuffer.append(asset).append(",");
+        }
+        System.out.println(stringBuffer);
+    }
 
     @ApiOperation("主机组")
     @RequestMapping("/risk/api/danger/hostComputerSoftware/assetGroupTree")
@@ -43,7 +70,7 @@ public class AssetManagerAction {
         return ResponseUtil.badArgument();
     }
 
-    @ApiOperation("主机列表") ///risk
+    @ApiOperation("主机列表")
     @RequestMapping("/risk/api/danger/assetHost/pageTreeList")
     public Object pageTreeList(@RequestBody AssetDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
@@ -53,7 +80,36 @@ public class AssetManagerAction {
             Object object = this.nodeUtil.postBody(dto, url, token);
             JSONObject result = JSONObject.parseObject(object.toString());
             if(result.get("code").toString().equals("0")){
-                return ResponseUtil.ok(result.get("data"));
+                JSONObject data = JSONObject.parseObject(result.get("data").toString());
+                JSONArray list = JSONArray.parseArray(data.get("list").toString());
+                List MyList = new ArrayList();
+                for (Object array : list){
+                    JSONObject obj = JSONObject.parseObject(array.toString());
+                    if(obj.get("assetIpInfo") != null && !obj.get("assetIpInfo").equals("")){
+                        String assetIpInfo = obj.get("assetIpInfo").toString();
+                        String[] assetIpInfos = assetIpInfo.split(",");
+                        StringBuffer stringBuffer  = new StringBuffer();
+                        int i = 0;
+                        for(String asset : assetIpInfos){
+                            i ++;
+                            int indexOne = asset.indexOf("][",1);
+                            int indexTwo = asset.indexOf("][",asset.indexOf("][")+1);
+                            int indexThree = asset.indexOf("][",indexTwo+1);
+                            System.out.println(asset.substring(0,indexOne + 1));
+                            System.out.println(asset.substring(indexTwo + 1, indexThree + 1));
+                            asset = asset.substring(0,indexOne + 1)+ asset.substring(indexTwo + 1, indexThree + 1);
+
+                            if(i == assetIpInfos.length)
+                                stringBuffer.append(asset);
+                            else
+                                stringBuffer.append(asset).append(",");
+                        }
+                        obj.put("assetIpInfo", stringBuffer);
+                        MyList.add(obj);
+                    }
+                }
+                data.put("list", MyList);
+                return ResponseUtil.ok(data);
             }
             return ResponseUtil.error(result.get("msg").toString());
         }

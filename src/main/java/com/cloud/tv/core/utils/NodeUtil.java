@@ -88,6 +88,7 @@ public class NodeUtil {
 
             }
         }
+        map1.remove("class");
         return this.post(map1, url, token);
     }
 
@@ -175,7 +176,7 @@ public class NodeUtil {
         HttpEntity<JSONObject> httpEntity = new HttpEntity<>(null, headers);
         ResponseEntity<String> exchange = restTemplate.exchange(realUrl, HttpMethod.GET, httpEntity, String.class);
         // ResponseEntity<String> exchange = restTemplate.exchange(realUrl, HttpMethod.GET, httpEntity, String.class, map);
-        if (StringUtils.isNotEmpty(exchange.getBody())) {
+        if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);
             return jsonObject;
@@ -195,7 +196,7 @@ public class NodeUtil {
             httpEntity = new HttpEntity(map,headers);
         }
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class);
-        if (StringUtils.isNotEmpty(exchange.getBody())) {
+        if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);
             return jsonObject;
@@ -215,7 +216,7 @@ public class NodeUtil {
             httpEntity = new HttpEntity(map,headers);
         }
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class);
-        if (StringUtils.isNotEmpty(exchange.getBody())) {
+        if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);
             return jsonObject;
@@ -230,7 +231,7 @@ public class NodeUtil {
 
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(map,headers);
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class);
-        if (StringUtils.isNotEmpty(exchange.getBody())) {
+        if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);
             return jsonObject;
@@ -245,7 +246,7 @@ public class NodeUtil {
         headers.setContentType(type);
         HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<>(map,headers);
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.PUT, httpEntity, String.class);
-        if (StringUtils.isNotEmpty(exchange.getBody())) {
+        if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);
             return jsonObject;
@@ -260,7 +261,7 @@ public class NodeUtil {
 
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(map,headers);
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.PUT, httpEntity, String.class);
-        if (StringUtils.isNotEmpty(exchange.getBody())) {
+        if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);
             return jsonObject;
