@@ -9,6 +9,7 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.AuthenticationStrategy;
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
@@ -154,26 +155,24 @@ public class ShiroConfig {
     @Bean
     public Realm getRealm() {
         MyRealm myRealm = new MyRealm();
-        // 设置Realm使用hash凭证匹配器; 问：Realm 不设置hash凭证器会出现什么
+        // 设置Realm使用hash凭证校验匹配器; 问：Realm 不设置hash凭证器会出现什么
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         // 设置加密算法 SHA-1、md5
         hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        // 设置加密次数
+        // 设置加密次数（散列次数）
         hashedCredentialsMatcher.setHashIterations(1024);
         myRealm.setCredentialsMatcher(hashedCredentialsMatcher);
 
         // 开启缓存管理
-//        myRealm.setCacheManager(new EhCacheManager());// EhCache
-//        myRealm.setCacheManager(new RedisCacheManager());// RedisCacheManager
+        // 方式一：EhCache
+        myRealm.setCacheManager(new EhCacheManager());// EhCache
         myRealm.setCachingEnabled(true);// 开启全局缓存
-
-        /* 允许认证缓存 */
-        myRealm.setAuthenticationCachingEnabled(false);
+        myRealm.setAuthenticationCachingEnabled(true);// 认证缓存
         myRealm.setAuthenticationCacheName("authenticationCache");
-        /* 允许授权缓存 */
-        myRealm.setAuthorizationCachingEnabled(false);
+        myRealm.setAuthorizationCachingEnabled(true);// 授权缓存
         myRealm.setAuthorizationCacheName("authorizationCache");
-
+//        方式二：Redis
+//        myRealm.setCacheManager(new RedisCacheManager());// RedisCacheManager
         return myRealm;
     }
 

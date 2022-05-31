@@ -15,6 +15,9 @@
     <insert id="save" parameterType="com.cloud.tv.entity.Order" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO metoo_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="addTime != null">
+                addTime,
+            </if>
             <if test="orderNo != null">
                 orderNo,
             </if>
@@ -35,6 +38,9 @@
             </if>
         </trim>
         <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="addTime != null">
+                #{addTime},
+            </if>
             <if test="orderNo != null">
                 #{orderNo},
             </if>

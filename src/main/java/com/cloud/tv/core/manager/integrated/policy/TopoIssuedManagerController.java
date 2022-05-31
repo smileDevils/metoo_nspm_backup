@@ -73,9 +73,13 @@ public class TopoIssuedManagerController {
                                 obj.put("orderNo", theme.substring(index + 2));
                             }
                             if(obj.get("orderType").toString().equals("2") || obj.get("orderType").toString().equals("17")){
-                                String orderNo =  obj.get("orderNo").toString();
-//                            根据工单id查询用户信息
-                                Order order = this.orderService.getObjByOrderNo(orderNo);
+                                // 根据工单号查询用户信息
+//                                String orderNo =  obj.get("orderNo").toString();
+//                                Order order = this.orderService.getObjByOrderNo(orderNo);
+                                // 根据工单id查询用户信息
+                                String taskId =  obj.get("taskId").toString();
+                                Order order = this.orderService.getObjByOrderId(Long.parseLong(taskId));
+
                                 userName = order == null ? "" : order.getUserName();
                             }
                             if(users.contains(userName)) {

@@ -21,6 +21,10 @@ public class TestInitAction {
         this.b="456";
     }
 
+    public static void main(String[] args) {
+        System.out.println(System.getenv());
+    }
+
     @RequestMapping("/admin/testInit")
     public String test(){
         System.out.println(client);

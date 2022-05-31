@@ -142,13 +142,11 @@ public class TopoNspmIndexManagerAction {
                                     JSONObject policyTotalDetail = JSONObject.parseObject(policyTotalDetails.get(0).toString());
                                     Integer aclTotal = 0;
                                     Integer natTotal = 0;
-                                    Integer policyRoutTotal = 0;
                                     Integer safeTotal = 0;
                                     aclTotal = Integer.parseInt(policyTotalDetail.get("aclTotal").toString());
                                     natTotal = Integer.parseInt(policyTotalDetail.get("natTotal").toString());
-                                    policyRoutTotal = Integer.parseInt(policyTotalDetail.get("policyRoutTotal").toString());
                                     safeTotal = Integer.parseInt(policyTotalDetail.get("safeTotal").toString());
-                                    policyTotal = aclTotal + natTotal + policyRoutTotal + safeTotal;
+                                    policyTotal = aclTotal + natTotal + safeTotal;
                                 }
 
                                 dataMap.put("policyTotal", policyTotal);

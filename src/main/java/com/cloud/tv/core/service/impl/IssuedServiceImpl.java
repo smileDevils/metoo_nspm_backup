@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -152,6 +153,7 @@ public class IssuedServiceImpl implements IssuedService {
                             order1.setBranchLevel(user.getGroupLevel());
                             order1.setBranchName(user.getGroupName());
                             order1.setOrderId(taskId);
+                            order1.setAddTime(new Date());
                             this.orderService.save(order1);
                             //更新策略
                             String uuid = "";
