@@ -30,6 +30,7 @@ public class TopologyTokenServiceImpl implements ITopologyTokenService {
         // 验证当前token是否生效
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
+        token = "1a";
         if(token != null) {
             String url = "/topology/cycle/getCyclePage/";
             try {
@@ -48,6 +49,16 @@ public class TopologyTokenServiceImpl implements ITopologyTokenService {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                Map map = new HashMap();
+                map.put("type", "client_credentials");
+                List<TopologyToken> TopologyTokens = this.topologyTokenMapper.query(map);
+                if(TopologyTokens.size() > 0){
+                    TopologyToken topologyToken = TopologyTokens.get(0);
+                    // updateToken
+                    sysConfig.setNspmToken(topologyToken.getToken_value());
+                    sysConfig.setId(sysConfig.getId());
+                    this.sysConfigService.update(sysConfig);
+                }
             }
         }
     }

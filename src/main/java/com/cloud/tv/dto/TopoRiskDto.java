@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors
 @AllArgsConstructor
 @NoArgsConstructor
-public class RiskDto {
+public class TopoRiskDto {
 
     private String id;
     private String ids;

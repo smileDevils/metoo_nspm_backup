@@ -3,6 +3,7 @@ package com.cloud.tv.config.shiro;
 import com.cloud.tv.core.config.LicenseFilter;
 import com.cloud.tv.core.jwt.util.JwtCredentialsMatcher;
 import com.cloud.tv.core.jwt.util.MultiRealmAuthenticator;
+import com.cloud.tv.core.shiro.cache.RedisCacheManager;
 import com.cloud.tv.core.shiro.filter.MyAccessControlFilter;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -164,15 +165,15 @@ public class ShiroConfig {
         myRealm.setCredentialsMatcher(hashedCredentialsMatcher);
 
         // 开启缓存管理
+//        myRealm.setCachingEnabled(true);// 开启全局缓存
         // 方式一：EhCache
-        myRealm.setCacheManager(new EhCacheManager());// EhCache
-        myRealm.setCachingEnabled(true);// 开启全局缓存
-        myRealm.setAuthenticationCachingEnabled(true);// 认证缓存
-        myRealm.setAuthenticationCacheName("authenticationCache");
-        myRealm.setAuthorizationCachingEnabled(true);// 授权缓存
-        myRealm.setAuthorizationCacheName("authorizationCache");
-//        方式二：Redis
+//        myRealm.setCacheManager(new EhCacheManager());// EhCache
+////        方式二：Redis
 //        myRealm.setCacheManager(new RedisCacheManager());// RedisCacheManager
+//        myRealm.setAuthenticationCachingEnabled(true);// 认证缓存
+//        myRealm.setAuthenticationCacheName("authenticationCache");
+//        myRealm.setAuthorizationCachingEnabled(true);// 授权缓存
+//        myRealm.setAuthorizationCacheName("authorizationCache");
         return myRealm;
     }
 
@@ -193,7 +194,7 @@ public class ShiroConfig {
     public DefaultWebSessionManager getDefaultSessionManager() {
         DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
        // defaultWebSessionManager.setGlobalSessionTimeout(1000 * 60 * 60 * 24*7);// 会话过期时间，单位：毫秒(在无操作时开始计时)
-        defaultWebSessionManager.setGlobalSessionTimeout(-1000L);// -1000L,永不过期
+        defaultWebSessionManager.setGlobalSessionTimeout(1000 * 60 * 20);// -1000L,永不过期
         defaultWebSessionManager.setSessionValidationSchedulerEnabled(true);
         defaultWebSessionManager.setSessionIdCookieEnabled(true);
         defaultWebSessionManager.setSessionIdUrlRewritingEnabled(false);// 移除自带的JSESSIONID，方式第二次打开浏览器是进行注销操作发生

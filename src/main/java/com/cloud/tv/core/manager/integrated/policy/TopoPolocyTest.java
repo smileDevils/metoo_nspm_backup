@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.dto.PolicyDto;
+import com.cloud.tv.dto.TopoPolicyDto;
 import com.cloud.tv.entity.SysConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ public class TopoPolocyTest {
     private static Map<String, String> navigationMap = new HashMap();
 
     @RequestMapping("/viewData")
-    public Object viewData(@RequestBody(required = false) PolicyDto dto){
+    public Object viewData(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String nspmUrl = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
@@ -66,7 +66,7 @@ public class TopoPolocyTest {
 
 //
 //    @RequestMapping("/viewData")
-//    public Object viewData(@RequestBody(required = false) PolicyDto dto){
+//    public Object viewData(@RequestBody(required = false) TopoPolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
 //        
 //        String token = sysConfig.getNspmToken();
@@ -79,7 +79,7 @@ public class TopoPolocyTest {
 //    }
 
 //    @GetMapping(value = "/node/navigation")
-//    public Object nodeNavigation(PolicyDto dto){
+//    public Object nodeNavigation(TopoPolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
 //        
 //        String token = sysConfig.getNspmToken();

@@ -5,7 +5,7 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.ExposureDto;
-import com.cloud.tv.dto.NodeDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class TopoExposeManagerController {
     }
 
         @PostMapping(value="/queryNodeHistory")
-    public Object queryNodeHistory(@RequestBody NodeDto dto){
+    public Object queryNodeHistory(@RequestBody TopoNodeDto dto){
        Object result = this.httpTools.get("/topology/node/queryNodeHistory.action", dto);
        return ResponseUtil.ok(result);
     }

@@ -3,13 +3,13 @@ package com.cloud.tv.core.manager.integrated.policy;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONReader;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.CommUtils;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.dto.PolicyDto;
+import com.cloud.tv.dto.TopoNodeDto;
+import com.cloud.tv.dto.TopoPolicyDto;
 import com.cloud.tv.entity.Invisible;
 import com.cloud.tv.entity.Policy;
 import com.cloud.tv.entity.SysConfig;
@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -49,8 +48,8 @@ public class TopoPolicyIntegrateController {
     @Test
     public void test1(){
         BigDecimal b4 = new BigDecimal(1);
-        BigDecimal b3 = new BigDecimal(0.33333);
-
+        BigDecimal b3 = new BigDecimal(0.1);
+        System.out.println(b4.compareTo(b3));
         System.out.println(b4.subtract(b3).doubleValue() * 100);
     }
 
@@ -127,12 +126,117 @@ public class TopoPolicyIntegrateController {
         System.out.println("ee：" + ee);
     }
 
-
-
     @RequestMapping("/viewData")
-    public Object vendors(@RequestBody(required = false) PolicyDto dto){
+    public Object vendors(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            Map map = new HashMap();
+//          map.put("total", total);
+            String url = "/topology-policy/report/policyView/viewData";
+            List policys = new ArrayList();
+//          navigationMap.put(node.get("ip").toString(), node.get("uuid").toString());
+            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+                User currentUser = ShiroUserHolder.currentUser();
+                User user = this.userService.findByUserName(currentUser.getUsername());
+                dto.setBranchLevel(user.getGroupLevel());
+            }
+            Object policy = this.nodeUtil.postFormDataBody(dto, url, token);
+            JSONObject json = JSONObject.parseObject(policy.toString());
+            map.put("total", json.get("total"));
+            if(json.get("data") != null){
+                JSONArray datas = JSONArray.parseArray(json.get("data").toString());
+                for(Object object : datas){
+                    JSONObject data = JSONObject.parseObject(object.toString());
+                    // 策略总数
+                    Integer policyTotal = 0;
+                    if(data.get("policyTotalDetail") != null){
+                        JSONArray policyTotalDetails = JSONArray.parseArray(data.get("policyTotalDetail").toString());
+                        JSONObject policyTotalDetail = JSONObject.parseObject(policyTotalDetails.get(0).toString());
+                        Integer aclTotal = 0;
+                        Integer natTotal = 0;
+                        Integer safeTotal = 0;
+                        aclTotal = Integer.parseInt(policyTotalDetail.get("aclTotal").toString());
+                        natTotal = Integer.parseInt(policyTotalDetail.get("natTotal").toString());
+                        safeTotal = Integer.parseInt(policyTotalDetail.get("safeTotal").toString());
+                        policyTotal = aclTotal + natTotal + safeTotal;
+                        policyTotalDetail.remove("routTableTotal");
+                        policyTotalDetail.remove("staticRoutTotal");
+                        policyTotalDetail.remove("policyRoutTotal");
+                        data.put("policyTotalDetail", policyTotalDetail);
+                    }
+                    data.put("policyTotal", policyTotal);
+                    // 对象总数
+                    Integer objectTotal = data.get("objectTotal") != null ? Integer.parseInt(data.get("objectTotal").toString()) : 0;
+                    data.put("objectTotal", objectTotal);
+                    Integer policysTotal  = policyTotal + objectTotal;
+                    if(policysTotal > 0){
+                        // 问题策略数
+                        data.put("policyCheckTotal", data.get("policyCheckTotal") != null ? data.get("policyCheckTotal") : 0);
+                        // 问题对象数
+                        data.put("objectCheckTotal", data.get("objectCheckTotal") != null ? data.get("objectCheckTotal") : 0);
+                        // 健康度
+                        // 计算问题策略权重
+                        double policyGrade = 0;
+                        if(data.get("policyCheckTotalDetail") != null){
+                            JSONArray detail = JSONArray.parseArray(data.get("policyCheckTotalDetail").toString());
+                            if(detail.size() > 0){
+                                Map<String, Integer> policyMap = JSONObject.parseObject(detail.get(0).toString(), Map.class);
+                                Set<String> keys = policyMap.keySet();
+                                Iterator<String> it = keys.iterator();
+                                while (it.hasNext()){
+                                    String key =  it.next();
+                                    // 获取策略权重
+                                    double weight = this.policyStatisticalService.getObjByCode(key);
+                                    Integer value = policyMap.get(key);
+                                    BigDecimal b1 = new BigDecimal(value);
+                                    BigDecimal b2 = new BigDecimal(weight);
+                                    policyGrade += b1.multiply(b2).doubleValue();
+                                }
+                            }
+                        }
+                        // 问题对象策略权重
+                        double objectGrade = 0;
+                        if(data.get("objectCheckTotalDetail") != null){
+                            JSONArray detail = JSONArray.parseArray(data.get("objectCheckTotalDetail").toString());
+                            if(detail.size() > 0){
+                                Map<String, Integer> policyMap = JSONObject.parseObject(detail.get(0).toString(), Map.class);
+                                Set<String> keys = policyMap.keySet();
+                                Iterator<String> it = keys.iterator();
+                                while (it.hasNext()){
+                                    String key =  it.next();
+                                    // 获取对象权重
+                                    double weight = this.policyStatisticalService.getObjByCode(key);
+                                    Integer value = policyMap.get(key);
+                                    BigDecimal b1 = new BigDecimal(value);
+                                    BigDecimal b2 = new BigDecimal(weight);
+                                    objectGrade += b1.multiply(b2).doubleValue();
+                                }
+                            }
+                        }
+                        double checkTotal = policyGrade + objectGrade;
+                        BigDecimal b1 = new BigDecimal(Double.toString(policysTotal));
+                        BigDecimal b2 = new BigDecimal(Double.toString(checkTotal));
+                        BigDecimal b3 = b2.divide(b1, 2, BigDecimal.ROUND_HALF_UP);
+                        BigDecimal b4 = new BigDecimal(1);
+                        if(b3.compareTo(b4) > 0){
+                            data.put("policyCheckTotal", 0);
+                        }else{
+                            data.put("policyCheckTotal", b4.subtract(b3).doubleValue() * 100);
+                        }
+                    }
+                    policys.add(data);
+                }
+            }
+            map.put("policys", policys);
+            return ResponseUtil.ok(map);
+        }
+        return ResponseUtil.ok();
+    }
+
+    @RequestMapping("/viewData1")
+    public Object vendors1(@RequestBody(required = false) TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology/node/queryNode.action";
@@ -142,7 +246,6 @@ public class TopoPolicyIntegrateController {
             dto.setDisplay(0);
             dto.setOrigin(0);
             dto.setLimit(1000000);
-            dto.setState("1");
             JSONArray arrays = new JSONArray();
             Integer total = 0;
             if(dto.getType() != null && !dto.getType().equals("")){
@@ -175,15 +278,15 @@ public class TopoPolicyIntegrateController {
                     JSONObject node = JSONObject.parseObject(obj.toString());
                     if(node.get("uuid") != null){
                         navigationMap.put(node.get("ip").toString(), node.get("uuid").toString());
-                        PolicyDto policyDto = new PolicyDto();
-                        policyDto.setCurrentPage(1);
-                        policyDto.setPageSize(dto.getLimit());
-                        policyDto.setVendor(node.get("vendorName").toString());
-                        policyDto.setType(node.get("type").toString());
-                        policyDto.setDeviceUuid(node.get("uuid").toString());
-                        Object policy = this.nodeUtil.postFormDataBody(policyDto, url2, token);
-                        JSONObject json = JSONObject.parseObject(policy.toString());
-                        if(json.get("data") != null){
+                        TopoPolicyDto policyDto = new TopoPolicyDto();
+                            policyDto.setCurrentPage(1);
+                            policyDto.setPageSize(dto.getLimit());
+                            policyDto.setVendor(node.get("vendorName").toString());
+                            policyDto.setType(node.get("type").toString());
+                            policyDto.setDeviceUuid(node.get("uuid").toString());
+                            Object policy = this.nodeUtil.postFormDataBody(policyDto, url2, token);
+                            JSONObject json = JSONObject.parseObject(policy.toString());
+                            if(json.get("data") != null){
                             JSONArray data = JSONArray.parseArray(json.get("data").toString());
 
                             JSONObject dataJson = JSONObject.parseObject(data.get(0).toString());
@@ -261,7 +364,10 @@ public class TopoPolicyIntegrateController {
                                 BigDecimal b2 = new BigDecimal(Double.toString(checkTotal));
                                 BigDecimal b3 = b2.divide(b1, 2, BigDecimal.ROUND_HALF_UP);
                                 BigDecimal b4 = new BigDecimal(1);
-                                dataJson.put("policyCheckTotal", b4.subtract(b3).doubleValue() * 100);
+                                if(b3.compareTo(b4) > 0)
+                                    dataJson.put("policyCheckTotal", 0);
+                                    else
+                                    dataJson.put("policyCheckTotal", b4.subtract(b3).doubleValue() * 100);
                                 policys.add(dataJson);
                             }
                         }
@@ -275,9 +381,9 @@ public class TopoPolicyIntegrateController {
     }
 
 //    @RequestMapping("/viewData")
-//    public Object vendors(@RequestBody(required = false) PolicyDto dto){
+//    public Object vendors(@RequestBody(required = false) TopoPolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-//        
+//
 //        String token = sysConfig.getNspmToken();
 //        if(token != null){
 //            String nodeString url = "/topology/node/queryNode.action";
@@ -321,7 +427,7 @@ public class TopoPolicyIntegrateController {
 //                        if(node.get("uuid") != null){
 //                            Map dataMap = new HashMap();
 //                            navigationMap.put(node.get("ip").toString(), node.get("uuid").toString());
-//                            PolicyDto policyDto = new PolicyDto();
+//                            TopoPolicyDto policyDto = new TopoPolicyDto();
 //                            policyDto.setCurrentPage(1);
 //                            policyDto.setPageSize(dto.getLimit());
 //                            policyDto.setVendor(node.get("vendorName").toString());
@@ -351,7 +457,7 @@ public class TopoPolicyIntegrateController {
 
 
 //    @RequestMapping("/viewData")
-//    public Object viewData(@RequestBody(required = false) PolicyDto dto){
+//    public Object viewData(@RequestBody(required = false) TopoPolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
 //        String nspmUrl = sysConfig.getNspmUrl();
 //        String token = sysConfig.getNspmToken();
@@ -413,7 +519,7 @@ public class TopoPolicyIntegrateController {
 
 
 //    @RequestMapping("/viewData")
-//    public Object viewData(@RequestBody(required = false) PolicyDto dto){
+//    public Object viewData(@RequestBody(required = false) TopoPolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
 //        String nspmUrl = sysConfig.getNspmUrl();
 //        String token = sysConfig.getNspmToken();
@@ -423,7 +529,7 @@ public class TopoPolicyIntegrateController {
 //    }
 
 //    @RequestMapping("/viewData")
-//    public Object viewData(@RequestBody(required = false) PolicyDto dto){
+//    public Object viewData(@RequestBody(required = false) TopoPolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
 //        String nspmUrl = sysConfig.getNspmUrl();
 //        String token = sysConfig.getNspmToken();
@@ -482,9 +588,9 @@ public class TopoPolicyIntegrateController {
 //    }
 
     @GetMapping(value = "/node/navigation")
-    public Object nodeNavigation(PolicyDto dto){
+    public Object nodeNavigation(TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-layer/whale/GET/node/navigation";
@@ -510,17 +616,43 @@ public class TopoPolicyIntegrateController {
 
     @GetMapping("/getUuid")
     public Object getUuid(String ip){
-        if(ip != null && !navigationMap.isEmpty()){
-            return ResponseUtil.ok(navigationMap.get(ip));
+        if(ip != null   ){
+            SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+            String token = sysConfig.getNspmToken();
+            if(token != null){
+                TopoNodeDto dto = new TopoNodeDto();
+                 String url = "topology/node/queryNode.action";
+                User currentUser = ShiroUserHolder.currentUser();
+                User user = this.userService.findByUserName(currentUser.getUsername());
+                dto.setBranchLevel(user.getGroupLevel());
+                dto.setFilter(ip);
+                dto.setStart(1);
+                dto.setLimit(20);
+                dto.setDisplay(0);
+                dto.setOrigin("0");
+                Object result = this.nodeUtil.getBody(dto, url, token);
+                JSONObject object = JSONObject.parseObject(result.toString());
+                if(object.get("data") != null){
+                    JSONArray arrays = JSONArray.parseArray(object.get("data").toString());
+                    for(Object array : arrays){
+                        JSONObject data = JSONObject.parseObject(array.toString());
+//                        if(data.get("ip").toString().equals(ip)){
+//                            return ResponseUtil.ok(data.get("uuid"));
+//                        }
+                        return ResponseUtil.ok(data);
+                    }
+                    return ResponseUtil.ok();
+                }
+            }
         }
         return ResponseUtil.badArgument();
     }
 
     @ApiOperation("策略列表")
     @PostMapping(value = "/rule-list-search")
-    public Object ruleListSearch(@RequestBody PolicyDto dto){
+    public Object ruleListSearch(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/rule-list-search";
@@ -532,9 +664,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("合并策略（详情）")
     @PostMapping(value = "/rule-list")
-    public Object ruleList(@RequestBody(required = false)PolicyDto dto){
+    public Object ruleList(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/filter-list/rout/rule-list";
@@ -552,9 +684,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("源Ip、目的Ip、服务(对象信息)")
     @RequestMapping("/query-object-detail")
-    public Object queryObjectDetail(@RequestBody PolicyDto dto){
+    public Object queryObjectDetail(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/device/query-object-detail";
@@ -565,9 +697,9 @@ public class TopoPolicyIntegrateController {
     }
 
     @RequestMapping("/batch-skip-check")
-    public Object batchSkipCheck(@RequestBody(required = false) PolicyDto dto){
+    public Object batchSkipCheck(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/batch-skip-check";
@@ -579,9 +711,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略列表统计")
     @PostMapping(value = "/policy-list-pie")
-    public Object policyListPie(@RequestBody(required = false)PolicyDto dto){
+    public Object policyListPie(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/report/policy/policy-list-pie";
@@ -593,9 +725,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略集")
     @PostMapping(value = "/filter-list")
-    public Object filterList(@RequestBody PolicyDto dto){
+    public Object filterList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/filter-list";
@@ -607,9 +739,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略集(静态路由)")
     @PostMapping(value = "/filter-list/static-rout")
-    public Object filterListStaticRout(@RequestBody PolicyDto dto){
+    public Object filterListStaticRout(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/filter-list/static-rout";
@@ -621,9 +753,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略集(静态路由)")
     @PostMapping(value = "/filter-list/rout-table")
-    public Object filterListRoutTable(@RequestBody PolicyDto dto){
+    public Object filterListRoutTable(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/filter-list/rout-table";
@@ -635,9 +767,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("安全域")
         @PostMapping(value = "/listDeviceZone")
-    public Object listDeviceZone(@RequestBody(required = false) PolicyDto dto){
+    public Object listDeviceZone(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/risk/api/alarm/zone/listDeviceZone";
@@ -650,9 +782,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("设备接口")
     @PostMapping(value = "/listDeviceInterface")
-    public Object listDeviceInterface(@RequestBody(required = false) PolicyDto dto){
+    public Object listDeviceInterface(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/risk/api/alarm/zone/listDeviceInterface";
@@ -664,9 +796,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("详情")
     @PostMapping(value = "/raw-config")
-    public Object rawConfig(@RequestBody PolicyDto dto){
+    public Object rawConfig(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/device/raw-config";
@@ -678,9 +810,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("备注")
     @PostMapping(value = "/remark/get")
-    public Object remarkGet(@RequestBody PolicyDto dto){
+    public Object remarkGet(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/remark/get";
@@ -692,9 +824,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("备注")
     @PostMapping(value = "/remark/save")
-    public Object remarkSave(@RequestBody PolicyDto dto){
+    public Object remarkSave(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/remark/save";
@@ -706,9 +838,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("安全域接口")
     @PostMapping(value = "/listDeviceZoneInterface")
-    public Object listDeviceZoneInterface(@RequestBody  PolicyDto dto){
+    public Object listDeviceZoneInterface(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/risk/api/alarm/zone/listDeviceZoneInterface";
@@ -720,9 +852,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("对象分布")
     @PostMapping(value = "/object-list-pie")
-    public Object objectListPie(@RequestBody(required = false) PolicyDto dto){
+    public Object objectListPie(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/report/policy/object-list-pie";
@@ -734,9 +866,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("对象列表")
     @PostMapping(value = "/object-list")
-    public Object objectList(@RequestBody PolicyDto dto){
+    public Object objectList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/device/object-list";
@@ -748,9 +880,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略列表-对象列表-查询")
     @PostMapping(value = "/topology-policy/device/search-address")
-    public Object searchAddress(@RequestBody PolicyDto dto){
+    public Object searchAddress(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/device/search-address";
@@ -762,9 +894,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略列表-对象列表-查询")
     @PostMapping(value = "/topology-policy/device/search-service")
-    public Object searchService(@RequestBody PolicyDto dto){
+    public Object searchService(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/device/search-service";
@@ -779,9 +911,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略优化列表")
     @PostMapping(value = "/check")
-    public Object check(@RequestBody(required = false)PolicyDto dto){
+    public Object check(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/check";
@@ -793,9 +925,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略优化统计")
     @PostMapping(value = "/policy-check-pie")
-    public Object policyCheckPie(@RequestBody(required = false)PolicyDto dto){
+    public Object policyCheckPie(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/report/policy/policy-check-pie";
@@ -807,9 +939,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("ACL未调用（未调用策略集）")
     @PostMapping(value = "/unrefAclList")
-    public Object unrefAclList(@RequestBody(required = false)PolicyDto dto){
+    public Object unrefAclList(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/unrefAclList";
@@ -821,9 +953,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("合并策略（详情）")
     @PostMapping(value = "/check/primary")
-    public Object checkPrimary(@RequestBody(required = false)PolicyDto dto){
+    public Object checkPrimary(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/check/primary";
@@ -835,9 +967,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略优化-对象统计")
     @PostMapping(value = "/object-check-pie")
-    public Object objectCheckPie(@RequestBody(required = false)PolicyDto dto){
+    public Object objectCheckPie(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/report/policy/object-check-pie";
@@ -849,9 +981,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略优化-对象优化")
     @PostMapping(value = "/object/check")
-    public Object objectCheck(@RequestBody(required = false)PolicyDto dto){
+    public Object objectCheck(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/object/check/";
@@ -863,9 +995,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("命中收敛-厂商")
     @PostMapping(value = "/listVendorName")
-    public Object listVendorName(@RequestBody(required = false) PolicyDto dto){
+    public Object listVendorName(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/hit/count/listVendorName";
@@ -877,9 +1009,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("命中收敛-内网ip地址管理")
     @PostMapping(value = "/intranetIpList")
-    public Object intranetIpList(@RequestBody(required = false) PolicyDto dto){
+    public Object intranetIpList(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/hit/logConfig/intranetIpList";
@@ -891,7 +1023,7 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("命中收敛-任务列表")
     @PostMapping(value = "/listDevNodeLogConfig")
-    public Object listDevNodeLogConfig(@RequestBody PolicyDto dto){
+    public Object listDevNodeLogConfig(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
         if(token != null){
@@ -904,9 +1036,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("命中收敛-内网ip地址管理-保存")
     @PostMapping(value = "/saveIntranetIp")
-    public Object saveIntranetIp(@RequestBody PolicyDto dto){
+    public Object saveIntranetIp(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/hit/logConfig/saveIntranetIp";
@@ -918,9 +1050,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("命中收敛-内网ip地址管理-保存")
     @PostMapping(value = "/logConfigList")
-    public Object logConfigList(@RequestBody PolicyDto dto){
+    public Object logConfigList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/hit/logConfig/list";
@@ -931,24 +1063,94 @@ public class TopoPolicyIntegrateController {
     }
 
     @ApiOperation("命中收敛-内网ip地址管理-保存")
-    @PostMapping(value = "/logConfigEdit")
-    public Object logConfigEdit(@RequestBody PolicyDto dto){
+    @RequestMapping(value = "/logConfigEdit")
+    public Object logConfigEdit(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/hit/logConfig/edit";
+            Object object = this.nodeUtil.postFormDataBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("status").toString().equals("0")){
+                return ResponseUtil.ok(result);
+            }else{
+                return ResponseUtil.error(result.get("errmsg").toString());
+            }
+        }
+        return ResponseUtil.error();
+    }
+
+
+    @ApiOperation("命中收敛-利用率-策略信息")
+    @PostMapping(value = "/combing/api/hit/count/getInfoByDeviceUuid")
+    public Object getInfoByDeviceUuid(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/getInfoByDeviceUuid";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-策略收敛分析")
+    @PostMapping(value = "/combing/api/hit/count/analysis")
+    public Object analysis(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/analysis";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
 
-    @ApiOperation("命中收敛-内网ip地址管理-保存")
-    @PostMapping(value = "/hitCountList")
-    public Object hitCountList(@RequestBody PolicyDto dto){
+    @ApiOperation("命中收敛-利用率-源地址命中")
+    @PostMapping(value = "/combing/api/hit/count/findSrcIpHitCountList")
+    public Object findSrcIpHitCountList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/findSrcIpHitCountList";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-目的地址命中")
+    @PostMapping(value = "/combing/api/hit/count/findDstIpHitCountList")
+    public Object findDstIpHitCountList(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/findDstIpHitCountList";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-目的端口命中")
+    @PostMapping(value = "/combing/api/hit/count/findDstPortHitCountList")
+    public Object findDstPortHitCountList(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/findDstPortHitCountList";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-策略Id列表、命中数")
+    @PostMapping(value = "/combing/api/hit/count/hitCountList")
+    public Object hitCountList(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/hit/count/hitCountList";
@@ -958,11 +1160,39 @@ public class TopoPolicyIntegrateController {
         return ResponseUtil.error();
     }
 
+
+    @ApiOperation("命中收敛-利用率-SrcIp 命中CountLis树形")
+    @PostMapping(value = "/combing/api/hit/count/findSrcIpHitCountTree")
+    public Object findSrcIpHitCountTree(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/findSrcIpHitCountTree";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-DstIp 命中CountLis树形")
+    @PostMapping(value = "/combing/api/hit/count/findDstIpHitCountTree")
+    public Object findDstIpHitCountTree(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/findDstIpHitCountTree";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+
     @ApiOperation("命中收敛-标记忽略检查")
     @PostMapping(value = "/skipCheck")
-    public Object skipCheck(@RequestBody PolicyDto dto){
+    public Object skipCheck(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/skip-check";
@@ -972,11 +1202,65 @@ public class TopoPolicyIntegrateController {
         return ResponseUtil.error();
     }
 
+    @ApiOperation("命中收敛-利用率-命中收敛查任务结果")
+    @PostMapping(value = "/combing/api/suggest/result/listByPolicyUuid")
+    public Object listByPolicyUuid(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/suggest/result/listByPolicyUuid";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-生成命令行")
+    @PostMapping(value = "/combing/api/hit/count/new-policy-push")
+    public Object new_policy_push(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/hit/count/new-policy-push";
+            Object result = this.nodeUtil.postBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-下载命令行")
+    @PostMapping(value = "/combing/api/hit/count/downloadCommand")
+    public Object downloadCommand(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url =  "/combing/api/hit/count/downloadCommand";
+            Map map = new HashMap();
+            map.put("command", dto.getCommand());
+            map.put("deviceName", dto.getDeviceName());
+            return this.nodeUtil.downloadPost(map, url, token);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("命中收敛-利用率-开启梳理")
+    @PostMapping(value = "/combing/api/suggest/task/add")
+    public Object add(@RequestBody TopoPolicyDto dto){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url = "/combing/api/suggest/task/add";
+            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
     @ApiOperation("策略梳理-任务列表")
     @PostMapping(value = "/combing/api/suggest/task/list")
-    public Object taskList(@RequestBody PolicyDto dto){
+    public Object taskList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/task/list";
@@ -988,11 +1272,16 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略梳理-新建-设备列表")
     @PostMapping(value = "/combing/api/suggest/task/getDevNode")
-    public Object getDevNode(@RequestBody PolicyDto dto){
+    public Object getDevNode(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/task/getDevNode";
+            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+                User currentUser = ShiroUserHolder.currentUser();
+                User user = this.userService.findByUserName(currentUser.getUsername());
+                dto.setBranchLevel(user.getGroupLevel());
+            }
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -1001,9 +1290,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略梳理-新建-设备列表-选择")
     @PostMapping(value = "/combing/api/suggest/task/checkDevLog")
-    public Object checkDevLog(@RequestBody PolicyDto dto){
+    public Object checkDevLog(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/task/checkDevLog";
@@ -1013,25 +1302,25 @@ public class TopoPolicyIntegrateController {
         return ResponseUtil.error();
     }
 
-    @ApiOperation("策略梳理-新建-保存")
-    @PostMapping(value = "/combing/api/suggest/task/add")
-    public Object taskAdd(@RequestBody PolicyDto dto){
-        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
-        String token = sysConfig.getNspmToken();
-        if(token != null){
-            String url = "/combing/api/suggest/task/add";
-            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
-            return ResponseUtil.ok(result);
-        }
-        return ResponseUtil.error();
-    }
+//    @ApiOperation("策略梳理-新建-保存")
+//    @PostMapping(value = "/combing/api/suggest/task/add")
+//    public Object taskAdd(@RequestBody TopoPolicyDto dto){
+//        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+//
+//        String token = sysConfig.getNspmToken();
+//        if(token != null){
+//            String url = "/combing/api/suggest/task/add";
+//            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+//            return ResponseUtil.ok(result);
+//        }
+//        return ResponseUtil.error();
+//    }
 
     @ApiOperation("策略梳理-新建-删除")
     @PostMapping(value = "/combing/api/suggest/task/delete")
-    public Object delete(@RequestBody PolicyDto dto){
+    public Object delete(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/task/delete";
@@ -1041,11 +1330,27 @@ public class TopoPolicyIntegrateController {
         return ResponseUtil.error();
     }
 
+    @ApiOperation("策略梳理-下载")
+    @GetMapping(value="/combing/api/suggest/result/export")
+    public Object export(@RequestParam("taskId") String taskId){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url =  "/combing/api/suggest/result/export";
+            Map map = new HashMap();
+            map.put("taskId", taskId);
+            return this.nodeUtil.download(map, url, token);
+        }
+        return ResponseUtil.error();
+    }
+
+
+
     @ApiOperation("策略梳理-任务-详情")
     @PostMapping(value = "/combing/api/suggest/result/list")
-    public Object resultList(@RequestBody PolicyDto dto){
+    public Object resultList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/result/list";
@@ -1057,9 +1362,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略梳理-任务-梳理")
     @PostMapping(value = "/combing/api/suggest/task/again")
-    public Object again(@RequestBody PolicyDto dto){
+    public Object again(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/task/again";
@@ -1071,9 +1376,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略梳理-任务-停止梳理")
     @PostMapping(value = "/combing/api/suggest/threadPool/stopTask")
-    public Object stopTask(@RequestBody PolicyDto dto){
+    public Object stopTask(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/threadPool/stopTask";
@@ -1085,9 +1390,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略梳理-任务-日志")
     @PostMapping(value = "/combing/api/suggest/rawlog/findList")
-    public Object findList(@RequestBody PolicyDto dto){
+    public Object findList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/rawlog/findList";
@@ -1099,9 +1404,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略梳理-任务-日志-查找设备")
     @PostMapping(value = "/combing/api/suggest/rawlog/findDeviceIsVsys")
-    public Object findDeviceIsVsys(@RequestBody PolicyDto dto){
+    public Object findDeviceIsVsys(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/combing/api/suggest/rawlog/findDeviceIsVsys";
@@ -1113,9 +1418,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略对比-列表")
     @PostMapping(value = "/topology-policy/policy/getPolicyCompareTaskList")
-    public Object getPolicyCompareTaskList(@RequestBody PolicyDto dto){
+    public Object getPolicyCompareTaskList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/getPolicyCompareTaskList";
@@ -1127,9 +1432,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略对比-新增")
     @PostMapping(value = "/topology-policy/policy/createPolicyCompareTask")
-    public Object createPolicyCompareTask(@RequestBody PolicyDto dto){
+    public Object createPolicyCompareTask(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/createPolicyCompareTask";
@@ -1141,9 +1446,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略对比-删除")
     @PostMapping(value = "/topology-policy/policy/deletePolicyCompareTask")
-    public Object deletePolicyCompareTask(@RequestBody PolicyDto dto){
+    public Object deletePolicyCompareTask(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/deletePolicyCompareTask";
@@ -1155,9 +1460,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略对比-详情")
     @PostMapping(value = "/topology-policy/policy/policyCompareTaskDetail")
-    public Object policyCompareTaskDetail(@RequestBody PolicyDto dto){
+    public Object policyCompareTaskDetail(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/policyCompareTaskDetail";
@@ -1169,9 +1474,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略对比-安全策略/静态路由")
     @PostMapping(value = "/topology-policy/policy/policyCompare/list")
-    public Object policyCompareList(@RequestBody PolicyDto dto){
+    public Object policyCompareList(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/policyCompare/list";
@@ -1183,9 +1488,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略对比-统计信息")
     @PostMapping(value = "/topology-policy/policy/policyCompare/statisticalInformation")
-    public Object statisticalInformation(@RequestBody PolicyDto dto){
+    public Object statisticalInformation(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-policy/policy/policyCompare/statisticalInformation";
@@ -1197,9 +1502,9 @@ public class TopoPolicyIntegrateController {
 
 //    @ApiOperation("策略优化-是否加入下发队列")
 //    @PostMapping(value = "/push/task/addpushtasks")
-//    public Object addPushShtasks(@RequestBody PolicyDto dto){
+//    public Object addPushShtasks(@RequestBody TopoPolicyDto dto){
 //        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-//        
+//
 //        String token = sysConfig.getNspmToken();
 //        if(token != null){
 //            String addString url = "/push/task/addpushtasks";
@@ -1225,7 +1530,7 @@ public class TopoPolicyIntegrateController {
 //                        // 执行完成 保存策略信息
 //                        // 策略优化 查询策略信息
 //                        if(dto.getFrom().equals("2")){
-//                            PolicyDto policyDto = new PolicyDto();
+//                            TopoPolicyDto policyDto = new TopoPolicyDto();
 //                            policyDto.setCurrentPage(dto.getCurrentPage());
 //                            policyDto.setPageSize(dto.getPageSize());
 //                            policyDto.setDeviceUuid(dto.getDeviceUuid());
@@ -1263,7 +1568,7 @@ public class TopoPolicyIntegrateController {
 //                                }
 //                            }
 //                        }else if(dto.getFrom().equals("17")){ // 对象优化
-//                            PolicyDto policyDto = new PolicyDto();
+//                            TopoPolicyDto policyDto = new TopoPolicyDto();
 //                            policyDto.setCurrentPage(dto.getCurrentPage());
 //                            policyDto.setPageSize(dto.getPageSize());
 //                            policyDto.setDeviceUuid(dto.getDeviceUuid());
@@ -1312,9 +1617,9 @@ public class TopoPolicyIntegrateController {
 
     @ApiOperation("策略优化-是否加入下发队列")
     @PostMapping(value = "/push/task/addpushtasks")
-    public Object addPushShtasks(@RequestBody PolicyDto dto){
+    public Object addPushShtasks(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/push/task/addpushtasks";
@@ -1342,7 +1647,7 @@ public class TopoPolicyIntegrateController {
                         // 执行完成 保存策略信息
                         // 策略优化 查询策略信息
                         if (dto.getFrom().equals("2")) {
-                            PolicyDto policyDto = new PolicyDto();
+                            TopoPolicyDto policyDto = new TopoPolicyDto();
                             policyDto.setCurrentPage(dto.getCurrentPage());
                             policyDto.setPageSize(dto.getPageSize());
                             policyDto.setDeviceUuid(dto.getDeviceUuid());
@@ -1356,7 +1661,6 @@ public class TopoPolicyIntegrateController {
                                     for (Object array : poliscyArrays) {
                                         JSONObject data = JSONObject.parseObject(array.toString());
                                         if(data.get("index").toString().equals(dto.getIndex().toString())){
-                                            // 查询当前策略是否存在，不存在插入数据 存在 清空数据后插入
                                             Policy policy = new Policy();
                                             String random = CommUtils.randomString(6);
                                             policy.setParentName(random);
@@ -1384,7 +1688,7 @@ public class TopoPolicyIntegrateController {
                             }
 
                         }else if(dto.getFrom().equals("17")){ // 对象优化
-                            PolicyDto policyDto = new PolicyDto();
+                            TopoPolicyDto policyDto = new TopoPolicyDto();
                             policyDto.setCurrentPage(dto.getCurrentPage());
                             policyDto.setPageSize(dto.getPageSize());
                             policyDto.setDeviceUuid(dto.getDeviceUuid());
@@ -1404,11 +1708,12 @@ public class TopoPolicyIntegrateController {
                                             Policy policy = new Policy();
                                             policy.setParentName(random);
                                             policy.setDeviceUuid(dto.getDeviceUuid());
-//                                             插入数据库
-                                                Map map = JSON.parseObject(data.toString(), Map.class);
-                                                map.put("policyType", "RC_EMPTY_OBJECT");
-                                                map.put("invisible", invisibleName);
-                                                this.policyService.save(map);
+//                                          插入数据库
+                                            Map map = JSON.parseObject(data.toString(), Map.class);
+                                            map.put("policyType", "RC_EMPTY_OBJECT");
+                                            map.put("invisible", invisibleName);
+                                            map.put("parentName", random);
+                                            this.policyService.save(map);
                                             // 更新策略信息，添加工单号
                                             List<Policy> policysNew = this.policyService.getObjByMap(policy);
                                             System.out.println(StringEscapeUtils.unescapeJava(invisibleName));
@@ -1439,11 +1744,11 @@ public class TopoPolicyIntegrateController {
 
     //
     @RequestMapping("/grade")
-    public Object grade(@RequestBody PolicyDto dto){
+    public Object grade(@RequestBody TopoPolicyDto dto){
         // 计算总数
         // 策略统计
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
+
         String token = sysConfig.getNspmToken();
         int total = 0;
         double score = 0;

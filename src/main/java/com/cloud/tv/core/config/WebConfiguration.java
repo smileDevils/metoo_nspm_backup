@@ -45,7 +45,7 @@ public class WebConfiguration {
     public FilterRegistrationBean registerTestFilter(){
         FilterRegistrationBean  registration = new FilterRegistrationBean ();
         registration.setFilter(licenseFilter());
-        registration.addUrlPatterns("/admin/*");// 过滤规则
+        registration.addUrlPatterns("/admin/*","/nspm/*");// 过滤规则
         registration.setName("License");
         registration.setOrder(1);
         return registration;

@@ -2,9 +2,8 @@ package com.cloud.tv.core.service.impl;
 
 import com.cloud.tv.core.mapper.NodeMapper;
 import com.cloud.tv.core.service.INodeService;
-import com.cloud.tv.dto.NodeDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.TopoNode;
-import com.cloud.tv.vo.UserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class NodeServiceImpl implements INodeService {
     }
 
     @Override
-    public Page<TopoNode> query(NodeDto nodeDto) {
+    public Page<TopoNode> query(TopoNodeDto nodeDto) {
         Page<TopoNode> page = PageHelper.startPage(nodeDto.getStart(), nodeDto.getLimit());
         this.nodeMapper.query(nodeDto);
         return page;

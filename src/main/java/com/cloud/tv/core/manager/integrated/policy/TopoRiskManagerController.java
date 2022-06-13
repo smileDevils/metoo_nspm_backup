@@ -3,7 +3,7 @@ package com.cloud.tv.core.manager.integrated.policy;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.dto.RiskDto;
+import com.cloud.tv.dto.TopoRiskDto;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("策略风险")
     @PostMapping(value = "alarm/access/newestRecordAndDistinguish")
-    public Object newestRecordAndDistinguish(@RequestBody(required = false) RiskDto dto){
+    public Object newestRecordAndDistinguish(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -37,7 +37,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系（矩阵）")
     @PostMapping(value = "alarm/access/resultToMatrix")
-    public Object resultToMatrix(@RequestBody(required = false) RiskDto dto){
+    public Object resultToMatrix(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -51,7 +51,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系（列表）")
     @PostMapping(value = "alarm/access/resultToList")
-    public Object resultToList(@RequestBody(required = false) RiskDto dto){
+    public Object resultToList(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -65,7 +65,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-规则列表")
     @PostMapping(value = "api/alarm/access/listAccessAlarm")
-    public Object listAccessAlarm(@RequestBody(required = false) RiskDto dto){
+    public Object listAccessAlarm(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -79,7 +79,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-立即检查")
     @PostMapping(value = "/api/alarm/access/check")
-    public Object check(@RequestBody(required = false) RiskDto dto){
+    public Object check(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -93,7 +93,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-立即检查进度")
     @PostMapping(value = "/api/alarm/access/percentage")
-    public Object percentage(@RequestBody(required = false) RiskDto dto){
+    public Object percentage(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -107,7 +107,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-停止检查")
     @PostMapping(value = "/api/danger/threadPool/shutdown")
-    public Object shutdown(@RequestBody(required = false) RiskDto dto){
+    public Object shutdown(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -121,7 +121,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-全局规则")
     @PostMapping(value = "/api/alarm/access/ruleAllList")
-    public Object ruleAllList(@RequestBody(required = false) RiskDto dto){
+    public Object ruleAllList(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -135,7 +135,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-新建规则")
     @PostMapping(value = "/api/alarm/access/insertOrUpdate")
-    public Object insertOrUpdate(@RequestBody(required = false) RiskDto dto){
+    public Object insertOrUpdate(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -149,7 +149,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-规则删除")
     @PostMapping(value = "/api/alarm/access/delete")
-    public Object delete(@RequestBody(required = false) RiskDto dto){
+    public Object delete(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -163,7 +163,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("访问关系-预合规检查")
     @PostMapping(value = "/api/alarm/access/beforeCheck")
-    public Object beforeCheck(@RequestBody(required = false) RiskDto dto){
+    public Object beforeCheck(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -177,7 +177,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间风险")
         @PostMapping(value = "/api/alarm/rule/newestRecord")
-    public Object newestRecord(@RequestBody(required = false) RiskDto dto){
+    public Object newestRecord(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -191,7 +191,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间风险-矩阵")
     @PostMapping(value = "/api/alarm/rule/getZoneAccessRuleAlarmToMatrix")
-    public Object getZoneAccessRuleAlarmToMatrix(@RequestBody(required = false) RiskDto dto){
+    public Object getZoneAccessRuleAlarmToMatrix(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -205,7 +205,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间风险-进度")
     @PostMapping(value = "/api/alarm/rule/percentage")
-    public Object rulePercentage(@RequestBody(required = false) RiskDto dto){
+    public Object rulePercentage(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -219,7 +219,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间风险-列表")
     @PostMapping(value = "/api/alarm/rule/getZoneAccessRuleAlarmToList")
-    public Object getZoneAccessRuleAlarmToList(@RequestBody(required = false) RiskDto dto){
+    public Object getZoneAccessRuleAlarmToList(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -233,7 +233,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间风险-立即检查")
     @PostMapping(value = "/api/alarm/rule/check")
-    public Object ruleChech(@RequestBody(required = false) RiskDto dto){
+    public Object ruleChech(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -247,7 +247,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间风险-告警详情")
     @PostMapping(value = "/api/alarm/rule/listRuleAlarmDetail")
-    public Object listRuleAlarmDetail(@RequestBody(required = false) RiskDto dto){
+    public Object listRuleAlarmDetail(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -261,7 +261,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-地址对象")
     @PostMapping(value = "/api/compliance/get/object")
-    public Object getObject(@RequestBody(required = false) RiskDto dto){
+    public Object getObject(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -275,7 +275,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-地址对象")
     @PostMapping(value = "/api/compliance/save/object")
-    public Object saveObject(@RequestBody(required = false) RiskDto dto){
+    public Object saveObject(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -289,7 +289,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-地址删除")
     @PostMapping(value = "/api/compliance/delete/object")
-    public Object deleteObject(@RequestBody(required = false) RiskDto dto){
+    public Object deleteObject(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -303,7 +303,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("目的地址/服务对象")
     @PostMapping(value = "/api/compliance/object/info")
-    public Object info(@RequestBody(required = false) RiskDto dto){
+    public Object info(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -317,7 +317,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-规则矩阵")
     @PostMapping(value = "/api/compliance/matrix/list")
-    public Object matrixList(@RequestBody(required = false) RiskDto dto){
+    public Object matrixList(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -331,7 +331,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-规则矩阵-保存")
     @PostMapping(value = "/api/compliance/matrix/save")
-    public Object matrixSave(@RequestBody(required = false) RiskDto dto){
+    public Object matrixSave(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -345,7 +345,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-规则矩阵-删除")
     @PostMapping(value = "/api/compliance/matrix/delete")
-    public Object matrixDelete(@RequestBody(required = false) RiskDto dto){
+    public Object matrixDelete(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -359,7 +359,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-全局规则")
     @PostMapping(value = "/api/compliance/rules/list")
-    public Object ruleList(@RequestBody(required = false) RiskDto dto){
+    public Object ruleList(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -373,7 +373,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-规则矩阵-新建")
     @PostMapping(value = "/api/compliance/get/menu")
-    public Object getMenu(@RequestBody(required = false) RiskDto dto){
+    public Object getMenu(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -387,7 +387,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-全局规则-保存")
     @PostMapping(value = "/api/compliance/rules/save")
-    public Object rulesSave(@RequestBody(required = false) RiskDto dto){
+    public Object rulesSave(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -401,7 +401,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-全局规则-保存")
     @PostMapping(value = "/api/compliance/rules/update")
-    public Object rulesUpdate(@RequestBody(required = false) RiskDto dto){
+    public Object rulesUpdate(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -415,7 +415,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-全局规则-保存")
     @PostMapping(value = "/api/compliance/rules/delete")
-    public Object rulesDelete(@RequestBody(required = false) RiskDto dto){
+    public Object rulesDelete(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -429,7 +429,7 @@ public class TopoRiskManagerController {
 
     @ApiOperation("域间合规-全局规则-保存")
     @PostMapping(value = "/api/compliance/verify/dredge")
-    public Object verify(@RequestBody(required = false) RiskDto dto){
+    public Object verify(@RequestBody(required = false) TopoRiskDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();

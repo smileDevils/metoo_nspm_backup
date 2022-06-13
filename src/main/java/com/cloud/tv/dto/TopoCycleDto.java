@@ -13,16 +13,20 @@ import java.util.List;
 @Accessors
 @AllArgsConstructor
 @NoArgsConstructor
-public class CycleDto {
+public class TopoCycleDto {
 
     private Integer id;
+    private String ids;
     private Integer page;
     private Integer psize;
 
     private String cycleName;
     private String type;
     private Integer cycleType;
+    private List updateCycleDTOS;
+    private String branchLevel;
+    private String week;
     private String day;
     private String hour;
-    private List updateCycleDTOS;
+    private String minute;
 }

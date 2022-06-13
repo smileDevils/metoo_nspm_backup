@@ -64,7 +64,9 @@ public class NspmApplication extends SpringBootServletInitializer {
 
         @Override
         public void run(String... args) {
-            this.topologyTokenService.initToken();
+            Long time=System.currentTimeMillis();
+//            this.topologyTokenService.initToken();
+            System.out.println("Init time：" + (System.currentTimeMillis() - time));
         }
     }
 

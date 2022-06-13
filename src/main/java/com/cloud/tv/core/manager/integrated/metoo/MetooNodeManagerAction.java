@@ -4,30 +4,18 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.service.*;
-import com.cloud.tv.core.utils.CommUtils;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.core.utils.query.PageInfo;
-import com.cloud.tv.dto.NodeDto;
-import com.cloud.tv.dto.PolicyDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.*;
 import com.github.pagehelper.Page;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.beanutils.BeanMap;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.ws.Response;
-import java.io.IOException;
 import java.util.*;
 
 @RequestMapping("/nspm/metoo/node")
@@ -53,7 +41,7 @@ public class MetooNodeManagerAction {
 
     @ApiOperation("历史节点同步")
     @RequestMapping("/nodeQuery/backup")
-    public Object nodeQuery1(@RequestBody NodeDto dto){
+    public Object nodeQuery1(@RequestBody TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -118,7 +106,7 @@ public class MetooNodeManagerAction {
 
     @ApiOperation("节点列表")
     @RequestMapping("/nodeQuery")
-    public Object nodeQuery(@RequestBody NodeDto dto){
+    public Object nodeQuery(@RequestBody TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -169,7 +157,7 @@ public class MetooNodeManagerAction {
      */
     @ApiOperation("节点保存(local)")
     @RequestMapping("/addGatherNode")
-    public Object addGatherNodeLocal(NodeDto dto){
+    public Object addGatherNodeLocal(TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -211,7 +199,7 @@ public class MetooNodeManagerAction {
 
     @ApiOperation("编辑保存（防火墙）")
     @RequestMapping("/updateNode")
-    public Object updateNode(NodeDto dto){
+    public Object updateNode(TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -243,7 +231,7 @@ public class MetooNodeManagerAction {
 
     @ApiOperation("节点删除")
     @RequestMapping("/nodeDelete")
-    public Object nodeDelete(@RequestBody NodeDto dto){
+    public Object nodeDelete(@RequestBody TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -269,7 +257,7 @@ public class MetooNodeManagerAction {
 
     @ApiOperation("厂商")
     @RequestMapping("/vendor")
-    public Object vendor(@RequestBody(required = false) NodeDto dto) {
+    public Object vendor(@RequestBody(required = false) TopoNodeDto dto) {
         List<Device> devices = this.deviceService.query();
         return ResponseUtil.ok(devices);
     }

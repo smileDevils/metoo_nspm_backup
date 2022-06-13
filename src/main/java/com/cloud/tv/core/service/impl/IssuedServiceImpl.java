@@ -6,7 +6,8 @@ import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.mapper.IssuedMapper;
 import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.NodeUtil;
-import com.cloud.tv.dto.PolicyDto;
+import com.cloud.tv.core.utils.http.UrlConvertUtil;
+import com.cloud.tv.dto.TopoPolicyDto;
 import com.cloud.tv.entity.*;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class IssuedServiceImpl implements IssuedService {
     private IPolicyService policyService;
     @Autowired
     private IOrderService orderService;
+    @Autowired
+    private UrlConvertUtil urlConvertUtil;
 
     // 执行计算
     @Override
@@ -122,7 +125,7 @@ public class IssuedServiceImpl implements IssuedService {
         String token = sysConfig.getNspmToken();
         // 更新策略orderNo
         String taskUrl = "/push/task/pushtasklist";
-        PolicyDto dto = new PolicyDto();
+        TopoPolicyDto dto = new TopoPolicyDto();
         dto.setPage(1);
         dto.setPsize(20);
         dto.setType(type);
@@ -166,13 +169,13 @@ public class IssuedServiceImpl implements IssuedService {
                                 this.policyService.update(policysNew);
                             }
                             // 更新命令行
-                            PolicyDto policyDto = new PolicyDto();
+                            TopoPolicyDto policyDto = new TopoPolicyDto();
                             policyDto.setCommand(command);
                             policyDto.setType("0");
                             policyDto.setTaskId(Integer.parseInt(taskId));
                             policyDto.setDeviceUuid(uuid);
                             String commamdUrl = "/push/recommend/task/editcommand.action";
-                            this.nodeUtil.postBody(policyDto, commamdUrl, token);
+                            Object obj = this.nodeUtil.postBody(policyDto, commamdUrl, token);
                             break;
                         }
                     } catch (IOException e) {
@@ -190,7 +193,7 @@ public class IssuedServiceImpl implements IssuedService {
         String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         String commandUrl = "/push/recommend/task/getcommand";
-        PolicyDto policyDto = new PolicyDto();
+        TopoPolicyDto policyDto = new TopoPolicyDto();
         policyDto.setTaskId(taskId);
         Object result = this.nodeUtil.postFormDataBody(policyDto, commandUrl, token);
         JSONObject results = JSONObject.parseObject(result.toString());

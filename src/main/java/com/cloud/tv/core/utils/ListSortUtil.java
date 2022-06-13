@@ -29,4 +29,9 @@ public class ListSortUtil {
             }
         });
     }
+
+    public static void lambdaSort(List<Map<String, Double>> list){
+        Collections.sort(list, (s1, s2) -> s1.get("grade").compareTo(s2.get("grade")));
+    }
+
 }

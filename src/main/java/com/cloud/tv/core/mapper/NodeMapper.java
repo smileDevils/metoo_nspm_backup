@@ -1,6 +1,6 @@
 package com.cloud.tv.core.mapper;
 
-import com.cloud.tv.dto.NodeDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.TopoNode;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +17,7 @@ public interface NodeMapper {
      * @param nodeDto
      * @return
      */
-    Page<TopoNode> query(NodeDto nodeDto);
+    Page<TopoNode> query(TopoNodeDto nodeDto);
 
     int save(TopoNode instance);
 

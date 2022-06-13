@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  * topology数据库配置
  */
 //@Configuration
-@MapperScan(basePackages = "com.cloud.tv.core.topology.mapper", sqlSessionTemplateRef = "topologySqlSessionTemplate")
+//@MapperScan(basePackages = "com.cloud.tv.core.topology.mapper", sqlSessionTemplateRef = "topologySqlSessionTemplate")
 public class TopologyDataSourceConfig {
 
     // 主数据源 topology数据源

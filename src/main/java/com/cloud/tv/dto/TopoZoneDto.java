@@ -11,7 +11,7 @@ import java.util.List;
 @Accessors
 @AllArgsConstructor
 @NoArgsConstructor
-public class ZoneDto {
+public class TopoZoneDto {
 
     private Integer limit;
     private Integer page;

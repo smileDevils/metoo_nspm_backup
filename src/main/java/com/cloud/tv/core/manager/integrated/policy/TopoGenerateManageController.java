@@ -9,12 +9,11 @@ import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.OperationDto;
-import com.cloud.tv.dto.PolicyDto;
+import com.cloud.tv.dto.TopoPolicyDto;
 import com.cloud.tv.entity.SysConfig;
 import com.cloud.tv.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +38,7 @@ public class TopoGenerateManageController {
 
     @ApiOperation("仿真开通-命令行")
     @PostMapping(value = "/task/command")
-    public Object taskCommand(@RequestBody PolicyDto dto){
+    public Object taskCommand(@RequestBody TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -113,7 +112,7 @@ public class TopoGenerateManageController {
                     obj.put("policyName", theme.substring(index + 2));
                 }
                 if(users.contains(userName)){
-                    PolicyDto policy = new PolicyDto();
+                    TopoPolicyDto policy = new TopoPolicyDto();
                     policy.setTaskId(Integer.parseInt(obj.get("taskId").toString()));
                     policy.setPage(1);
                     policy.setPsize(1);
@@ -169,7 +168,7 @@ public class TopoGenerateManageController {
                     }
                 }
                 if(users.contains(userName)){
-                    PolicyDto policy = new PolicyDto();
+                    TopoPolicyDto policy = new TopoPolicyDto();
                     System.out.println(obj.get("taskId").toString());
                     policy.setTaskId(Integer.parseInt(obj.get("taskId").toString()));
                     policy.setPage(1);

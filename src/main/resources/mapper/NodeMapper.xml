@@ -14,7 +14,7 @@
         WHERE hostAddress = #{hostAddress,jdbcType=VARCHAR}
     </select>
 
-    <select id="query" parameterType="com.cloud.tv.dto.NodeDto" resultType="com.cloud.tv.entity.TopoNode">
+    <select id="query" parameterType="com.cloud.tv.dto.TopoNodeDto" resultType="com.cloud.tv.entity.TopoNode">
         SELECT * FROM metoo_topo_node
         <where>
         <if test="type != null and type != '' ">

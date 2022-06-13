@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  * nspm数据库配置
  */
 //@Configuration
-@MapperScan(basePackages = "com.cloud.tv.core.mapper", sqlSessionTemplateRef = "nspmSqlSessionTemplate")
+//@MapperScan(basePackages = "com.cloud.tv.core.mapper", sqlSessionTemplateRef = "nspmSqlSessionTemplate")
 public class NspmDataSourceConfig {
 
     // 主数据源 nspm数据源

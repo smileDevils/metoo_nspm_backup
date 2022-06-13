@@ -8,12 +8,10 @@ import com.cloud.tv.core.service.ICredentialService;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
-import com.cloud.tv.dto.CredentialDto;
+import com.cloud.tv.dto.TopoCredentialDto;
 import com.cloud.tv.entity.Credential;
-import com.cloud.tv.entity.Group;
 import com.cloud.tv.entity.SysConfig;
 import com.cloud.tv.entity.User;
-import com.cloud.tv.vo.UserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +68,7 @@ public class  CredentialServiceImpl implements ICredentialService {
     }
 
     @Override
-    public Map<String, String> getUuid(CredentialDto dto) {
+    public Map<String, String> getUuid(TopoCredentialDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
         if(token != null){

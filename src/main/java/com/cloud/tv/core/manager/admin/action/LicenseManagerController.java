@@ -5,12 +5,11 @@ import com.cloud.tv.core.manager.admin.tools.DateTools;
 import com.cloud.tv.core.manager.admin.tools.LicenseTools;
 import com.cloud.tv.core.service.ILicenseService;
 import com.cloud.tv.core.service.ISysConfigService;
-import com.cloud.tv.core.service.ITopologyTokenService;
 import com.cloud.tv.core.utils.AesEncryptUtils;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.core.utils.SystemInfoUtils;
-import com.cloud.tv.dto.NodeDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.License;
 import com.cloud.tv.entity.SysConfig;
 import com.cloud.tv.vo.LicenseVo;
@@ -18,7 +17,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -103,7 +101,7 @@ public class LicenseManagerController {
     }
    }
 
-    @GetMapping("/query")
+    @GetMapping(value = "/query",produces = "application/json; charset=utf-8")
     public Object query(){
         License obj = this.licenseService.query().get(0);
         try {
@@ -113,7 +111,7 @@ public class LicenseManagerController {
                 SysConfig sysConfig = this.sysConfigService.findSysConfigList();
                 String token = sysConfig.getNspmToken();
                 String url = "/topology/ums/getLicenseInfo.action";
-                NodeDto dto = new NodeDto();
+                TopoNodeDto dto = new TopoNodeDto();
                 dto.setStart(0);
                 dto.setLimit(20);
                 Object object = this.nodeUtil.getBody(dto, url, token);

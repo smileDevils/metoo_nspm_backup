@@ -7,6 +7,7 @@ import com.cloud.tv.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -21,13 +22,16 @@ public class LicenseFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         // 检测授权码
         License license = this.licenseService.detection();
         if(license != null && license.getStatus() == 0 && license.getFrom() == 0){
-            chain.doFilter(req, res);
+            chain.doFilter(servletRequest, servletResponse);
         }else{
-            HttpServletResponse response = (HttpServletResponse) res;
+            HttpServletRequest request = (HttpServletRequest) servletRequest;
+            System.out.println(request.getRequestURI());
+            System.out.println(request.getRequestURL());
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
             String message = "未授权";
             if(license != null){
                 switch (license.getStatus()){

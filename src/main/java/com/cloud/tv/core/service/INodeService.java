@@ -1,6 +1,6 @@
 package com.cloud.tv.core.service;
 
-import com.cloud.tv.dto.NodeDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.TopoNode;
 import com.github.pagehelper.Page;
 
@@ -15,7 +15,7 @@ public interface INodeService {
      * @param nodeDto
      * @return
      */
-    Page<TopoNode> query(NodeDto nodeDto);
+    Page<TopoNode> query(TopoNodeDto nodeDto);
 
     int save(TopoNode instance);
 

@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CredentialDto{
+public class TopoCredentialDto {
 
     private String id;
     private Integer pageIndex;

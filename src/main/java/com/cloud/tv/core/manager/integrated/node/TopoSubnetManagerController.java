@@ -3,7 +3,7 @@ package com.cloud.tv.core.manager.integrated.node;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.dto.NodeDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public class TopoSubnetManagerController {
 
     @ApiOperation("列表")
     @RequestMapping("/topology/whaleSubnet/GET/subnets")
-    public Object subnets(@RequestBody(required = false) NodeDto dto){
+    public Object subnets(@RequestBody(required = false) TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -45,7 +45,7 @@ public class TopoSubnetManagerController {
 
     @ApiOperation("批量编辑")
     @RequestMapping("/topology/whaleSubnet/PUT/subnets/batch-update-level")
-    public Object batchUpdateLevel(@RequestBody(required = false) NodeDto dto){
+    public Object batchUpdateLevel(@RequestBody(required = false) TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -59,7 +59,7 @@ public class TopoSubnetManagerController {
 
     @ApiOperation("批量编辑")
     @RequestMapping("/topology/whaleSubnet/PUT/subnet")
-    public Object subnet(@RequestBody(required = false) NodeDto dto){
+    public Object subnet(@RequestBody(required = false) TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -73,7 +73,7 @@ public class TopoSubnetManagerController {
 
     @ApiOperation("起点标签")
     @RequestMapping("/push/recommend/label/list")
-    public Object labelList(@RequestBody(required = false) NodeDto dto){
+    public Object labelList(@RequestBody(required = false) TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();

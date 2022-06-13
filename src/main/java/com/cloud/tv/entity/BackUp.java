@@ -21,4 +21,11 @@ public class BackUp {
     private String description;
     private Integer start;
     private Integer limit;
+    private String ftpHost;
+    private String ftpPort;
+    private String ftpUser;
+    private String ftpPassword;
+    private String ftpFolder;
+    private Integer enabled;
+    private String obj1;
 }

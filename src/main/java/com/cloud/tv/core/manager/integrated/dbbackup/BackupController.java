@@ -4,14 +4,11 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.core.utils.http.UrlConvertUtil;
-import com.cloud.tv.dto.NodeDto;
-import com.cloud.tv.dto.PageDto;
 import com.cloud.tv.entity.BackUp;
 import com.cloud.tv.entity.BackupFtp;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.beanutils.BeanMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
@@ -71,13 +68,13 @@ public class BackupController {
     }
 
     @ApiOperation("备份结果查看/系统还原")
-    @RequestMapping("/querybackupdata")
+    @GetMapping("/querybackupdata")
     public Object getMasterOrSlave(BackUp backUp){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology/db/querybackupdata.action";
-            Object result = this.nodeUtil.postBody(backUp, url, token);
+            Object result = this.nodeUtil.getBody(backUp, url, token);
             return ResponseUtil.ok(result);
         } else {
             return ResponseUtil.error();
@@ -198,7 +195,8 @@ public class BackupController {
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url =  "/topology/db/backup.action";
-            return this.nodeUtil.getBody(backUp, url, token);
+            Object result = this.nodeUtil.getBody(backUp, url, token);
+            return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
@@ -210,7 +208,8 @@ public class BackupController {
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url =  "/topology/db/dbRestore.action";
-            return this.nodeUtil.getBody(backUp, url, token);
+            Object result = this.nodeUtil.getBody(backUp, url, token);
+            return ResponseUtil.ok(result) ;
         }
         return ResponseUtil.error();
     }
@@ -222,7 +221,34 @@ public class BackupController {
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url =  "/topology/db/getBackupOrRecoverStatusData.action";
-            return this.nodeUtil.postBody(null, url, token);
+            Object result = this.nodeUtil.postBody(null, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("重置")
+    @PostMapping(value="/resetStatus.action")
+    public Object resetStatus(){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url =  "/topology/db/resetStatus.action";
+            Object result = this.nodeUtil.postBody(null, url, token);
+            return ResponseUtil.ok(result);
+        }
+        return ResponseUtil.error();
+    }
+
+    @ApiOperation("FTP设置-保存")
+    @PostMapping(value="/saveOrUpdateBackupFtp.action")
+    public Object saveOrUpdateBackupFtp(@RequestBody(required = false) BackUp backUp){
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        if(token != null){
+            String url =  "/topology/db/saveOrUpdateBackupFtp.action";
+            Object result = this.nodeUtil.postFormDataBody(backUp, url, token);
+            return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }

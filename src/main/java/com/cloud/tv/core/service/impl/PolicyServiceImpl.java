@@ -6,9 +6,8 @@ import com.cloud.tv.core.mapper.PolicyMapper;
 import com.cloud.tv.core.service.IPolicyService;
 import com.cloud.tv.core.service.IPolicyStatisticalService;
 import com.cloud.tv.core.service.ISysConfigService;
-import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
-import com.cloud.tv.dto.PolicyDto;
+import com.cloud.tv.dto.TopoPolicyDto;
 import com.cloud.tv.entity.Policy;
 import com.cloud.tv.entity.SysConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +64,7 @@ public class PolicyServiceImpl implements IPolicyService {
     @Override
     public Double getGrade(String deviceUuid) {
         if(deviceUuid != null && !deviceUuid.equals("")){
-            PolicyDto dto = new PolicyDto();
+            TopoPolicyDto dto = new TopoPolicyDto();
             dto.setDeviceUuid(deviceUuid);
             // 计算总数
             // 策略统计

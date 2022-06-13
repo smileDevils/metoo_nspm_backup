@@ -2,7 +2,7 @@ package com.cloud.tv.core.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.utils.http.UrlConvertUtil;
-import com.cloud.tv.dto.NodeDto;
+import com.cloud.tv.dto.TopoNodeDto;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class NodeUtil {
     private UrlConvertUtil urlConvertUtil;
 
 
-    public Object nodeResult(NodeDto dto, String url, String token) {
+    public Object nodeResult(TopoNodeDto dto, String url, String token) {
 
         if (dto != null) {
             HttpHeaders headers = new HttpHeaders();
@@ -43,7 +43,7 @@ public class NodeUtil {
         return null;
     }
 
-    public Object exchange(NodeDto dto, String url, String token) {
+    public Object exchange(TopoNodeDto dto, String url, String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);// 设置密钥
         //设置请求参数
@@ -233,8 +233,16 @@ public class NodeUtil {
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class);
         if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
-            JSONObject jsonObject = JSONObject.parseObject(body);
-            return jsonObject;
+
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = JSONObject.parseObject(body);
+                return jsonObject;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return body;
+            }
+
         }
         return null;
     }

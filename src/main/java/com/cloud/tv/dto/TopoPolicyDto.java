@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
@@ -13,8 +14,9 @@ import java.util.List;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class PolicyDto implements Serializable {
+public class TopoPolicyDto implements Serializable {
 
+    private Date addTime;
     private Integer origin;
     private String id;
     private String ids;
@@ -51,6 +53,7 @@ public class PolicyDto implements Serializable {
     private String ipRanges;
     private String typeStatus;
     private String devId;
+    private String devIp;
     private String typeId;
     private String logCenterEnabled;
     private String logCenterIp;
@@ -61,6 +64,7 @@ public class PolicyDto implements Serializable {
     private String endTime;
     private String policyIds;
     private String policyUuid;
+    private String splicingPrimary;
     private String flag;
     private String taskName;
     private String devName;
@@ -87,7 +91,7 @@ public class PolicyDto implements Serializable {
     private String userName;
 
     private Integer status;
-    private Integer psize;
+    private Integer psize = 100000;
     private String theme;
     private String dstPort;
     private String batchId;
@@ -121,6 +125,7 @@ public class PolicyDto implements Serializable {
     private Integer pushStatus;
     private Integer revertStatus;
 
+    private String deviceName;
     private String command;
     private String orderNo;
     private Integer pathIndex;
@@ -138,4 +143,24 @@ public class PolicyDto implements Serializable {
     private Integer index;
     private String nextHop;
 
+    private Integer ipLength;
+    private Integer ipLengthes;
+    private String dstMask;
+    private Object policyDetailVO;
+    private Object policyHitEntity;
+    private String srcMask;
+    private String srcZone;
+    private String dstZone;
+    private String characterSet;
+    private String interfaceIp;
+    private String interfaceName;
+    private String haDevIds;
+    private String devAlias;
+    private String rawSrcIp;
+    private String rawDstIp;
+    private String srcPort;
+    private String obj2;
+    private String obj3;
+    private String outbound;
+    private String queryStrDevIp;
 }
