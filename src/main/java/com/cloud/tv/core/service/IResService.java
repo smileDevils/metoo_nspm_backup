@@ -26,6 +26,8 @@ public interface IResService {
 
     Res findObjByName(String name);
 
+    Res findObjByNameAndLevel(Map map);
+
     Res findResUnitRoleByResId(Long id);
 
     Page<Res> query(ResDto dto);

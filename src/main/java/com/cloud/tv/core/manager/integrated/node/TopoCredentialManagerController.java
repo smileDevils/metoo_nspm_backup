@@ -14,6 +14,7 @@ import com.cloud.tv.entity.SysConfig;
 import com.cloud.tv.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.util.LinkedMultiValueMap;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+//@RequiresPermissions("ADMIN:CREDENTIAL:MANAGER")
 @Api("凭据")
 @RequestMapping({"/nspm/credential"})
 @RestController
@@ -40,6 +42,7 @@ public class TopoCredentialManagerController {
 
     public TopoCredentialManagerController() {
     }
+
 
     @ApiOperation("列表")
     @RequestMapping({"/push/credential/getall"})

@@ -67,7 +67,7 @@ public class SwaggerConfig {
     }
 
     public ApiInfo apiInfo(){
-        Contact contact = new Contact("HKK", "http://www.apache.org/licenses/LICENSE-2.0", "460751446@qq.com");
+        Contact contact = new Contact("HKK", "httpclient://www.apache.org/licenses/LICENSE-2.0", "460751446@qq.com");
         return new ApiInfo(
                 "Metoo Api Decument"
                 , "屎壳郎推地球！"
@@ -75,7 +75,7 @@ public class SwaggerConfig {
                 , "urn:tos"
                 , contact
                 , "Apache 2.0"
-                , "http://www.apache.org/licenses/LICENSE-2.0"
+                , "httpclient://www.apache.org/licenses/LICENSE-2.0"
                 , new ArrayList());
     }
 

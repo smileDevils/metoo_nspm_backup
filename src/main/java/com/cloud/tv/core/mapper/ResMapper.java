@@ -19,6 +19,8 @@ public interface ResMapper {
 
     Res findObjByName(String name);
 
+    Res findObjByNameAndLevel(Map map);
+
     List<Res> query();
 
     List<Res> findPermissionByMap(Map map);

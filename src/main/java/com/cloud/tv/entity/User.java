@@ -94,6 +94,8 @@ public class User extends IdEntity {
 
     @ApiModelProperty("自定义锁，限制用户重试密码次数")
     private boolean locked;
+    @ApiModelProperty("用户类型")
+    private Integer type;
 
     public boolean isLocked() {
         return locked;

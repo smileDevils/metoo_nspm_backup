@@ -10,6 +10,7 @@ import com.cloud.tv.dto.Risk;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+//@RequiresPermissions("ADMIN:ASSET:MANAGER")
 @Api("资产管理")
 @RequestMapping("/nspm/asset")
 @RestController

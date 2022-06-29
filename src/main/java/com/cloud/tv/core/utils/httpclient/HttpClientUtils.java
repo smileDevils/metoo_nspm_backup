@@ -1,4 +1,4 @@
-package com.cloud.tv.core.utils.http;
+package com.cloud.tv.core.utils.httpclient;
 
 
 import org.apache.http.HttpResponse;
@@ -30,7 +30,7 @@ public class HttpClientUtils {
         //1,创建HttpClient实例
         HttpClient httpClient = new DefaultHttpClient();
         //2，设置连接超时时间
-        HttpGet request = new HttpGet("http://127.0.0.1:9896/web/video/captcha");
+        HttpGet request = new HttpGet("httpclient://127.0.0.1:9896/web/video/captcha");
         try {
             HttpResponse response = httpClient.execute(request);
             if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){

@@ -22,7 +22,7 @@ import java.util.Map;
 @Api("系统首页")
 @RequestMapping("/index")
 @RestController
-public class IndexManageController {
+public class    IndexManageController {
 
     @Autowired
     private IIndexService indexService;

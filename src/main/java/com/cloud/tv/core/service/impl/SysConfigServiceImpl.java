@@ -26,7 +26,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
 
     @Override
     public int modify(SysConfig instance) {
-        instance.setDomain("http://" + instance.getIp());
+        instance.setDomain("httpclient://" + instance.getIp());
         return this.sysConfigMapper.update(instance);
     }
 

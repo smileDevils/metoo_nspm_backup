@@ -1,4 +1,4 @@
-package com.cloud.tv.core.utils.http;
+package com.cloud.tv.core.utils.httpclient;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;

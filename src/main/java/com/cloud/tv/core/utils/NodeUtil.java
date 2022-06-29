@@ -1,7 +1,7 @@
 package com.cloud.tv.core.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.tv.core.utils.http.UrlConvertUtil;
+import com.cloud.tv.core.utils.httpclient.UrlConvertUtil;
 import com.cloud.tv.dto.TopoNodeDto;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.lang.StringUtils;
@@ -90,6 +90,16 @@ public class NodeUtil {
         }
         map1.remove("class");
         return this.post(map1, url, token);
+    }
+
+    public <T> Object postFormBody(T t, String url, String token){
+        url = this.urlConvertUtil.convert(url);
+        Map<String, Object> map = new BeanMap(t);
+        MultiValueMap<String, Object> multValueMap = new LinkedMultiValueMap<String, Object>();
+        for(String key : map.keySet()){
+            multValueMap.set(key, map.get(key));
+        }
+        return this.post_form(multValueMap, url, token);
     }
 
     public <T> Object postFormSend(T t, String url, String token){
@@ -233,7 +243,6 @@ public class NodeUtil {
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class);
         if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
-
             JSONObject jsonObject = null;
             try {
                 jsonObject = JSONObject.parseObject(body);
@@ -269,6 +278,23 @@ public class NodeUtil {
 
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(map,headers);
         ResponseEntity<String> exchange = restTemplate.exchange(url,HttpMethod.PUT, httpEntity, String.class);
+        if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
+            String body = exchange.getBody();
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return jsonObject;
+        }
+        return null;
+    }
+
+    public Object post_form(MultiValueMap<String, Object> map, String url, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);// 设置密钥
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<MultiValueMap<String, Object>>(map,headers);
+
+        ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.POST,httpEntity, String.class);
+
         if (exchange.getStatusCodeValue() == 200 && StringUtils.isNotEmpty(exchange.getBody())) {
             String body = exchange.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);

@@ -39,6 +39,11 @@ public class ResServiceImpl implements IResService {
     }
 
     @Override
+    public Res findObjByNameAndLevel(Map map) {
+        return this.resMapper.findObjByNameAndLevel(map);
+    }
+
+    @Override
     public Res findResUnitRoleByResId(Long id) {
         return this.resMapper.findResUnitRoleByResId(id);
     }

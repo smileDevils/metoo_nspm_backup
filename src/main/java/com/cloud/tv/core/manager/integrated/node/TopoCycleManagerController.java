@@ -11,6 +11,7 @@ import com.cloud.tv.entity.Group;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+//@RequiresPermissions("ADMIN:CYCLE:MANAGER")
 @Api("采集周期")
 @RequestMapping("/nspm/cycle")
 @RestController

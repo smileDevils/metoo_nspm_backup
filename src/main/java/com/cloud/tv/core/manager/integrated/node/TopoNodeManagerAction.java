@@ -9,7 +9,7 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.core.utils.http.UrlConvertUtil;
+import com.cloud.tv.core.utils.httpclient.UrlConvertUtil;
 import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.dto.TopoPolicyDto;
 import com.cloud.tv.entity.*;
@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.*;
 
+//@RequiresPermissions("LK:NODE:MANAGER")
 @RequestMapping("/nspm/node")
 @RestController
 public class TopoNodeManagerAction {

@@ -6,7 +6,7 @@ import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.mapper.IssuedMapper;
 import com.cloud.tv.core.service.*;
 import com.cloud.tv.core.utils.NodeUtil;
-import com.cloud.tv.core.utils.http.UrlConvertUtil;
+import com.cloud.tv.core.utils.httpclient.UrlConvertUtil;
 import com.cloud.tv.dto.TopoPolicyDto;
 import com.cloud.tv.entity.*;
 import org.apache.commons.lang.StringEscapeUtils;

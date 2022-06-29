@@ -8,7 +8,7 @@ import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.core.utils.http.UrlConvertUtil;
+import com.cloud.tv.core.utils.httpclient.UrlConvertUtil;
 import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.SysConfig;
 import com.cloud.tv.entity.User;
@@ -43,70 +43,89 @@ public class TopologyManagerController {
     @Autowired
     private UrlConvertUtil urlConvertUtil;
 
-
     @ApiOperation("图层列表")
     @RequestMapping(value="/topology-layer/layerInfo/GET/listLayers")
     public Object listLayers(TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-
         String token = sysConfig.getNspmToken();
         if(token != null){
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
-            if(user.getUsername().equals("testadmin")){
-                String url = "topology-layer/layerInfo/GET/listLayers";
-                dto.setBranchLevel("00");
-                token = sysConfig.getTestToken();
-                Object result = this.nodeUtil.getBody(dto, url, token);
-                JSONObject results = JSONObject.parseObject(result.toString());
-                JSONArray arrays = JSONArray.parseArray(results.get("rows").toString());
-                List list = new ArrayList();
-                for(Object array : arrays){
-                    JSONObject obj = JSONObject.parseObject(array.toString());
-                    String layerName = obj.get("layerName").toString();
-                    if(layerName.indexOf("guest2") >= 0){
-                        list.add(obj);
+            String url = "/topology-layer/layerInfo/GET/listLayers";
+//            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+//                dto.setBranchLevel(user.getGroupLevel());
+//            }
+            Object result = this.nodeUtil.getBody(dto, url, token);
+            JSONObject results = JSONObject.parseObject(result.toString());
+            JSONArray arrays = JSONArray.parseArray(results.get("rows").toString());
+            List list = new ArrayList();
+            for(Object array : arrays){
+                JSONObject obj = JSONObject.parseObject(array.toString());
+                if(obj.get("layerUuid") != null){
+                    String photosUrl = "/topology-layer/" + obj.get("layerUuid") + ".png";
+                    photosUrl = this.urlConvertUtil.convert(photosUrl);
+                    try {
+                        String photo = null;
+                        photo = this.restTemplateUtil.getInputStream(photosUrl);
+                        obj.put("photo", photo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                results.put("rows", list);
-                return ResponseUtil.ok(results);
-            }else{
-                String url = "/topology-layer/layerInfo/GET/listLayers";
-                if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
-                    dto.setBranchLevel(user.getGroupLevel());
-                }
-                Object result = this.nodeUtil.getBody(dto, url, token);
-                JSONObject results = JSONObject.parseObject(result.toString());
-                // 检测用户
-                List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
-                if(users == null || users.size() <= 0){
-                    return ResponseUtil.ok();
-                }
-                JSONArray arrays = JSONArray.parseArray(results.get("rows").toString());
-                List list = new ArrayList();
-                for(Object array : arrays){
-                    JSONObject obj = JSONObject.parseObject(array.toString());
-                    String userName = obj.get("layerDesc").toString();
-                    if(users.contains(userName)){
-                        if(obj.get("layerUuid") != null){
-                            String photosUrl = "/topology-layer/" + obj.get("layerUuid") + ".png";
-                            photosUrl = this.urlConvertUtil.convert(photosUrl);
-//                            photoUrl = "https://img20.360buyimg.com/pop/s1180x940_jfs/t1/198549/9/21811/83119/625f7592E8cad4ada/8a771626b433d9fb.png";
-
-                            String photo = this.restTemplateUtil.getInputStream(photosUrl);
-                            obj.put("photo", photo);
-                        }
-                        obj.put("userName", userName);
-                        list.add(obj);
-                    }
-
-                }
-                results.put("rows", list);
-                return ResponseUtil.ok(results);
+                list.add(obj);
             }
+            results.put("rows", list);
+            return ResponseUtil.ok(results);
         }
         return ResponseUtil.error();
     }
+
+//    @ApiOperation("图层列表")
+//    @RequestMapping(value="/topology-layer/layerInfo/GET/listLayers")
+//    public Object listLayers(TopoNodeDto dto){
+//        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+//        String token = sysConfig.getNspmToken();
+//        if(token != null){
+//            User currentUser = ShiroUserHolder.currentUser();
+//            User user = this.userService.findByUserName(currentUser.getUsername());
+//            String url = "/topology-layer/layerInfo/GET/listLayers";
+//            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+//                dto.setBranchLevel(user.getGroupLevel());
+//            }
+//            Object result = this.nodeUtil.getBody(dto, url, token);
+//            JSONObject results = JSONObject.parseObject(result.toString());
+//            // 检测用户
+//            List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
+//            if(users == null || users.size() <= 0){
+//                return ResponseUtil.ok();
+//            }
+//            JSONArray arrays = JSONArray.parseArray(results.get("rows").toString());
+//            List list = new ArrayList();
+//            for(Object array : arrays){
+//                JSONObject obj = JSONObject.parseObject(array.toString());
+//                String userName = obj.get("layerDesc").toString();
+//                if(users.contains(userName)){
+//                    if(obj.get("layerUuid") != null){
+//                        String photosUrl = "/topology-layer/" + obj.get("layerUuid") + ".png";
+//                        photosUrl = this.urlConvertUtil.convert(photosUrl);
+//                try {
+//                            String photo = null;
+//                            photo = this.restTemplateUtil.getInputStream(photosUrl);
+//                            obj.put("photo", photo);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    obj.put("userName", userName);
+//                    list.add(obj);
+//                }
+//
+//            }
+//            results.put("rows", list);
+//            return ResponseUtil.ok(results);
+//        }
+//        return ResponseUtil.error();
+//    }
 
 
     @RequestMapping("upload")
@@ -223,7 +242,6 @@ public class TopologyManagerController {
     @RequestMapping(value="/topology-layer/layerInfo/POST/editLayer")
     public Object editLayer(@RequestBody(required = false) TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-layer/layerInfo/POST/editLayer";
@@ -237,18 +255,35 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/POST/saveLayer")
     public Object saveLayer(@RequestBody(required = false) TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-
         String token = sysConfig.getNspmToken();
         if(token != null){
-            User currentUser = ShiroUserHolder.currentUser();
-            User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setDesc(user.getUsername());
             String url = "/topology-layer/layerInfo/POST/saveLayer";
+            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+                User currentUser = ShiroUserHolder.currentUser();
+                User user = this.userService.findByUserName(currentUser.getUsername());
+                dto.setBranchLevel(user.getGroupLevel());
+            }
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
+//
+//    @ApiOperation("新建画布")
+//    @RequestMapping("/topology-layer/layerInfo/POST/saveLayer")
+//    public Object saveLayer(@RequestBody(required = false) TopoNodeDto dto){
+//        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+//        String token = sysConfig.getNspmToken();
+//        if(token != null){
+//            User currentUser = ShiroUserHolder.currentUser();
+//            User user = this.userService.findByUserName(currentUser.getUsername());
+//            dto.setDesc(user.getUsername());
+//            String url = "/topology-layer/layerInfo/POST/saveLayer";
+//            Object result = this.nodeUtil.postBody(dto, url, token);
+//            return ResponseUtil.ok(result);
+//        }
+//        return ResponseUtil.error();
+//    }
 
     @ApiOperation("删除画布")
     @RequestMapping("/topology-layer/layerInfo/DELETE/layers")
@@ -323,8 +358,9 @@ public class TopologyManagerController {
     @ApiOperation("源子网查询")
     @RequestMapping("/topology-layer/whale/GET/subnets")
     public Object subnets(@RequestBody TopoNodeDto dto){
+        String ipAddr = dto.getIp4Addr();
+        String srcIpaddr = null;
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-layer/whale/GET/subnets";
@@ -333,11 +369,29 @@ public class TopologyManagerController {
             if(result.get("success").toString().equals("false")){
               return ResponseUtil.error(result.get("message").toString());
             }
-            return ResponseUtil.ok(result);
+            JSONArray arrays = JSONArray.parseArray(result.get("data").toString());
+            if(arrays.get(0) != null){
+                JSONObject data = JSONObject.parseObject(arrays.get(0).toString());
+                srcIpaddr = data.get("ip4BaseAddress").toString();
+                srcIpaddr = this.subIp(srcIpaddr);
+                ipAddr = this.subIp(ipAddr);
+            }
+            if(srcIpaddr.equals(ipAddr)){
+                return ResponseUtil.ok(result);
+            }else{
+                return ResponseUtil.badArgument();
+            }
         }
         return ResponseUtil.error();
     }
 
+    public String subIp(String ipAddr){
+        if(ipAddr != null && !ipAddr.equals("")){
+            int index = ipAddr.indexOf(".");
+            return ipAddr.substring(0,index);
+        }
+        return null;
+    }
     @ApiOperation("子网（相关设备）")
     @GetMapping("/topology-layer/whale/GET/subnet/linkedDevice")
     public Object linkedDevice(TopoNodeDto dto){

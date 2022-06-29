@@ -23,8 +23,6 @@ public class MyAccessControlFilter extends AccessControlFilter {
         //判断用户是通过记住我功能自动登录,此时session失效
         Subject subject = SecurityUtils.getSubject();
         if(subject.getPrincipal() != null){
-            System.out.println(subject.isAuthenticated());
-            System.out.println(subject.isRemembered());
             // 如果未认证并且未IsreMenmberMe(Session失效问题)
             if(subject.isAuthenticated()/* || subject.isRemembered()*/){
                 return true;

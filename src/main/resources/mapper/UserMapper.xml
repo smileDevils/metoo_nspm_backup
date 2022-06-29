@@ -38,7 +38,7 @@
 
     <sql id="Base_Column_List">
         id, addTime, deleteStatus, username, password, sex,
-        age, userRole, email, mobile, note, groupId, groupName, groupLevel
+        age, userRole, email, mobile, note, groupId, groupName, groupLevel,type
     </sql>
 
     <sql id="Base_Update_Info">
@@ -188,8 +188,14 @@
         WHERE id=#{id, jdbcType=BIGINT}
     </select>
 
+    <sql id="update_Column_List">
+        mu.id mu_id,mu.addTime mu_addTime, mu.username mu_username, mu.sex mu_sex,
+        mu.age mu_age,mu.userRole mu_userRole, mu.email mu_email, mu.mobile mu_mobile, mu.note mu_note, mu.groupId mu_groupId, mu.groupName mu_groupName,
+        mr.id mr_id
+    </sql>
+
     <select id="findUserUpdate" parameterType="java.lang.Long" resultMap="Base_Update_Map">
-       SELECT <include refid="Unit_Column_List" />
+       SELECT <include refid="update_Column_List" />
        FROM metoo_user mu
         LEFT JOIN metoo_user_role mur ON mur.user_id = mu.id
         LEFT JOIN metoo_role mr ON mr.id = mur.role_id

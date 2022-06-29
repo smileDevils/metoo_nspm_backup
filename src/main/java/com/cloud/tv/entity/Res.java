@@ -70,6 +70,8 @@ public class Res extends IdEntity {
     @ApiModelProperty("父级名称")
     private String parentName;
 
+    @ApiModelProperty("显示隐藏")
+    private boolean hidden;
     /*@ApiModelProperty("角色集合")
     private List<Role> roles = new ArrayList<Role>();*/
 }

@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class MonitorTools {
 
-    private static final String url = "http://182.61.48.214/monitor/save";
+    private static final String url = "httpclient://182.61.48.214/monitor/save";
 
    /* @Autowired
     private RestTemplate restTemplate;*/

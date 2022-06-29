@@ -6,6 +6,7 @@ package com.cloud.tv;
 import com.cloud.tv.core.manager.admin.action.TestInitAction;
 import com.cloud.tv.core.service.ITopologyTokenService;
 import com.cloud.tv.core.service.TestInitService;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +39,7 @@ import org.springframework.stereotype.Component;
 // @EnableAspectJAutoProxy(proxyTargetClass = true)
 //@EnableTransactionManagement// 事务
 //@SpringBootApplication(exclude = {NspmDataSourceConfig.class, DataSourceConfig.class, TopologyDataSourceConfig.class}) // 申明让spring boot自动给程序进行必要的配置 == @Configuration ，@EnableAutoConfiguration 和 @ComponentScan
+//@MapperScan
 @ServletComponentScan(basePackages ={ "com.cloud.tv.core.*"})//只用注解配置时，需要扫描包
 @SpringBootApplication
 public class NspmApplication extends SpringBootServletInitializer {

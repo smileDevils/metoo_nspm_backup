@@ -87,110 +87,141 @@ public class TopoGenerateManageController {
     @RequestMapping("push/recommend/task/searchsecuritypolicytasklist")
     public Object searchsecuritypolicytasklist(@RequestBody(required = false) OperationDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/push/recommend/task/searchsecuritypolicytasklist";
-            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
-            JSONObject results = JSONObject.parseObject(result.toString());
-            // 检测用户
-            List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
-            if(users == null || users.size() <= 0){
-                return ResponseUtil.ok();
+            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+                User currentUser = ShiroUserHolder.currentUser();
+                User user = this.userService.findByUserName(currentUser.getUsername());
+                dto.setBranchLevel(user.getGroupLevel());
             }
-            JSONObject data = JSONObject.parseObject(results.get("data").toString());
+            Object object = this.nodeUtil.postFormDataBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            JSONObject data = JSONObject.parseObject(result.get("data").toString());
             JSONArray arrays = JSONArray.parseArray(data.get("list").toString());
             List list = new ArrayList();
             for(Object array : arrays){
                 JSONObject obj = JSONObject.parseObject(array.toString());
-                String theme = obj.get("policyName").toString();
-                int index = theme.indexOf("`~");
-                String userName = "";
-                if(index >= 0){
-                    userName = theme.substring(0,index);
-                    obj.put("userName", theme.substring(0,index));
-                    obj.put("policyName", theme.substring(index + 2));
-                }
-                if(users.contains(userName)){
-                    TopoPolicyDto policy = new TopoPolicyDto();
-                    policy.setTaskId(Integer.parseInt(obj.get("taskId").toString()));
-                    policy.setPage(1);
-                    policy.setPsize(1);
-                    String url2 = "/push/task/pushtasklist";
-                    Object taskList = this.nodeUtil.postFormDataBody(policy, url2, token);
-                    if(taskList != null){
-                        JSONObject task = JSONObject.parseObject(taskList.toString());
-                        if(!task.get("data").equals("")){
-                            JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
-                            JSONArray taskArray = JSONArray.parseArray(taskData.get("list").toString());
-                            obj.put("task", taskArray.get(0));
-                        }else{
-                            obj.put("task", "");
-                        }
+                TopoPolicyDto policy = new TopoPolicyDto();
+                policy.setTaskId(Integer.parseInt(obj.get("taskId").toString()));
+                policy.setPage(1);
+                policy.setPsize(1);
+                String url2 = "/push/task/pushtasklist";
+                Object taskList = this.nodeUtil.postFormDataBody(policy, url2, token);
+                if(taskList != null){
+                    JSONObject task = JSONObject.parseObject(taskList.toString());
+                    if(!task.get("data").equals("")){
+                        JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
+                        JSONArray taskArray = JSONArray.parseArray(taskData.get("list").toString());
+                        obj.put("task", taskArray.get(0));
+                    }else{
+                        obj.put("task", "");
                     }
-                    list.add(obj);
                 }
+                list.add(obj);
             }
             data.put("list", list);
-            results.put("data", data);
-            return ResponseUtil.ok(results);
+            result.put("data", data);
+            return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
 
-    @ApiOperation("策略生成NAT")
+//    @ApiOperation("策略生成列表")
+//    @RequestMapping("push/recommend/task/searchsecuritypolicytasklist")
+//    public Object searchsecuritypolicytasklist(@RequestBody(required = false) OperationDto dto){
+//        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+//        String token = sysConfig.getNspmToken();
+//        if(token != null){
+//            String url = "/push/recommend/task/searchsecuritypolicytasklist";
+//            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+//            JSONObject results = JSONObject.parseObject(result.toString());
+//            // 检测用户
+//            List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
+//            if(users == null || users.size() <= 0){
+//                return ResponseUtil.ok();
+//            }
+//            JSONObject data = JSONObject.parseObject(results.get("data").toString());
+//            JSONArray arrays = JSONArray.parseArray(data.get("list").toString());
+//            List list = new ArrayList();
+//            for(Object array : arrays){
+//                JSONObject obj = JSONObject.parseObject(array.toString());
+////                String theme = obj.get("policyName").toString();
+////                int index = theme.indexOf("`~");
+////                String userName = "";
+////                if(index >= 0){
+////                    userName = theme.substring(0,index);
+////                    obj.put("userName", theme.substring(0,index));
+////                    obj.put("policyName", theme.substring(index + 2));
+////                }
+//                if(users.contains(obj.get("userName").toString())){
+//                    TopoPolicyDto policy = new TopoPolicyDto();
+//                    policy.setTaskId(Integer.parseInt(obj.get("taskId").toString()));
+//                    policy.setPage(1);
+//                    policy.setPsize(1);
+//                    String url2 = "/push/task/pushtasklist";
+//                    Object taskList = this.nodeUtil.postFormDataBody(policy, url2, token);
+//                    if(taskList != null){
+//                        JSONObject task = JSONObject.parseObject(taskList.toString());
+//                        if(!task.get("data").equals("")){
+//                            JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
+//                            JSONArray taskArray = JSONArray.parseArray(taskData.get("list").toString());
+//                            obj.put("task", taskArray.get(0));
+//                        }else{
+//                            obj.put("task", "");
+//                        }
+//                    }
+//                    list.add(obj);
+//                }
+//            }
+//            data.put("list", list);
+//            results.put("data", data);
+//            return ResponseUtil.ok(results);
+//        }
+//        return ResponseUtil.error();
+//    }
+
+    @ApiOperation("NAT策略列表")
     @RequestMapping("/push/recommend/task/searchnatpolicytasklist")
     public Object searchnatpolicytasklist(@RequestBody(required = false) OperationDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/push/recommend/task/searchnatpolicytasklist";
-            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
-            List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
-            if(users == null || users.size() <= 0){
-                return ResponseUtil.ok();
+            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
+                User currentUser = ShiroUserHolder.currentUser();
+                User user = this.userService.findByUserName(currentUser.getUsername());
+                dto.setBranchLevel(user.getGroupLevel());
             }
-            JSONObject results = JSONObject.parseObject(result.toString());
-            JSONObject data = JSONObject.parseObject(results.get("data").toString());
+            Object object = this.nodeUtil.postFormDataBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            JSONObject data = JSONObject.parseObject(result.get("data").toString());
             JSONArray arrays = JSONArray.parseArray(data.get("list").toString());
             List list = new ArrayList();
             for(Object array : arrays){
                 JSONObject obj = JSONObject.parseObject(array.toString());
-                String userName = "";
-                if( obj.get("policyName") != null){
-                    String theme = obj.get("policyName").toString();
-                    int index = theme.indexOf("`~");
-                    if(index >= 0){
-                        userName = theme.substring(0,index);
-                        obj.put("userName", theme.substring(0,index));
-                        obj.put("policyName", theme.substring(index + 2));
+                TopoPolicyDto policy = new TopoPolicyDto();
+                System.out.println(obj.get("taskId").toString());
+                policy.setTaskId(Integer.parseInt(obj.get("taskId").toString()));
+                policy.setPage(1);
+                policy.setPsize(1);
+                String url2 = "/push/task/pushtasklist";
+                Object taskList = this.nodeUtil.postFormDataBody(policy, url2, token);
+                if(taskList != null){
+                    JSONObject task = JSONObject.parseObject(taskList.toString());
+                    if(!task.get("data").equals("")){
+                        JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
+                        JSONArray taskArray = JSONArray.parseArray(taskData.get("list").toString());
+                        obj.put("task", taskArray.get(0));
+                    }else{
+                        obj.put("task", "");
                     }
                 }
-                if(users.contains(userName)){
-                    TopoPolicyDto policy = new TopoPolicyDto();
-                    System.out.println(obj.get("taskId").toString());
-                    policy.setTaskId(Integer.parseInt(obj.get("taskId").toString()));
-                    policy.setPage(1);
-                    policy.setPsize(1);
-                    String url2 = "/push/task/pushtasklist";
-                    Object taskList = this.nodeUtil.postFormDataBody(policy, url2, token);
-                    if(taskList != null){
-                        JSONObject task = JSONObject.parseObject(taskList.toString());
-                        if(!task.get("data").equals("")){
-                            JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
-                            JSONArray taskArray = JSONArray.parseArray(taskData.get("list").toString());
-                            obj.put("task", taskArray.get(0));
-                        }else{
-                            obj.put("task", "");
-                        }
-                    }
-                    list.add(obj);
-                }
+                list.add(obj);
             }
             data.put("list", list);
-            results.put("data", data);
-            return ResponseUtil.ok(results);
+            result.put("data", data);
+            return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
@@ -199,7 +230,6 @@ public class TopoGenerateManageController {
     @RequestMapping("/push/api/disposal/scenes/pageList")
     public Object pageList(@RequestBody(required = false) OperationDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/push/api/disposal/scenes/pageList";
@@ -235,13 +265,13 @@ public class TopoGenerateManageController {
     @RequestMapping("push/recommend/task/new-policy-push")
     public Object push(@RequestBody(required = false) OperationDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/push/recommend/task/new-policy-push";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
+            dto.setBranchLevel(user.getGroupLevel());
+            dto.setUserName(user.getUsername());
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -344,7 +374,8 @@ public class TopoGenerateManageController {
             String url = "/push/recommend/task/addsrcnatpolicy";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
+            dto.setBranchLevel(user.getGroupLevel());
+            dto.setUserName(user.getUsername());
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -361,7 +392,8 @@ public class TopoGenerateManageController {
             String url = "/push/recommend/task/adddstnatpolicy";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
+            dto.setBranchLevel(user.getGroupLevel());
+            dto.setUserName(user.getUsername());
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -378,7 +410,9 @@ public class TopoGenerateManageController {
             String url = "/push/recommend/task/addstaticnatpolicy";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
+            dto.setBranchLevel(user.getGroupLevel());
+            dto.setUserName(user.getUsername());
+            dto.setBranchLevel(user.getGroupLevel());
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }
@@ -395,7 +429,8 @@ public class TopoGenerateManageController {
             String url = "/push/recommend/task/addbothnatpolicy";
             User currentUser = ShiroUserHolder.currentUser();
             User user = this.userService.findByUserName(currentUser.getUsername());
-            dto.setTheme(user.getUsername()+"`~"+dto.getTheme());
+            dto.setBranchLevel(user.getGroupLevel());
+            dto.setUserName(user.getUsername());
             Object result = this.nodeUtil.postBody(dto, url, token);
             return ResponseUtil.ok(result);
         }

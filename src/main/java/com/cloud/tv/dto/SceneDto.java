@@ -21,4 +21,5 @@ public class SceneDto<T> {
     private String uuid;
     private String ids;
     private String branchLevel;
+    private String createUser;
 }

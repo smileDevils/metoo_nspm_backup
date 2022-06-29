@@ -104,9 +104,13 @@ public class LicenseManagerController {
     @GetMapping(value = "/query",produces = "application/json; charset=utf-8")
     public Object query(){
         License obj = this.licenseService.query().get(0);
+        String sn = this.systemInfoUtils.getBiosUuid();
+        if(!sn.equals(obj.getSystemSN())){
+            return ResponseUtil.error(413,"未授权设备");
+        }
         try {
-            String code = this.aesEncryptUtils.decrypt(obj.getLicense());
-            LicenseVo license = JSONObject.parseObject(code, LicenseVo.class);
+            String licenseInfo = this.aesEncryptUtils.decrypt(obj.getLicense());
+            LicenseVo license = JSONObject.parseObject(licenseInfo, LicenseVo.class);
             if(license != null){
                 SysConfig sysConfig = this.sysConfigService.findSysConfigList();
                 String token = sysConfig.getNspmToken();
@@ -114,22 +118,26 @@ public class LicenseManagerController {
                 TopoNodeDto dto = new TopoNodeDto();
                 dto.setStart(0);
                 dto.setLimit(20);
-                Object object = this.nodeUtil.getBody(dto, url, token);
-                if(object != null){
-                    JSONObject result = JSONObject.parseObject(object.toString());
-                        String data = result.get("data").toString();
-                        JSONObject json = JSONObject.parseObject(data);
-                        long currentTime = DateTools.currentTimeMillis();
-                        int useDay = DateTools.compare(currentTime, license.getStartTime());
-                        license.setUseDay(useDay);
-                        int surplusDay = DateTools.compare(license.getEndTime(), currentTime);
-                        license.setSurplusDay(surplusDay);
-                        license.setLicenseDay(DateTools.compare(license.getEndTime(), license.getStartTime()));
-                        license.setUseFirewall(Integer.parseInt(json.get("currentFwNum").toString()));
-                        license.setUseRouter(Integer.parseInt(json.get("currentRouterNum").toString()));
-                        license.setUseHost(Integer.parseInt(json.get("currentHostNum").toString()));
-                        license.setUseUe(Integer.parseInt(json.get("currentGatewayNum").toString()));
-                    }
+                try {
+                    Object object = this.nodeUtil.getBody(dto, url, token);
+                    if(object != null){
+                        JSONObject result = JSONObject.parseObject(object.toString());
+                            String data = result.get("data").toString();
+                            JSONObject json = JSONObject.parseObject(data);
+                            long currentTime = DateTools.currentTimeMillis();
+                            int useDay = DateTools.compare(currentTime, license.getStartTime());
+                            license.setUseDay(useDay);
+                            int surplusDay = DateTools.compare(license.getEndTime(), currentTime);
+                            license.setSurplusDay(surplusDay);
+                            license.setLicenseDay(DateTools.compare(license.getEndTime(), license.getStartTime()));
+                            license.setUseFirewall(Integer.parseInt(json.get("currentFwNum").toString()));
+                            license.setUseRouter(Integer.parseInt(json.get("currentRouterNum").toString()));
+                            license.setUseHost(Integer.parseInt(json.get("currentHostNum").toString()));
+                            license.setUseUe(Integer.parseInt(json.get("currentGatewayNum").toString()));
+                        }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
             return ResponseUtil.ok(license);
         } catch (Exception e) {

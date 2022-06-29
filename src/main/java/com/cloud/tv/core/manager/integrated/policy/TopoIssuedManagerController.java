@@ -37,62 +37,76 @@ public class TopoIssuedManagerController {
     @Autowired
     private IOrderService orderService;
 
+
     @ApiOperation("列表")
     @RequestMapping("/push/task/pushtasklist")
     public Object pushtasklist(@RequestBody(required = false) TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/push/task/pushtasklist";
             Object result = this.nodeUtil.postFormDataBody(dto, url, token);
-            if(result != null){
-                List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
-                if(users == null || users.size() <= 0){
-                    return ResponseUtil.ok();
-                }
-                JSONObject task = JSONObject.parseObject(result.toString());
-                List list = new ArrayList();
-                if(task.get("data") != null){
-                    JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
-                    JSONArray arrays = JSONArray.parseArray(taskData.get("list").toString());
-                    for (Object array : arrays){
-                        JSONObject obj = JSONObject.parseObject(array.toString());
-                        if(obj.get("orderNo") != null){
-                            String theme = obj.get("orderNo").toString();
-                            int index = theme.indexOf("`~");
-                            String userName = "";
-                            if(index != -1){
-                                userName = theme.substring(0,index);
-                                obj.put("userName", theme.substring(0,index));
-                                obj.put("orderNo", theme.substring(index + 2));
-                            }
-                            if(obj.get("orderType").toString().equals("2") || obj.get("orderType").toString().equals("17")){
-                                // 根据工单号查询用户信息
-//                                String orderNo =  obj.get("orderNo").toString();
-//                                Order order = this.orderService.getObjByOrderNo(orderNo);
-                                // 根据工单id查询用户信息
-                                String taskId =  obj.get("taskId").toString();
-                                Order order = this.orderService.getObjByOrderId(Long.parseLong(taskId));
-
-                                userName = order == null ? "" : order.getUserName();
-                            }
-                            if(users.contains(userName)) {
-                                obj.put("userName", userName);
-                                list.add(obj);
-                            }
-                        }
-
-                    }
-                    taskData.put("list", list);
-                    task.put("data", taskData);
-                }
-                return ResponseUtil.ok(task);
-            }
-            return ResponseUtil.ok();
+            return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
     }
+
+//    @ApiOperation("列表")
+//    @RequestMapping("/push/task/pushtasklist")
+//    public Object pushtasklist(@RequestBody(required = false) TopoPolicyDto dto){
+//        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+//
+//        String token = sysConfig.getNspmToken();
+//        if(token != null){
+//            String url = "/push/task/pushtasklist";
+//            Object result = this.nodeUtil.postFormDataBody(dto, url, token);
+//            if(result != null){
+//                List<String> users = this.userService.getObjByLevel(dto.getBranchLevel());
+//                if(users == null || users.size() <= 0){
+//                    return ResponseUtil.ok();
+//                }
+//                JSONObject task = JSONObject.parseObject(result.toString());
+//                List list = new ArrayList();
+//                if(task.get("data") != null){
+//                    JSONObject taskData = JSONObject.parseObject(task.get("data").toString());
+//                    JSONArray arrays = JSONArray.parseArray(taskData.get("list").toString());
+//                    for (Object array : arrays){
+//                        JSONObject obj = JSONObject.parseObject(array.toString());
+//                        if(obj.get("orderNo") != null){
+//                            String theme = obj.get("orderNo").toString();
+//                            int index = theme.indexOf("`~");
+//                            String userName = "";
+//                            if(index != -1){
+//                                userName = theme.substring(0,index);
+//                                obj.put("userName", theme.substring(0,index));
+//                                obj.put("orderNo", theme.substring(index + 2));
+//                            }
+//                            if(obj.get("orderType").toString().equals("2") || obj.get("orderType").toString().equals("17")){
+//                                // 根据工单号查询用户信息
+////                                String orderNo =  obj.get("orderNo").toString();
+////                                Order order = this.orderService.getObjByOrderNo(orderNo);
+//                                // 根据工单id查询用户信息
+//                                String taskId =  obj.get("taskId").toString();
+//                                Order order = this.orderService.getObjByOrderId(Long.parseLong(taskId));
+//
+//                                userName = order == null ? "" : order.getUserName();
+//                            }
+//                            if(users.contains(userName)) {
+//                                obj.put("userName", userName);
+//                                list.add(obj);
+//                            }
+//                        }
+//
+//                    }
+//                    taskData.put("list", list);
+//                    task.put("data", taskData);
+//                }
+//                return ResponseUtil.ok(task);
+//            }
+//            return ResponseUtil.ok();
+//        }
+//        return ResponseUtil.error();
+//    }
 
     @ApiOperation("策略信息")
     @RequestMapping("/getPolicy")

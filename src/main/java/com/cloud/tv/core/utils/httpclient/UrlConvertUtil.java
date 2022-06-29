@@ -1,9 +1,6 @@
-package com.cloud.tv.core.utils.http;
+package com.cloud.tv.core.utils.httpclient;
 
 import com.cloud.tv.core.service.ISysConfigService;
-import com.cloud.tv.core.service.IUserService;
-import com.cloud.tv.core.shiro.tools.ApplicationContextUtils;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,11 +13,6 @@ public class UrlConvertUtil {
 
     @Autowired
     private ISysConfigService sysConfigService;
-
-//    public static void main(String[] args) {
-//        String url = convert("/risk/api/danger/hostComputerSoftware/assetGroupTree");
-//        System.out.println(url);
-//    }
 
     public String convert(String url){
         String nspmUrl = sysConfigService.findSysConfigList().getNspmUrl();

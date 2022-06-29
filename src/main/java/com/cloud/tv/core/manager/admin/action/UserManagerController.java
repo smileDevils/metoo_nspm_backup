@@ -13,7 +13,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ public class UserManagerController {
     private IVideoService videoService;
     @Autowired
     private IGroupService groupService;
+
+    Logger logger = LoggerFactory.getLogger(UserManagerController.class);
 
 
     @RequiresPermissions("LK:USER:MANAGER")
@@ -191,13 +195,35 @@ public class UserManagerController {
             if (StringUtil.isEmpty(dto.getUsername())) {// 新增时必须验证密码
                 return ResponseUtil.badArgument("请输入用户名");
             }
-            if (dto.getId() == null && StringUtils.isEmpty(dto.getPassword())) {
-                return ResponseUtil.badArgument("请输入密码");
+            if(dto.getId() != null && dto.getPassword() == null && dto.getVerifyPassword() == null){
+                return ResponseUtil.badArgument("参数错误");
             }
-            User currentUser = this.userService.findObjById(dto.getId());
+
+            // 验证密码参数
+            if(dto.getId() == null){
+                if (dto.getId() == null && StringUtils.isEmpty(dto.getPassword())) {
+                    return ResponseUtil.badArgument("请输入密码");
+                }
+                if (dto.getId() == null && StringUtils.isEmpty(dto.getVerifyPassword())) {
+                    return ResponseUtil.badArgument("请输入确认密码");
+                }
+            }else{
+                if(!StringUtils.isEmpty(dto.getPassword())){
+                    if(StringUtils.isEmpty(dto.getVerifyPassword())){
+                        return ResponseUtil.badArgument("请输入确认密码");
+                    }
+                }
+                if(!StringUtils.isEmpty(dto.getVerifyPassword())){
+                    if(StringUtils.isEmpty(dto.getPassword())){
+                        return ResponseUtil.badArgument("请输入密码");
+                    }
+                }
+            }
+
             User user = this.userService.findByUserName(dto.getUsername());
             if (user != null) {
-                if (currentUser != null) {
+                User currentUser = this.userService.findObjById(dto.getId());
+                if (currentUser != null) {// 判断修改时是否为本人
                     if (!user.getId().equals(currentUser.getId())) {
                         return ResponseUtil.fail(400, "用户已存在");
                     }
@@ -205,7 +231,6 @@ public class UserManagerController {
                     return ResponseUtil.fail(400, "用户已存在");
                 }
             }
-
             if (!StringUtils.isEmpty(dto.getPassword())) {
                 if (dto.getPassword().length() < 6 || dto.getPassword().length() > 20) {
                     return ResponseUtil.badArgument("设置6-20位新密码");
@@ -217,6 +242,14 @@ public class UserManagerController {
                 }
             }
             if (this.userService.save(dto)) {
+                // 判断是否为本人
+                User currentUser = ShiroUserHolder.currentUser();
+                if(currentUser.getUsername().equals(dto.getUsername())){
+                    SecurityUtils.getSubject().logout();
+                }/*else{
+                    // 退出指定用户
+
+                }*/
                 return ResponseUtil.ok();
             }
             return ResponseUtil.error();
@@ -233,7 +266,9 @@ public class UserManagerController {
         User user = this.userService.findObjById(dto.getId());
         if (user != null) {
             // 判断用户是否为管理员
-
+            if(user.getType() == 1){
+                return ResponseUtil.badArgument("删除失败");
+            }
             user.setDeleteStatus(-1);
             this.userService.update(user);
             // 清空用户直播间
@@ -329,6 +364,8 @@ public class UserManagerController {
                     dto.setSalt(sale);
                     dto.setFlag(true);
                     if (this.userService.save(dto)) {
+                        Subject subject = SecurityUtils.getSubject();
+                        subject.logout();
                         return ResponseUtil.ok();
                     }
                 } else {

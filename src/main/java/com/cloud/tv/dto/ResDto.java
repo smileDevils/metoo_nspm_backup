@@ -58,4 +58,7 @@ public class ResDto extends PageDto<Res>{
     @ApiModelProperty("组件图标")
     private String icon;
 
+    @ApiModelProperty("显示隐藏")
+    private boolean hidden;
+
 }

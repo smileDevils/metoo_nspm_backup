@@ -3,7 +3,7 @@ package com.cloud.tv.core.manager.integrated.dbbackup;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.utils.NodeUtil;
 import com.cloud.tv.core.utils.ResponseUtil;
-import com.cloud.tv.core.utils.http.UrlConvertUtil;
+import com.cloud.tv.core.utils.httpclient.UrlConvertUtil;
 import com.cloud.tv.entity.BackUp;
 import com.cloud.tv.entity.BackupFtp;
 import com.cloud.tv.entity.SysConfig;

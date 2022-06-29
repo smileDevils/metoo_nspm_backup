@@ -30,7 +30,6 @@ public class TopologyTokenServiceImpl implements ITopologyTokenService {
         // 验证当前token是否生效
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
-        token = "1a";
         if(token != null) {
             String url = "/topology/cycle/getCyclePage/";
             try {

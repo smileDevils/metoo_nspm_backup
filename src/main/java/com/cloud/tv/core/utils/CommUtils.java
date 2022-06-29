@@ -102,7 +102,7 @@ public class CommUtils {
     public static String getRtmp(String ip, String bindCode){
         if(ip != null && !ip.equals("")){
             if(bindCode != null && !bindCode.equals("")){
-                String rtmp = "http://" + ip + "/hls/" + bindCode;
+                String rtmp = "httpclient://" + ip + "/hls/" + bindCode;
                 return rtmp;
             }
         }

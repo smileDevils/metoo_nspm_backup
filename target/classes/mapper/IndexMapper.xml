@@ -42,6 +42,7 @@
         <result column="componentName" property="componentName"></result>
         <result column="sequence" property="sequence"></result>
         <result column="icon" property="icon"></result>
+        <result column="hidden" property="hidden"></result>
         <collection property="childrenList" ofType="com.cloud.tv.vo.MenuVo">
             <id column="res2_id" property="id"/>
             <result column="res2_name" property="name"></result>
@@ -51,13 +52,15 @@
             <result column="res2_componentName" property="componentName"></result>
             <result column="res2_sequence" property="sequence"></result>
             <result column="res2_icon" property="icon"></result>
+            <result column="res2_hidden" property="hidden"></result>
          </collection>
     </resultMap>
 
     <sql id="Base_Column_List">
-        res.id, res.name, res.value, res.sequence,res.componentName, res.icon, res.url,res.component,
+        res.id, res.name, res.value, res.sequence,res.componentName, res.icon, res.url,res.component,res.hidden,
         res2.id res2_id, res2.name res2_name, res2.value res2_value, res2.url res2_url,
-        res2.component res_component, res2.sequence res2_sequence,res2.componentName res2_componentName, res2.icon res2_icon
+        res2.component res_component, res2.sequence res2_sequence,res2.componentName res2_componentName,
+        res2.icon res2_icon, res2.hidden res2_hidden
     </sql>
 
   <!--  <select id="findMenu" parameterType="java.lang.Long" resultMap="Base_Nav_Map">
@@ -80,12 +83,12 @@
                 LEFT JOIN metoo_user_role user_role ON user_role.role_id = role.id
                 LEFT JOIN metoo_user user ON user.id = user_role.user_id
                 WHERE
-                    user.id = #{userId}
+                    user.id = #{id}
                 AND
                     res.level = 1
-          ORDER BY res.sequence DESC
         ) res2	ON res2.parentId = res.id
-            WHERE res.level = 0
-        ORDER BY res.sequence DESC, res2.sequence DESC
+            WHERE
+              res.level = 0
+        ORDER BY res.sequence ASC,res2.sequence ASC
   </select>
 </mapper>

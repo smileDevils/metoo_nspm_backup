@@ -1,4 +1,4 @@
-package com.cloud.tv.core.utils.http;
+package com.cloud.tv.core.utils.httpclient;
 
 import org.springframework.stereotype.Component;
 

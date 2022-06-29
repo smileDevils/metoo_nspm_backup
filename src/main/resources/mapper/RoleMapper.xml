@@ -62,8 +62,8 @@
         SELECT *
         FROM metoo_role mr
         WHERE
-        mr.deleteStatus = 0
-        ORDER BY mr.sequence DESC
+          mr.deleteStatus = 0
+        ORDER BY mr.addTime DESC
     </select>
 
     <select id="findObjByMap" parameterType="map" resultMap="Unit_Role_Map">
@@ -74,7 +74,7 @@
             LEFT JOIN metoo_role_res mrr ON mrr.role_id = mr.id
             LEFT JOIN metoo_res res ON res.id = mrr.res_id
             WHERE mr.deleteStatus = 0
-        ORDER BY mr.sequence DESC, mr.addTime DESC
+        ORDER BY  mr.addTime DESC
     </select>
 
     <resultMap id="roleDtoMap" type="com.cloud.tv.vo.RoleVo">

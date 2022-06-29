@@ -7,6 +7,7 @@ import com.cloud.tv.dto.TopoNodeDto;
 import com.cloud.tv.entity.SysConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+//@RequiresPermissions("ADMIN:SUBNET:MANAGER")
 @Api("子网列表")
 @RequestMapping("/nspm/subnet")
 @RestController

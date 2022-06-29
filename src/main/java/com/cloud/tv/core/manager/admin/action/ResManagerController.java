@@ -4,6 +4,7 @@ import com.cloud.tv.core.service.IResService;
 import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.ResDto;
 import com.cloud.tv.entity.Res;
+import com.github.pagehelper.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -151,8 +152,19 @@ public class ResManagerController {
             if(error != null){
                 return error;
             }
+            if(dto.getParentId() != null && StringUtil.isEmpty(dto.getValue())){
+                return ResponseUtil.badArgument("资源信息为空");
+            }
             boolean flag = true;
-            Res res = this.resService.findObjByName(dto.getName());
+            Map map = new HashMap();
+            map.put("name", dto.getName());
+            if(dto.getParentId() != null){
+//                Res parent = this.resService.findObjById(dto.getParentId());
+                map.put("level", 1);
+            }else{
+                map.put("level", 0);
+            }
+            Res res = this.resService.findObjByNameAndLevel(map);
             if(res != null) {
                 flag = false;
                 Res res2 = this.resService.findObjById(dto.getId());

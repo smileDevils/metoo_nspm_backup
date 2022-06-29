@@ -57,6 +57,8 @@ public class MenuVo {
 
     @ApiModelProperty("图标")
     private String icon;
+    @ApiModelProperty("显示隐藏")
+    private boolean hidden;
 
     @ApiModelProperty("权限子集")
     private List<MenuVo> childrenList;
