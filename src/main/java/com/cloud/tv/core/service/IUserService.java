@@ -34,6 +34,8 @@ public interface IUserService {
 
     boolean delete(User id);
 
+    boolean deleteByLevel(String level);
+
     boolean allocation(List<User> list);
 
     List<User> findObjByIds(Long[] ids) ;

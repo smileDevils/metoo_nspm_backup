@@ -106,11 +106,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = NoSuchMethodError.class)
     @ResponseBody
-    public Object NoSuchMethidError(NoSuchMethodError e){
+    public Object NoSuchMethodError(NoSuchMethodError e){
+        System.out.println(e.getMessage());
         return ResponseUtil.notFound();
     }
-
-
 
 
     // 捕捉shiro的异常

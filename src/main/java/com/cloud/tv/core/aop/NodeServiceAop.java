@@ -34,7 +34,7 @@ public class NodeServiceAop {
 
     private static final Integer pageSize = 10;
 
-    @Around("execution(* com.cloud.tv.core.manager.integrated.node.TopoNodeManagerAction.addGatherNode(..))")
+    @Around("execution(* com.cloud.tv.core.manager.integrated.node.TopoNodeManagerAction.addGatherNode(..)) || execution(* com.cloud.tv.core.manager.integrated.node.TopoNodeManagerAction.upload(..))")
     public Object around(ProceedingJoinPoint pjp){
         // 获取License详细信息
         License obj = this.licenseServicer.query().get(0);
@@ -64,12 +64,23 @@ public class NodeServiceAop {
             Signature signature = pjp.getSignature();
             String methodName = signature.getName();
             Object[] arguments = pjp.getArgs();
-            System.out.println();
-            String node = JSONObject.toJSONString((Object)arguments[0]);
-            JSONObject json = JSONObject.parseObject(node);
-            int device = 0;
             switch(methodName){
                 case "addGatherNode":
+                    String node = JSONObject.toJSONString(arguments[0]);
+                    JSONObject json = JSONObject.parseObject(node);
+                    // 判断设备类型
+                    if(json.get("deviceType").equals("0") && license.getLicenseFireWall() <= license.getUseFirewall()){
+                        return ResponseUtil.error("防火墙已达到最大授权数，禁止上传");
+                    }
+                    if(json.get("deviceType").equals("1") && license.getLicenseRouter() <= license.getUseRouter()){
+                        return ResponseUtil.error("路由交换已达到最大授权数，禁止上传");
+                    }
+                    if(json.get("deviceType").equals("3") && license.getLicenseUe() <= license.getUseUe()){
+                        return ResponseUtil.error("未适配设备已达到最大授权数，禁止上传");
+                    }
+                case "upload":
+                    node = JSONObject.toJSONString(arguments[1]);
+                     json = JSONObject.parseObject(node);
                     // 判断设备类型
                     if(json.get("deviceType").equals("0") && license.getLicenseFireWall() <= license.getUseFirewall()){
                         return ResponseUtil.error("防火墙已达到最大授权数，禁止上传");

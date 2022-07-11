@@ -4,13 +4,12 @@ import com.cloud.tv.dto.GroupDto;
 import com.cloud.tv.entity.Group;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IGroupService {
 
-
-
     // 查询所有组
-    List<Group> query();
+    List<Group> query(Map map);
 
     Group queryObjById(Long id);
 

@@ -1,5 +1,6 @@
 package com.cloud.tv.core.manager.integrated.node;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
@@ -54,7 +55,6 @@ public class TopoNodeManagerAction {
     @GetMapping(value = "/topology-layer/whale/GET/node/navigation")
     public Object nodeNavigation(TopoPolicyDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
            if(dto.getBranchLevel() == null || dto.getBranchLevel().equals("")){
@@ -210,7 +210,7 @@ public class TopoNodeManagerAction {
         return ResponseUtil.error();
     }
 
-    @ApiOperation("节点保存")
+    @ApiOperation("在线采集")
     @RequestMapping("/addGatherNode")
     public Object addGatherNode(TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
@@ -598,7 +598,7 @@ public class TopoNodeManagerAction {
 
     @ApiOperation("批量导入")
     @GetMapping(value="/batch-import-excel")
-    public Object upload(@RequestParam(value = "multipartFile", required = false) MultipartFile file, String encrypt) throws IOException {
+    public Object batchImportNode(@RequestParam(value = "multipartFile", required = false) MultipartFile file, String encrypt) throws IOException {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         
         String token = sysConfig.getNspmToken();
@@ -631,11 +631,10 @@ public class TopoNodeManagerAction {
         return ResponseUtil.error();
     }
 
-    @ApiOperation("导入文件")
+    @ApiOperation("手工采集")
     @PostMapping(value = "/upload")
     public Object upload(@RequestParam(value = "file", required = false) MultipartFile file, TopoNodeDto dto) throws IOException {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology/node/upload.action/";
@@ -662,7 +661,12 @@ public class TopoNodeManagerAction {
             HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity(multValueMap, headers);
             //发起调用
             Object obj =  restTemplate.postForObject(url, requestEntity, Object.class);
-            return ResponseUtil.ok(obj);
+            JSONObject result = JSONObject.parseObject(JSON.toJSONString(obj));
+            if(result.getBoolean("result")){
+                return ResponseUtil.ok(obj);
+            }else{
+                return ResponseUtil.error("文件导入失败");
+            }
         }
         return ResponseUtil.error();
     }

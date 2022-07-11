@@ -66,12 +66,12 @@ public class TopoNspmIndexManagerAction {
         return ResponseUtil.ok(tasks);
     }
 
+
     @RequestMapping("/policy")
     public Object policy(){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
         String token = sysConfig.getNspmToken();
         if(token != null){
-
             String policyUrl = "/topology-policy/report/policyView/viewData";
             TopoPolicyDto policyDto = new TopoPolicyDto();
             policyDto.setCurrentPage(1);
@@ -164,11 +164,13 @@ public class TopoNspmIndexManagerAction {
                             dataMap.put("grade", new Double(0));
                         else
                             dataMap.put("grade", b4.subtract(b3).doubleValue() * 100);
+                    }else{
+                        dataMap.put("grade", new Double(100));
                     }
                     list.add(dataMap);
                 }
                 // 排序
-                listSortUtil.lambdaSort(list);
+                listSortUtil.sort(list);
                 List list1 = list.subList(0,list.size() < 10 ? list.size() : 10);
                 return ResponseUtil.ok(list1);
             }

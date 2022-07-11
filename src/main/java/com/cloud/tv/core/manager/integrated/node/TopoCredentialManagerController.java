@@ -43,12 +43,10 @@ public class TopoCredentialManagerController {
     public TopoCredentialManagerController() {
     }
 
-
     @ApiOperation("列表")
     @RequestMapping({"/push/credential/getall"})
     public Object getall(@RequestBody(required = false) TopoCredentialDto dto) {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        
         String token = sysConfig.getNspmToken();
         if(token != null){
             if (dto.getBranchLevel() == null || dto.getBranchLevel().equals("")) {
@@ -56,7 +54,6 @@ public class TopoCredentialManagerController {
                 User user = this.userService.findByUserName(currentUser.getUsername());
                 dto.setBranchLevel(user.getGroupLevel());
             }
-
             String url = "/push/credential/getall";
             Object result = this.nodeUtil.postBody(dto, url, token);
             JSONObject object = JSONObject.parseObject(result.toString());
@@ -65,7 +62,6 @@ public class TopoCredentialManagerController {
                 if (content.get("list") != null) {
                     List list = new ArrayList();
                     JSONArray arrays = JSONArray.parseArray(content.get("list").toString());
-
                     JSONObject json;
                     for(Iterator var10 = arrays.iterator(); var10.hasNext(); list.add(json)) {
                         Object array = var10.next();
@@ -79,7 +75,6 @@ public class TopoCredentialManagerController {
                             }
                         }
                     }
-
                     object.put("list", list);
                 }
             }
@@ -228,7 +223,7 @@ public class TopoCredentialManagerController {
         
         String token = sysConfig.getNspmToken();
         if(token != null){
-            String url = "/push/credential/download-credential-template";
+            String url = "/push/credential/download-credential-templates";
             Object result = this.nodeUtil.postBody((Object)null, url, token);
             return ResponseUtil.ok(result);
         } else {

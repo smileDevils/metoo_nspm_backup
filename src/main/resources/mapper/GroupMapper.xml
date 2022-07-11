@@ -20,12 +20,24 @@
         FROM metoo_group
     </select>
 
+
     <select id="getObjByLevel" parameterType="String" resultMap="Base_Result_Map">
         SELECT <include refid="Base_Column_List" />
             FROM metoo_group
         WHERE
           level=#{level}
     </select>
+
+    <select id="getMaxBranch" parameterType="String" resultMap="Base_Result_Map">
+        SELECT <include refid="Base_Column_List" />
+        FROM metoo_group
+        WHERE
+        parentLevel=#{level}
+        ORDER BY level
+        DESC
+        limit 1
+    </select>
+
     <select id="queryObjById" parameterType="long" resultMap="Base_Result_Map">
         SELECT <include refid="Base_Column_List"/>
         FROM metoo_group obj

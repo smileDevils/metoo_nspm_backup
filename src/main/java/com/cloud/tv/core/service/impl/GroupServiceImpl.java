@@ -11,17 +11,23 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 public class GroupServiceImpl implements IGroupService {
 
+
+    public static void main(String[] args) {
+        System.out.println(String.format("%0" + 4
+                + "d", 01));
+    }
     @Resource
     private GroupMapper groupMapper;
 
     @Override
-    public List<Group> query() {
-        return null;
+    public List<Group> query(Map map) {
+        return this.groupMapper.query(map);
     }
 
     @Override
@@ -55,11 +61,20 @@ public class GroupServiceImpl implements IGroupService {
             if(instance.getParentId() != null){
                 Group parent = this.queryObjById(instance.getParentId());
                 if(parent != null){
-                    List<Group> parents = this.queryChild(parent.getId());
-                    int level = parents.size() + 1;
-                    group.setLevel(parent.getLevel() + String.format("%02d", level));
-                    group.setParentLevel(parent.getLevel());
-                    group.setParentId(parent.getId());
+                    // 获取maxBranchLevel
+                    Group maxGroup = this.groupMapper.getMaxBranch(parent.getLevel());
+                    if(maxGroup != null){
+                        System.out.println("%0" + maxGroup.getLevel().length() + "d");
+                        System.out.println(String.format("%0" + maxGroup.getLevel().length() + "d", Integer.parseInt(maxGroup.getLevel()) + 1));
+                        group.setLevel(String.format("%0" + maxGroup.getLevel().length() + "d", Integer.parseInt(maxGroup.getLevel()) + 1));
+                        group.setParentLevel(parent.getLevel());
+                        group.setParentId(parent.getId());
+                    }else{
+                        group.setLevel(parent.getLevel() + "01");
+                        group.setParentLevel(parent.getLevel());
+                        group.setParentId(parent.getId());
+                    }
+
                 }
             }else{
                 group.setParentLevel("0");

@@ -112,7 +112,6 @@ public class TopoIssuedManagerController {
     @RequestMapping("/getPolicy")
     public Object policys(@RequestBody Policy policy){
         Map map = new HashMap();
-
         List<Policy> policys = this.policyService.getObjOrderNo(policy.getOrderNo());
         map.put("policys", policys);
         if(policys.size() > 0){

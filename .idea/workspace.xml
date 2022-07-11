@@ -1,118 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java" line="994" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java" line="992" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyListnerter.java" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f6c41510-261a-41e5-b558-7deaec8c1ade" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_43.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jakarta_el_3_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_4_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyApplicationContextInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/monitor/TopoSystemInfoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/redis/test/RedisTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/redis/util/JedisPoolUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/redis/util/SeckillUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DataStructure/MyEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SysWarnMessageModelDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SysXxlChDelLogDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_31.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_freemarker_2_4_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/kafka/controller/MyKafkaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/kafka/cosumer/MyConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/view/action/IndexViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaConsumerDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaProductDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DownLoadFileUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/KafkaOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/metoo_nspm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/metoo_nspm.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/NspmApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/NspmApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/IndexManageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/IndexManageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/LicenseManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/LicenseManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/ResManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/ResManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/TestDtoManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/TestDtoManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/UserManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/UserManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/tools/MonitorTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/tools/MonitorTools.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/asset/AssetManagerAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/asset/AssetManagerAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/dbbackup/BackupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/dbbackup/BackupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/ShiroConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/ShiroConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/aop/NodeServiceAop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/aop/NodeServiceAop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/DataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/DataSourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/NspmDataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/NspmDataSourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/TopologyDataSourceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/TopologyDataSourceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/GroupManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/GroupManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCycleManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCycleManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSceneSettingManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSceneSettingManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSubnetManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSubnetManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNspmIndexManagerAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNspmIndexManagerAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoGenerateManageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoGenerateManageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoIssuedManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoIssuedManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoOpenManageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoOpenManageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/ResMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/ResMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/redis/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/redis/config/RedisConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IResService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IResService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/GroupMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/GroupMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IGroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IGroupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IPolicyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IPolicyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IssuedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IssuedService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/GroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/GroupServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/IssuedServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/IssuedServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/ResServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/ResServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/SysConfigServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/SysConfigServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/TopologyTokenServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/TopologyTokenServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/shiro/filter/MyAccessControlFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/shiro/filter/MyAccessControlFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/CommUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/CommUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/NodeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/NodeUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/http/HttpClientUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/HttpClientUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/http/HttpURLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/HttpURLConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/http/MyRestTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/MyRestTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/http/SkipHttpsUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/SkipHttpsUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/http/UrlConvertUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/UrlConvertUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/ResDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/ResDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SceneDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SceneDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/Res.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/Res.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/vo/MenuVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/vo/MenuVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/PolicyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/PolicyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/MyRestTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/MyRestTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cloud/tv/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cloud/tv/handler/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/IndexMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/IndexMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/ResMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/ResMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/GroupMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/GroupMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-prod.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/NspmApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/NspmApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/LicenseManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/LicenseManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/ResManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/ResManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/TestDtoManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/TestDtoManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/UserManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/UserManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/tools/MonitorTools.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/tools/MonitorTools.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/asset/AssetManagerAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/asset/AssetManagerAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/config/shiro/ShiroConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/config/shiro/ShiroConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/aop/NodeServiceAop.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/aop/NodeServiceAop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/GroupManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/admin/action/GroupManagerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoCycleManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoCycleManagerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoSceneSettingManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoSceneSettingManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoSubnetManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoSubnetManagerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNspmIndexManagerAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopoNspmIndexManagerAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoGenerateManageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoGenerateManageController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoIssuedManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoIssuedManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoOpenManageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoOpenManageController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/mapper/ResMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/mapper/ResMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IResService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IResService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/mapper/GroupMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/mapper/GroupMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IGroupService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IGroupService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IPolicyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IPolicyService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IUserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IssuedService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/IssuedService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/GroupServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/GroupServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/IssuedServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/IssuedServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/ResServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/ResServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/SysConfigServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/SysConfigServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/shiro/filter/MyAccessControlFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/shiro/filter/MyAccessControlFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/CommUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/CommUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/NodeUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/NodeUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/http/HttpClientUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/http/HttpURLConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/http/SkipHttpsUtil$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/utils/http/SkipHttpsUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/dto/ResDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/dto/ResDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/dto/SceneDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/dto/SceneDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/entity/Res.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/entity/Res.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/vo/MenuVo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/vo/MenuVo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/IndexMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/IndexMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/ResMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/ResMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/RoleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/RoleMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/PolicyServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/PolicyServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/core/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cloud/tv/handler/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cloud/tv/handler/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapper/GroupMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/GroupMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/../../jyw/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,66 +97,75 @@
     <session id="-978199104">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="33" />
+          <entry key="project.closed" value="38" />
           <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.10" value="3" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.14" value="3" />
+          <entry key="project.open.time.13" value="3" />
+          <entry key="project.open.time.14" value="4" />
           <entry key="project.open.time.15" value="2" />
-          <entry key="project.open.time.2" value="4" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.2" value="6" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.24" value="2" />
           <entry key="project.open.time.25" value="1" />
-          <entry key="project.open.time.3" value="7" />
+          <entry key="project.open.time.3" value="10" />
           <entry key="project.open.time.35" value="1" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.8" value="6" />
           <entry key="project.open.time.9" value="5" />
-          <entry key="project.opened" value="44" />
+          <entry key="project.opened" value="56" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="57" />
+          <entry key="class" value="66" />
+          <entry key="html" value="3" />
           <entry key="iml" value="3" />
           <entry key="ini" value="8" />
-          <entry key="java" value="651" />
+          <entry key="java" value="796" />
+          <entry key="jsp" value="1" />
           <entry key="kt" value="1" />
-          <entry key="properties" value="120" />
-          <entry key="xml" value="67" />
+          <entry key="properties" value="143" />
+          <entry key="xml" value="77" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="57" />
+          <entry key="CLASS" value="66" />
+          <entry key="HTML" value="3" />
           <entry key="IDEA_MODULE" value="3" />
           <entry key="Ini" value="8" />
-          <entry key="JAVA" value="651" />
+          <entry key="JAVA" value="796" />
+          <entry key="JSP" value="1" />
           <entry key="Kotlin" value="1" />
-          <entry key="Properties" value="120" />
-          <entry key="XML" value="67" />
+          <entry key="Properties" value="143" />
+          <entry key="XML" value="77" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dummy" value="42" />
+          <entry key="dummy" value="110" />
+          <entry key="ft" value="2" />
           <entry key="ini" value="75" />
-          <entry key="java" value="14895" />
-          <entry key="properties" value="873" />
-          <entry key="xml" value="928" />
+          <entry key="java" value="20758" />
+          <entry key="properties" value="1458" />
+          <entry key="xml" value="1106" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Ini" value="75" />
-          <entry key="JAVA" value="14895" />
-          <entry key="PLAIN_TEXT" value="42" />
-          <entry key="Properties" value="873" />
-          <entry key="SQL" value="97" />
-          <entry key="XML" value="831" />
+          <entry key="JAVA" value="20758" />
+          <entry key="PLAIN_TEXT" value="110" />
+          <entry key="Properties" value="1458" />
+          <entry key="SQL" value="103" />
+          <entry key="VTL" value="2" />
+          <entry key="XML" value="1003" />
         </counts>
       </usages-collector>
     </session>
@@ -195,65 +175,98 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyListnerter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="30" column="40" lean-forward="true" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.3.4/spring-web-5.3.4.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2100">
-              <caret line="104" selection-start-line="104" selection-end-line="104" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+            <state relative-caret-position="50">
+              <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application-docker.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="27" column="46" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="46" />
+            <state relative-caret-position="271">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/NodeUtil.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/LicenseManagerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5614">
-              <caret line="242" selection-start-line="242" selection-end-line="242" />
+            <state relative-caret-position="3475">
+              <caret line="158" column="45" selection-start-line="158" selection-start-column="45" selection-end-line="158" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.properties">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/tools/LicenseTools.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+            <state relative-caret-position="425">
+              <caret line="23" column="76" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/DataSourceConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/NspmDataSourceConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/TopologyDataSourceConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/NspmApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="70" column="41" selection-start-line="70" selection-start-column="41" selection-end-line="70" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaConsumerDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="800">
+              <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaProductDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="650">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -265,6 +278,7 @@
       <list>
         <option value="Kotlin File" />
         <option value="FxmlFile" />
+        <option value="Freemarker" />
         <option value="Class" />
       </list>
     </option>
@@ -272,35 +286,35 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>query</find>
-      <find>findObjByMap</find>
-      <find>self4</find>
-      <find>cache</find>
-      <find>new-policy-push</find>
-      <find>nat</find>
-      <find>addstaticnatpolicy</find>
-      <find>searchnatpolicytasklist</find>
-      <find>findByUserName</find>
-      <find>userName</find>
-      <find>url</find>
-      <find>addpushtasks</find>
-      <find>task</find>
+      <find>getObjByLevel</find>
+      <find>credential/getall</find>
+      <find>deleteByLevel</find>
+      <find>getUuidgetUuid</find>
+      <find>getUuid</find>
+      <find>navigation</find>
+      <find>/node/navigation</find>
+      <find>topology-layer/whale/GET/node/navigation</find>
       <find>branch</find>
-      <find>searchtasklist</find>
-      <find>branc</find>
-      <find>ranchlevel</find>
-      <find>`~</find>
-      <find>searchsecuritypolicytasklist</find>
-      <find>addGlobalRecommendTask</find>
-      <find>pushtasklist</find>
-      <find>策略下发</find>
+      <find>policy/getPolicy</find>
+      <find>policy/</find>
+      <find>getPolicy</find>
+      <find>policyUrl</find>
       <find>下发队列</find>
-      <find>src</find>
-      <find>场景</find>
-      <find>listLayers</find>
-      <find>users</find>
-      <find>api/disposal/scenes/edit</find>
-      <find>builder</find>
-      <find>saveLayer</find>
+      <find>invisibleName</find>
+      <find>ssuedService</find>
+      <find>加入下发队列</find>
+      <find>viewData</find>
+      <find>subnetUuid</find>
+      <find>topology-layer/whale/GET/subnets</find>
+      <find>shiroFilterFactoryBean</find>
+      <find>findPermissionByJoin</find>
+      <find>addGatherNode</find>
+      <find>kafka</find>
+      <find>MyGroup1</find>
+      <find>grade</find>
+      <find>policyCheckTotal</find>
+      <find>ka</find>
+      <find>testGroup</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -319,57 +333,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/redis/util/SeckillUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/shiro/filter/MyAccessControlFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/IndexManageController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IResService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/ResMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/Res.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/LicenseServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/LicenseManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/LicenseFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/ResDto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/ResServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/RoleManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/ResManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/TestDtoManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/TopologyTokenServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCycleManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSubnetManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/asset/AssetManagerAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/vo/MenuVo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/UserManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/IndexMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/ResMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/monitor/SystemInfoController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SysXxlChDelLogDto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SysWarnMessageModelDto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/NodeUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/monitor/TopoSystemInfoController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyListnerter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyApplicationContextInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j2.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DataStructure/MyEnum.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/UrlConvertUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoGenerateManageController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SceneDto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSceneSettingManagerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/UserMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IGroupService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/GroupMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/GroupServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/GroupMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IUserService.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/GroupManagerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/KafkaOrder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoOpenManageController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoIssuedManagerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IssuedService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/IssuedServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IPolicyService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/PolicyServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/NspmApplication.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/handler/GlobalExceptionHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/view/action/IndexViewController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DownLoadUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DownLoadFileUtil.java" />
+        <option value="$PROJECT_DIR$/../../jyw/src/main/java/com/jyw/spring_jyw/JywTest.java" />
+        <option value="$PROJECT_DIR$/../../jyw/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application-dev.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/aop/NodeServiceAop.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/ShiroConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/MyKafkaController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNspmIndexManagerAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application-prod.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/kafka/cosumer/MyConsumer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaConsumerDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaProductDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/kafka/controller/MyKafkaController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/DataSourceConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/NspmDataSourceConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/TopologyDataSourceConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application-dev.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DataStructure/MyEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/NspmApplication.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/UrlConvertUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoOpenManageController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoGenerateManageController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoIssuedManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SceneDto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSceneSettingManagerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java" />
       </list>
     </option>
   </component>
@@ -484,15 +498,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tv" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backup" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tv" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -524,8 +529,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tv" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="listerner" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
@@ -547,54 +551,6 @@
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="manager" type="462c0819:PsiDirectoryNode" />
               <item name="integrated" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backup" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tv" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
-              <item name="integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="asset" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backup" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tv" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
-              <item name="integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="dbbackup" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backup" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tv" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
-              <item name="integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="expose" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backup" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="tv" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
-              <item name="integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="node" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
@@ -616,7 +572,8 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tv" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
@@ -626,8 +583,9 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tv" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-              <item name="httpclient" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
@@ -636,7 +594,31 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="tv" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka" type="462c0819:PsiDirectoryNode" />
+              <item name="cosumer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backup" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="tv" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="monitor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backup" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="tv" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
@@ -651,18 +633,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backup" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="metoo_nspm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -679,8 +650,8 @@
     <property name="SearchEverywhereHistoryKey" value="asset/risk/api/danger/assetHost/pageTreeList &#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1656414282331" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1657101359211" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jyw" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -706,6 +677,32 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.NspmApplication">
+    <configuration name="DownLoadFileUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cloud.tv.core.utils.DownLoadFileUtil" />
+      <module name="metoo_nspm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cloud.tv.core.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GroupServiceImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.cloud.tv.core.service.impl.GroupServiceImpl" />
+      <module name="metoo_nspm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.cloud.tv.core.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MyTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.cloud.tv.core.utils.DataStructure.MyTest" />
       <module name="metoo_nspm" />
@@ -732,43 +729,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RedisDemo.hash" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="metoo_nspm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cloud.tv.core.redis.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cloud.tv.core.redis" />
-      <option name="MAIN_CLASS_NAME" value="com.cloud.tv.core.redis.RedisDemo" />
-      <option name="METHOD_NAME" value="hash" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RedisDemo.zset" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="metoo_nspm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.cloud.tv.core.redis.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.cloud.tv.core.redis" />
-      <option name="MAIN_CLASS_NAME" value="com.cloud.tv.core.redis.RedisDemo" />
-      <option name="METHOD_NAME" value="zset" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TestDtoManagerController.listTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="metoo_nspm" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.cloud.tv.core.manager.admin.action.*" />
+          <option name="PATTERN" value="com.cloud.tv.core.manager.kafka.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -789,21 +754,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SpringJywApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="jyw" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jyw.spring_jyw.SpringJywApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Spring Boot.NspmApplication" />
-      <item itemvalue="JUnit.RedisDemo.hash" />
-      <item itemvalue="JUnit.RedisDemo.zset" />
+      <item itemvalue="Spring Boot.SpringJywApplication" />
       <item itemvalue="Application.TopologyManagerController" />
       <item itemvalue="JUnit.TestDtoManagerController.listTest" />
       <item itemvalue="Application.MyTest" />
+      <item itemvalue="Application.GroupServiceImpl" />
+      <item itemvalue="Application.DownLoadFileUtil" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DownLoadFileUtil" />
+        <item itemvalue="Application.GroupServiceImpl" />
         <item itemvalue="Application.MyTest" />
         <item itemvalue="JUnit.TestDtoManagerController.listTest" />
         <item itemvalue="Application.TopologyManagerController" />
-        <item itemvalue="JUnit.RedisDemo.zset" />
-        <item itemvalue="JUnit.RedisDemo.hash" />
       </list>
     </recent_temporary>
   </component>
@@ -860,7 +833,19 @@
       <workItem from="1656225078930" duration="618000" />
       <workItem from="1656297525573" duration="13719000" />
       <workItem from="1656380709465" duration="17420000" />
-      <workItem from="1656469543436" duration="3958000" />
+      <workItem from="1656469543436" duration="18840000" />
+      <workItem from="1656558186910" duration="12159000" />
+      <workItem from="1656604360578" duration="436000" />
+      <workItem from="1656605018935" duration="611000" />
+      <workItem from="1656639845110" duration="4273000" />
+      <workItem from="1656727880741" duration="4089000" />
+      <workItem from="1656900424370" duration="10067000" />
+      <workItem from="1657004726745" duration="3762000" />
+      <workItem from="1657035261386" duration="151000" />
+      <workItem from="1657074748134" duration="10735000" />
+      <workItem from="1657159517639" duration="3486000" />
+      <workItem from="1657248496371" duration="10065000" />
+      <workItem from="1657504110210" duration="1431000" />
     </task>
     <servers />
   </component>
@@ -897,13 +882,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="316201000" />
+    <option name="totallyTimeSpent" value="392348000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4825688" visible="true" weight="0.31702414" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4825688" visible="true" weight="0.27949062" />
       <window_info id="Structure" order="1" sideWeight="0.5103578" side_tool="true" weight="0.22252011" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -913,10 +897,10 @@
       <window_info id="Web" order="7" sideWeight="0.5065789" side_tool="true" weight="0.30093834" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32719547" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6863271" weight="0.22804533" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6863271" visible="true" weight="0.73796034" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Debug" order="5" sideWeight="0.599866" visible="true" weight="0.31586403" />
+      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.599866" weight="0.51983005" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49865952" weight="0.32765958" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49865952" weight="0.32719547" />
@@ -926,7 +910,7 @@
       <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.5522788" weight="0.33002833" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" sideWeight="0.49865952" weight="0.32719547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Maven Projects" order="1" sideWeight="0.4967033" weight="0.19839142" />
+      <window_info anchor="right" id="Maven Projects" order="1" sideWeight="0.4967033" visible="true" weight="0.23391421" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="right" id="Palette" order="4" />
@@ -1092,7 +1076,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/aop/NodeServiceAop.java</url>
-          <line>98</line>
+          <line>109</line>
           <properties />
           <option name="timeStamp" value="56" />
         </line-breakpoint>
@@ -1146,7 +1130,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/IssuedServiceImpl.java</url>
-          <line>191</line>
+          <line>237</line>
           <properties />
           <option name="timeStamp" value="84" />
         </line-breakpoint>
@@ -1164,7 +1148,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
-          <line>1072</line>
+          <line>1070</line>
           <properties />
           <option name="timeStamp" value="90" />
         </line-breakpoint>
@@ -1182,13 +1166,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
-          <line>987</line>
+          <line>985</line>
           <properties />
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
-          <line>994</line>
+          <line>992</line>
           <properties />
           <option name="timeStamp" value="95" />
         </line-breakpoint>
@@ -1230,19 +1214,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
-          <line>368</line>
+          <line>396</line>
           <properties />
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
-          <line>388</line>
+          <line>421</line>
           <properties />
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
-          <line>86</line>
+          <line>99</line>
           <properties />
           <option name="timeStamp" value="113" />
         </line-breakpoint>
@@ -1283,46 +1267,154 @@
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyListnerter.java</url>
-          <line>28</line>
-          <properties />
-          <option name="timeStamp" value="123" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
-          <line>1540</line>
+          <line>1538</line>
           <properties />
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
-          <line>1551</line>
-          <properties />
-          <option name="timeStamp" value="125" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
-          <line>61</line>
+          <line>74</line>
           <properties />
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
-          <line>53</line>
+          <line>66</line>
           <properties />
           <option name="timeStamp" value="129" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/NodeUtil.java</url>
-          <line>173</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/GroupServiceImpl.java</url>
+          <line>79</line>
           <properties />
-          <option name="timeStamp" value="130" />
+          <option name="timeStamp" value="139" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/NodeUtil.java</url>
-          <line>185</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/GroupManagerController.java</url>
+          <line>106</line>
           <properties />
-          <option name="timeStamp" value="131" />
+          <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/GroupManagerController.java</url>
+          <line>73</line>
+          <properties />
+          <option name="timeStamp" value="141" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/GroupManagerController.java</url>
+          <line>83</line>
+          <properties />
+          <option name="timeStamp" value="142" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
+          <line>553</line>
+          <properties />
+          <option name="timeStamp" value="145" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
+          <line>537</line>
+          <properties />
+          <option name="timeStamp" value="146" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java</url>
+          <line>56</line>
+          <properties />
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
+          <line>507</line>
+          <properties />
+          <option name="timeStamp" value="148" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
+          <line>1598</line>
+          <properties />
+          <option name="timeStamp" value="151" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/IssuedServiceImpl.java</url>
+          <line>202</line>
+          <properties />
+          <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
+          <line>1548</line>
+          <properties />
+          <option name="timeStamp" value="154" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
+          <line>388</line>
+          <properties />
+          <option name="timeStamp" value="155" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
+          <line>54</line>
+          <properties />
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/PolicyServiceImpl.java</url>
+          <line>155</line>
+          <properties />
+          <option name="timeStamp" value="157" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java</url>
+          <line>340</line>
+          <properties />
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java</url>
+          <line>636</line>
+          <properties />
+          <option name="timeStamp" value="160" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/aop/NodeServiceAop.java</url>
+          <line>66</line>
+          <properties />
+          <option name="timeStamp" value="161" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java</url>
+          <line>664</line>
+          <properties />
+          <option name="timeStamp" value="162" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java</url>
+          <line>657</line>
+          <properties />
+          <option name="timeStamp" value="163" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
+          <line>48</line>
+          <properties />
+          <option name="timeStamp" value="164" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java</url>
+          <line>88</line>
+          <properties />
+          <option name="timeStamp" value="165" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNspmIndexManagerAction.java</url>
+          <line>113</line>
+          <properties />
+          <option name="timeStamp" value="166" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/ListSortUtil.java</url>
@@ -1351,352 +1443,369 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/ResManagerController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IssuedService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="109" column="21" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
+        <state relative-caret-position="300">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/IssuedServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="76" column="16" selection-start-line="76" selection-start-column="16" selection-end-line="76" selection-end-column="16" />
+        <state relative-caret-position="4300">
+          <caret line="191" column="49" selection-start-line="191" selection-start-column="49" selection-end-line="191" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/JwtRealm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/IndexManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-docker.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/UserManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="210" column="39" selection-start-line="210" selection-start-column="39" selection-end-line="210" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../abtnetwork/abtnetwork/topology/新建文件夹/BOOT-INF/classes/com/abtnetworks/data/totems/topology/AppTopology$Runner.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-500" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../abtnetwork/abtnetwork/topology/新建文件夹/BOOT-INF/classes/com/abtnetworks/data/totems/topology/AppTopology.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-500" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../abtnetwork/abtnetwork/topology/新建文件夹/BOOT-INF/classes/com/abtnetworks/data/totems/topology/basic/policy/controller/PolicyController.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../abtnetwork/abtnetwork/topology/新建文件夹/BOOT-INF/classes/com/abtnetworks/data/totems/topology/basic/node/controller/NodeController.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4300">
-          <caret line="273" column="25" lean-forward="true" selection-start-line="273" selection-start-column="25" selection-end-line="273" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/TopologyTokenServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
+        <state relative-caret-position="-447">
           <caret line="32" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IPolicyService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8225">
-          <caret line="329" selection-start-line="329" selection-end-line="329" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-cloudtv.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DataStructure/MyEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="925">
-          <caret line="37" column="42" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/NspmApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/MyRealm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/NspmDataSourceConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="27" column="38" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/TopologyDataSourceConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyApplicationContextInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/ShiroConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/DataSourceConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mapper/UserMapper.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="150" column="22" selection-start-line="150" selection-start-column="22" selection-end-line="150" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="16" column="23" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/TopoPolicyDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1025">
-          <caret line="48" column="29" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-centos.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-prod.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/HttpClientUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="38" column="28" lean-forward="true" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/HttpURLConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/MyRestTemplate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4750">
-          <folding>
-            <element signature="e#0#39091#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/SkipHttpsUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/httpclient/UrlConvertUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/asset/AssetManagerAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/expose/TopoExposeManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-275">
-          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoCredentialManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoGenerateManageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="370" column="8" selection-start-line="370" selection-start-column="8" selection-end-line="370" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoIssuedManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="84" column="33" selection-start-line="84" selection-start-column="33" selection-end-line="84" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoOpenManageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="209" column="54" selection-start-line="209" selection-start-column="54" selection-end-line="209" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSubnetManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoZoneManagerAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/dto/SceneDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="23" column="29" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoSceneSettingManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="42" column="62" lean-forward="true" selection-start-line="42" selection-start-column="62" selection-end-line="42" selection-end-column="62" />
+        <state relative-caret-position="118">
+          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.3.4/spring-web-5.3.4.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2100">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        <state relative-caret-position="2225">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/PolicyServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+        <state relative-caret-position="2925">
+          <caret line="151" column="5" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/NodeUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/RestTemplateConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5614">
-          <caret line="242" selection-start-line="242" selection-end-line="242" />
+        <state relative-caret-position="-11">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/register.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/WebConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.4.3/spring-boot-autoconfigure-2.4.3.jar!/org/springframework/boot/autoconfigure/freemarker/FreeMarkerProperties.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyListnerter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        <state relative-caret-position="300">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/ResponseUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="27" column="46" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="46" />
+        <state relative-caret-position="137">
+          <caret line="101" column="29" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/view/action/BannerViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/handler/GlobalExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/listerner/MyApplicationContextInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/view/action/IndexViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/ResManagerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="64" column="56" selection-start-line="64" selection-start-column="44" selection-end-line="64" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/IResService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/ResServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="59" column="50" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/ResMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-292">
+          <caret line="115" column="36" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/DownLoadFileUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopologyManagerController.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7875">
+          <caret line="341" column="44" selection-start-line="341" selection-start-column="44" selection-end-line="341" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../jyw/src/main/java/com/jyw/spring_jyw/SpringJywApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../jyw/src/main/java/com/jyw/spring_jyw/JywTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/shiro/filter/MyAccessControlFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="35" column="47" lean-forward="true" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/aop/NodeServiceAop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1600">
+          <caret line="81" selection-start-line="81" selection-end-line="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNodeManagerAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15775">
+          <caret line="668" column="13" selection-start-line="668" selection-start-column="13" selection-end-line="668" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/config/shiro/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4150">
+          <caret line="199" column="83" selection-start-line="199" selection-start-column="83" selection-end-line="199" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../jyw/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/ITopologyTokenService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/service/impl/TopologyTokenServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="43" column="35" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/utils/ListSortUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/node/TopoNspmIndexManagerAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/integrated/policy/TopoPolicyIntegrateController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="99" column="48" selection-start-line="99" selection-start-column="48" selection-end-line="99" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-prod.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="23" column="40" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="83" column="20" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/kafka/cosumer/MyConsumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-725">
+          <caret line="1" column="2" selection-start-line="1" selection-end-line="8" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/kafka/controller/MyKafkaController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="13" column="42" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/action/LicenseManagerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3475">
+          <caret line="158" column="45" selection-start-line="158" selection-start-column="45" selection-end-line="158" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/manager/admin/tools/LicenseTools.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="23" column="76" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaConsumerDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/mq/kafka/KafkaProductDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-docker.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/DataSourceConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
-          <caret line="30" column="40" lean-forward="true" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
+          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/TopologyDataSourceConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/core/config/dbconfig/NspmDataSourceConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cloud/tv/NspmApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="70" column="41" selection-start-line="70" selection-start-column="41" selection-end-line="70" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="28" lean-forward="true" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+        <state relative-caret-position="50">
+          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
         </state>
       </provider>
     </entry>

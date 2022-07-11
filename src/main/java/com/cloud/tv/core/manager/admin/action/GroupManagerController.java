@@ -8,6 +8,8 @@ import com.cloud.tv.core.utils.ResponseUtil;
 import com.cloud.tv.dto.GroupDto;
 import com.cloud.tv.entity.Group;
 import com.cloud.tv.entity.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,23 +46,81 @@ public class GroupManagerController {
 
     @PostMapping("/save")
     public Object save(@RequestBody GroupDto dto){
+        if(dto.getParentId() == null || dto.getParentId().equals("")){
+            return ResponseUtil.badArgument("请输入上级菜单");
+        }
         if(dto.getBranchName() != null){
             return ResponseUtil.ok(this.groupService.save(dto));
         }
         return ResponseUtil.badArgument("请输入组名称");
     }
 
-
+//    @RequestMapping("/del")
+//    public Object del(@RequestBody GroupDto dto){
+//        List<Group> groupList = this.groupService.queryChild(dto.getId());
+//        if(groupList.size() <= 0){
+//            if(this.groupService.del(dto.getId())){
+//                for(Group group : groupList){
+//                    this.groupService.del(group.getId());
+//                }
+//                return ResponseUtil.ok();
+//            }
+//            return ResponseUtil.error();
+//        }
+//        return ResponseUtil.badArgument("优先删除下级组织");
+//    }
     @RequestMapping("/del")
     public Object del(@RequestBody GroupDto dto){
-        List<Group> groupList = this.groupService.queryChild(dto.getId());
-        if(groupList.size() <= 0){
-            if(this.groupService.del(dto.getId())){
-                return ResponseUtil.ok();
-            }
-            return ResponseUtil.error();
+        Group group = this.groupService.queryObjById(dto.getId());
+        if (this.delGroup(group.getId())){
+
+            return ResponseUtil.ok();
         }
-        return ResponseUtil.badArgument("优先删除下级组织");
+        return ResponseUtil.error();
+    }
+
+    public boolean delGroup(Long id){
+        try {
+            Group obj = this.groupService.queryObjById(id);
+            if(obj != null){
+                List<String> users = this.userService.getObjByLevel(obj.getLevel());
+                if(users.size() > 0){
+                    this.userService.deleteByLevel(obj.getLevel());
+                }
+                this.groupService.del(obj.getId());
+                List<Group> groupList = this.groupService.queryChild(id);
+                if (groupList.size() > 0){
+                    for (Group group:groupList){
+                        this.delGroup(group.getId());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @GetMapping("/verify")
+    public Object del(String id){
+        Group group = this.groupService.queryObjById(Long.parseLong(id));
+        if(group != null){
+            List<String> users = this.userService.getObjByLevel(group.getLevel());
+            if(users.size() > 0){
+                User user = ShiroUserHolder.currentUser();
+                if(users.contains(user.getUsername())){
+                    return ResponseUtil.ok(2);
+                }
+                return ResponseUtil.ok(1);
+            }
+            List<Group> groupList = this.groupService.queryChild(Long.parseLong(id));
+            if(groupList.size() > 0){
+                return ResponseUtil.ok(1);
+            }
+            return ResponseUtil.ok(0);
+        }
+        return ResponseUtil.badArgument();
     }
 
     @RequestMapping("/parent")

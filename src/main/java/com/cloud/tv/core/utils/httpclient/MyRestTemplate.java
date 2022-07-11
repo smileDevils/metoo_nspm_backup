@@ -407,7 +407,7 @@
 //            } else if (ext.getVarsMap() != null) {
 //                return this.uriTemplateHandler.expand(ext.getUriTemplate(), ext.getVarsMap());
 //            } else {
-//                throw new IllegalStateException("No variables specified for URI template: " + ext.getUriTemplate());
+//                throw new IllegalStateException("No variables specified for URI templates: " + ext.getUriTemplate());
 //            }
 //        } else {
 //            return entity.getUrl();

@@ -78,7 +78,6 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/index.jsp", "authc");// authc 请求这个资源需要认证和授权;参数可以为视图可以为路径（/index.jsp、/**、/path/*）
         filterChainDefinitionMap.put("/user/login", "anon");// 设置所有资源都受限；避免登录资源受限，设置登录为公共资源
 
-
         filterChainDefinitionMap.put("/user/register", "anon");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/web/**", "anon");
@@ -110,6 +109,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/upload/**", "anon");
         filterChainDefinitionMap.put("/hls/**", "anon");
+        filterChainDefinitionMap.put("/templates/**", "anon");
 
         //shiroFilterFactoryBean.setLoginUrl("/login.jsp");
         //shiroFilterFactoryBean.setLoginUrl("/buyer/login");
@@ -194,7 +194,7 @@ public class ShiroConfig {
     public DefaultWebSessionManager getDefaultSessionManager() {
         DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
        // defaultWebSessionManager.setGlobalSessionTimeout(1000 * 60 * 60 * 24*7);// 会话过期时间，单位：毫秒(在无操作时开始计时)
-        defaultWebSessionManager.setGlobalSessionTimeout(1000 * 60 * 20);// -1000L,永不过期
+        defaultWebSessionManager.setGlobalSessionTimeout(-1000L);// -1000L,永不过期 1000 * 60 * 20
         defaultWebSessionManager.setSessionValidationSchedulerEnabled(true);
         defaultWebSessionManager.setSessionIdCookieEnabled(true);
         defaultWebSessionManager.setSessionIdUrlRewritingEnabled(false);// 移除自带的JSESSIONID，方式第二次打开浏览器是进行注销操作发生

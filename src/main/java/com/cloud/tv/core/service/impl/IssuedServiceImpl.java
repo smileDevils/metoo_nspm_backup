@@ -188,9 +188,54 @@ public class IssuedServiceImpl implements IssuedService {
 
     }
 
+    @Override
+    public void createOrder(String userName, String type, List<Policy> policysNew) {
+        SysConfig sysConfig = this.sysConfigService.findSysConfigList();
+        String token = sysConfig.getNspmToken();
+        // 更新策略orderNo
+        String taskUrl = "/push/task/pushtasklist";
+        TopoPolicyDto dto = new TopoPolicyDto();
+        dto.setPage(1);
+        dto.setPsize(20);
+        dto.setType(type);
+        dto.setUserName(userName);
+        Object result = this.nodeUtil.postFormDataBody(dto, taskUrl, token);
+        JSONObject task = JSONObject.parseObject(result.toString());
+        if(task.get("data") != null) {
+            JSONObject data = JSONObject.parseObject(task.get("data").toString());
+            if (data.get("list") != null) {
+                JSONArray arrays = JSONArray.parseArray(data.get("list").toString());
+                for (Object array : arrays) {
+                    JSONObject order = JSONObject.parseObject(array.toString());
+                    String orderNo = order.get("orderNo").toString();
+                    String taskId = order.get("taskId").toString();
+                    // 创建工单
+                    Order order1 = new Order();
+                    order1.setOrderNo(orderNo);
+                    User user = ShiroUserHolder.currentUser();
+                    order1.setUserId(user.getId());
+                    order1.setUserName(user.getUsername());
+                    order1.setBranchLevel(user.getGroupLevel());
+                    order1.setBranchName(user.getGroupName());
+                    order1.setOrderId(taskId);
+                    order1.setAddTime(new Date());
+                    this.orderService.save(order1);
+                    //更新策略
+                    if (policysNew.size() > 0) {
+                        for (Policy policy : policysNew) {
+                            policy.setOrderNo(orderNo);
+                            policy.setInvisible(null);
+                        }
+                        this.policyService.update(policysNew);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     public String getInvisible(Integer taskId) throws IOException {
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-        String url = sysConfig.getNspmUrl();
         String token = sysConfig.getNspmToken();
         String commandUrl = "/push/recommend/task/getcommand";
         TopoPolicyDto policyDto = new TopoPolicyDto();

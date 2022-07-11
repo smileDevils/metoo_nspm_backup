@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.tv.core.manager.admin.tools.ShiroUserHolder;
 import com.cloud.tv.core.manager.integrated.utils.RestTemplateUtil;
+import com.cloud.tv.core.service.IPolicyService;
 import com.cloud.tv.core.service.ISysConfigService;
 import com.cloud.tv.core.service.IUserService;
 import com.cloud.tv.core.utils.NodeUtil;
@@ -23,7 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api("拓扑管理")
 @RequestMapping("/nspm/topology")
@@ -41,7 +44,17 @@ public class TopologyManagerController {
     @Autowired
     private RestTemplateUtil restTemplateUtil;
     @Autowired
+    private IPolicyService policyService;
+    @Autowired
     private UrlConvertUtil urlConvertUtil;
+
+    // 获取健康度
+    @ApiOperation("获取图层设备健康度")
+    @GetMapping("/device/score")
+    public Object getGrade(String deviceUuid){
+        Double grade = this.policyService.HealthScore(deviceUuid);
+        return ResponseUtil.ok(grade.intValue());
+    }
 
     @ApiOperation("图层列表")
     @RequestMapping(value="/topology-layer/layerInfo/GET/listLayers")
@@ -317,11 +330,26 @@ public class TopologyManagerController {
     @RequestMapping("/topology-layer/layerInfo/GET/getLayerByUuid")
     public Object getLayerByUuid(@RequestBody(required = false) TopoNodeDto dto){
         SysConfig sysConfig = this.sysConfigService.findSysConfigList();
-
         String token = sysConfig.getNspmToken();
         if(token != null){
             String url = "/topology-layer/layerInfo/GET/getLayerByUuid";
-            Object result = this.nodeUtil.getBody(dto, url, token);
+            Object object = this.nodeUtil.getBody(dto, url, token);
+            JSONObject result = JSONObject.parseObject(object.toString());
+            if(result.get("content") != null){
+                JSONObject content = JSONObject.parseObject(result.get("content").toString());
+                if(content.get("layout") != null){
+                    JSONObject layout = JSONObject.parseObject(content.get("layout").toString());
+                    Map map = new HashMap();
+                    for (Map.Entry<String,Object> entry : layout.entrySet()){
+//                        double grade = this.policyService.HealthScore(entry.getKey());
+                        JSONObject value = JSONObject.parseObject(entry.getValue().toString());
+                        value.put("grade", 0);
+                        map.put(entry.getKey(), value);
+                    }
+                    content.put("layout", map);
+                }
+                result.put("content", content);
+            }
             return ResponseUtil.ok(result);
         }
         return ResponseUtil.error();
@@ -376,11 +404,16 @@ public class TopologyManagerController {
                 srcIpaddr = this.subIp(srcIpaddr);
                 ipAddr = this.subIp(ipAddr);
             }
-            if(srcIpaddr.equals(ipAddr)){
+            if(ipAddr == null || ipAddr.equals("")){
                 return ResponseUtil.ok(result);
             }else{
-                return ResponseUtil.badArgument();
+                if(srcIpaddr.equals(ipAddr)){
+                    return ResponseUtil.ok(result);
+                }else{
+                    return ResponseUtil.badArgument();
+                }
             }
+
         }
         return ResponseUtil.error();
     }

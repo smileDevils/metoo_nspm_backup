@@ -16,4 +16,5 @@ public interface IPolicyService {
     int delete(Policy policy);
     Double getGrade(String deviceUuid);
     int update(List<Policy> policies);
+    Double HealthScore(String deviceUuid);
 }

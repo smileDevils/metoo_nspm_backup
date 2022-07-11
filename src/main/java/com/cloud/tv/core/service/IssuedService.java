@@ -12,4 +12,6 @@ public interface IssuedService {
     List<Task> query();
 
     void queryTask(String invisibleName, String type, List<Policy> policysNew, String command);
+
+    void createOrder(String userName, String type, List<Policy> policysNew);
 }

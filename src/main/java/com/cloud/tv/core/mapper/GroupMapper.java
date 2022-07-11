@@ -4,11 +4,12 @@ import com.cloud.tv.entity.Group;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface GroupMapper {
 
-    List<Group> query();
+    List<Group> query(Map map);
 
     Group queryObjById(Long id);
 
@@ -21,4 +22,6 @@ public interface GroupMapper {
     boolean update(Group instance);
 
     boolean del(Long id);
+
+    Group getMaxBranch(String level);
 }

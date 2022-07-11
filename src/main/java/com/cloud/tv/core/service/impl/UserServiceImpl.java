@@ -268,6 +268,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public boolean deleteByLevel(String level) {
+        return this.userMapper.deleteByLevel(level);
+    }
+
+    @Override
     public boolean allocation(List<User> list){
         try {
             this.userMapper.allocation(list);

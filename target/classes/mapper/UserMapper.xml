@@ -202,6 +202,11 @@
 		WHERE mu.id=#{id}
     </select>
 
+    <delete id="deleteByLevel" parameterType="java.lang.String">
+       DELETE FROM metoo_user
+       WHERE groupLevel = #{level}
+    </delete>
+
     <update id="update" parameterType="com.cloud.tv.entity.User">
         UPDATE metoo_user
         <set>

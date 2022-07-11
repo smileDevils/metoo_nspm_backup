@@ -55,6 +55,8 @@ public interface UserMapper {
      */
     int delete(Long id);
 
+    boolean deleteByLevel(String level);
+
     boolean allocation(List<User> list);
 
     List<User> findObjByIds(Long[] ids) ;

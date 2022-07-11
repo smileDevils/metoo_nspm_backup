@@ -6,6 +6,7 @@ package com.cloud.tv;
 import com.cloud.tv.core.manager.admin.action.TestInitAction;
 import com.cloud.tv.core.service.ITopologyTokenService;
 import com.cloud.tv.core.service.TestInitService;
+import org.junit.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -63,11 +64,14 @@ public class NspmApplication extends SpringBootServletInitializer {
 
         @Autowired
         private ITopologyTokenService topologyTokenService;
+        @Autowired
+        private TestInitService testInitService;
 
         @Override
         public void run(String... args) {
             Long time=System.currentTimeMillis();
-//            this.topologyTokenService.initToken();
+            this.topologyTokenService.initToken();
+//            this.testInitService.init();
             System.out.println("Init time：" + (System.currentTimeMillis() - time));
         }
     }
