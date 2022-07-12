@@ -2,6 +2,7 @@ package com.cloud.tv.core.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+@Component
 public class DownLoadFileUtil {
 
     public static void main(String[] args) {
@@ -34,7 +36,7 @@ public class DownLoadFileUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(DownLoadFileUtil.class);
 
-    public static boolean downloadZip(File file, HttpServletResponse response) {
+    public boolean downloadZip(File file, HttpServletResponse response) {
         try {
             InputStream fis = new BufferedInputStream(new FileInputStream(file.getPath()));
             byte[] buffer = new byte[fis.available()];

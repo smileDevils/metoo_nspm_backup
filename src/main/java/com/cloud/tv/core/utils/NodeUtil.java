@@ -317,6 +317,24 @@ public class NodeUtil {
         String realUrl = builder.build().toString();
         HttpEntity<JSONObject> httpEntity = new HttpEntity<>(null, headers);
         ResponseEntity<byte[]> resEntity = restTemplate.exchange(realUrl, HttpMethod.GET, httpEntity, byte[].class);
+
+        return resEntity;
+    }
+
+    public ResponseEntity downloadPatrol(Map<String, Object> map, String url, String token){
+        url = this.urlConvertUtil.convert(url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);// 设置密钥
+        //设置请求参数
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+        if(map != null && !map.isEmpty()){
+            for (Map.Entry<String, Object> e : map.entrySet()) {
+                builder.queryParam(e.getKey(), e.getValue());
+            }
+        }
+        String realUrl = builder.build().toString();
+        HttpEntity<JSONObject> httpEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<byte[]> resEntity = restTemplate.exchange(realUrl, HttpMethod.GET, httpEntity, byte[].class);
         return resEntity;
     }
 
@@ -334,6 +352,7 @@ public class NodeUtil {
             httpEntity = new HttpEntity(map,headers);
         }
         ResponseEntity<byte[]> resEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, byte[].class);
+
         return resEntity;
     }
 
